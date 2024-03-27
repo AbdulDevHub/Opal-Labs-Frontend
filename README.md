@@ -1,4 +1,4 @@
-# frontend
+# Opal Labs [Frontend]
 
 > Opalescence Dashboard
 
