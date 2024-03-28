@@ -44,3 +44,13 @@
 ::-webkit-scrollbar-corner {
   background: none;
 }
+
+/*---------------- Homepage Hover On Div Animation ----------*/
+.hover-on-div:hover {
+  transform: translateY(-5px);
+  background-color: #54d8b3 !important;
+}
+
+.hover-on-div:hover p {
+  color: white !important;
+}

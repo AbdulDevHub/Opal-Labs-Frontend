@@ -44,502 +44,139 @@ const HomePage = () => {
 
   {/* -------------------------- HOMEPAGE RENDERER -----------------------*/ }
   return (
-    <>
+    <div style={{ backgroundColor: '171717', color: 'white', padding: '60px 100px', textAlign: 'center' }}>
       <Head>
         <title>Opalescence</title>
       </Head>
 
       {/* ------------------ Header ------------------ */}
       <header>
-        <Box sx={{
-          display: 'flex', justifyContent: 'space-between', padding: '10px 25px',
-          width: '100vw', borderBottom: '2px solid #e0e0e0', alignItems: 'center',
-        }}
-        >
-          <Box sx={{ display: 'flex', alignItems: 'center', width: '270px', height: '64px' }}>
-            <Image src={userImage} alt={`${siteName} Logo`} width={50} height={50} />
-            <Typography variant="h4" sx={{
-              marginLeft: '8px', fontStyle: 'Roboto', lineHeight: '40px',
-              letterSpacing: '0.25px', fontSize: '34px', fontWeight: 400, color: '#424242'
-            }}
-            >
-              {siteName}
-            </Typography>
-          </Box>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '20px', alignItems: 'center' }}>
+          <Image src={userImage} alt='User Image' width={75} height={75} />
 
-          <Button variant="contained" onClick={() => signIn('google')} sx={{ width: '120px', height: '50px', padding: '0px, 16px, 0px, 16px', radius: '4px' }}>
-            <GoogleIcon fontSize='small' />
+          <div style={{ display: 'flex', gap: '20px' }}>
+            <Button style={{ color: 'white', padding: '5px 20px', borderRadius: '15px' }}>Log In</Button>
+            <Button style={{ backgroundColor: '#54D8B3', color: 'white', padding: '15px 30px', borderRadius: '15px' }}>Get Started</Button>
+          </div>
+        </div>
 
-            <Typography sx={{
-              marginLeft: '8px', fontStyle: 'Roboto', lineHeight: '36px',
-              letterSpacing: '1.25px', fontSize: '14px', fontWeight: 500,
-            }}
-            >
-              Login
-            </Typography>
-          </Button>
-        </Box>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '80px', marginTop: '40px', alignItems: 'center', padding: '0 150px' }}>
+          <div style={{ textAlign: 'left' }}>
+            <h1 style={{ fontSize: '60px', fontWeight: 'bold' }}>Unleash Your Potential.</h1>
+            <h3 style={{ color: '#BFBFBF', fontFamily: 'Arial', fontWeight: 'normal', fontSize: '32px' }}>Opal Labs is the flexible writing app that adapts to the way you think.</h3>
+          </div>
+          <Image src={userImage} alt='Sample Image' width={225} height={225} />
+        </div>
+
+        <Image src={sampleImage} alt='User Image' width={1250} height={650} style={{ borderRadius: '20px', marginTop: '40px', padding: '10px', backgroundColor: '#1E1E1E', border: '1px solid #fff' }} />
       </header>
 
-      {/* ------------------ Main Container ------------------ */}
-      <Container>
-        <Box sx={{ display: 'flex', justifyContent: 'center', padding: '100px 50px 0px 50px', backgroundColor: '#F3F9FF', width: '100vw' }}>
-          {/* ------------------ Hero Section ------------------ */}
-          <section style={{ width: '50vw', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Box>
-              <Box sx={{ display: 'flex', width: '714px' }}>
-                <Typography variant="h2" sx={{
-                  fontStyle: 'Roboto', fontWeight: 400,
-                  fontSize: '57px', lineHeight: '60px', letterSpacing: '0.5px',
-                }}
-                >
-                  Explore
-                </Typography>
+      {/* ------------------ Main Sections ------------------ */}
+      <main style={{ marginTop: '80px' }}>
+        <section style={{ display: 'flex', gap: '100px', padding: '0 110px', justifyContent: 'center' }}>
+          <div style={{ textAlign: 'left' }} >
+            <h2>Your thoughts are yours.</h2>
+            <p style={{ color: '#A3A3A3' }}>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus sint dolore rem ratione nesciunt. Exercitationem eius reiciendis, maxime vitae animi debitis. Possimus exercitationem nihil doloribus illum laborum. Doloremque, deleniti atque!</p>
 
-                &nbsp; &nbsp;
+            <h2>Your mind is unique.</h2>
+            <p style={{ color: '#A3A3A3' }}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum voluptatum esse culpa id deleniti tenetur dignissimos consequatur, facere magni molestiae veniam iure itaque minus explicabo ipsum quod tempore velit quas.</p>
 
-                <Typography variant="h2" sx={{
-                  fontStyle: 'Roboto', background: '-webkit-linear-gradient(45deg, #09009f, #00ff95 80%)',
-                  WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontWeight: 1000,
-                  fontSize: '57px', lineHeight: '60px', letterSpacing: '0.5px',
-                }}
-                >
-                  Opalescence
-                </Typography>
+            <h2>Your knowledge should last.</h2>
+            <p style={{ color: '#A3A3A3' }}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae adipisci, earum velit placeat sed voluptatem alias, repudiandae dolorem aspernatur officia dicta enim, unde corporis est ex aut illo cumque quasi.</p>
+          </div>
 
-                <Typography variant="h2" sx={{
-                  fontStyle: 'Roboto', fontWeight: 400,
-                  fontSize: '57px', lineHeight: '60px', letterSpacing: '0.5px',
-                }}
-                >
-                  :
-                </Typography>
-              </Box>
+          <div>
+            <div style={{ padding: '20px 30px', backgroundColor: '#222222', borderRadius: '20px', border: '2px solid #54D8B3' }}>
+              <Image src={userImage} alt='Sample Image' width={200} height={200} />
+            </div>
+            <h1 style={{ fontSize: '40px', fontWeight: 'bold' }}>Opal Labs</h1>
+            <p style={{ fontSize: '18px' }}>Free for personal use <br /><span style={{ color: '#54D8B3' }}>Start Now</span></p>
+          </div>
+        </section>
 
-              <Typography variant="h2" sx={{
-                fontStyle: 'Roboto', fontWeight: 400,
-                fontSize: '57px', lineHeight: '60px', letterSpacing: '0.5px',
-              }}
-              >
-                Where Productivity
-              </Typography>
+        <section style={{ marginTop: '80px' }}>
+          <h1 style={{ fontSize: '60px', fontWeight: 'bold' }}>Spark Brilliance</h1>
+          <p style={{ color: '#BFBFBF', fontFamily: 'Arial', fontWeight: 'normal', fontSize: '26px', padding: '0 270px', marginBottom: '60px' }}>From personal notes to journal entries, knowledge bases, and project management, Opal Labs gives you the tools to come up with idea and oraganize them.</p>
 
-              <Typography variant="h2" sx={{
-                fontStyle: 'Roboto', fontWeight: 400, fontSize: '57px',
-                lineHeight: '60px', letterSpacing: '0.5px', paddingBottom: '10px',
-              }}
-              >
-                Meets Innovation
-              </Typography>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '40px', marginTop: '40px', padding: '0 20px' }}>
+            <div style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242' }}>
+              <div style={{ textAlign: 'left' }}>
+                <h3 style={{ fontSize: '30px' }}>Links</h3>
+                <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente voluptatibus tempore quas totam architecto ipsa asperiores. Autem quibusdam veritatis eos repudiandae explicabo. Id odio, error voluptates in nemo non optio?</p>
+              </div>
+              <Image src={sampleImage} alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
+            </div>
 
-              <Typography variant="h4" sx={{
-                fontStyle: 'Roboto', fontWeight: 400, fontSize: '34px',
-                lineHeight: '40px', letterSpacing: '0.25px', color: '#9E9E9E',
-              }}
-              >
-                Organize your thoughts with a brand
-              </Typography>
+            <div style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242' }}>
+              <div style={{ textAlign: 'left' }}>
+                <h3 style={{ fontSize: '30px' }}>Graph</h3>
+                <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente voluptatibus tempore quas totam architecto ipsa asperiores. Autem quibusdam veritatis eos repudiandae explicabo. Id odio, error voluptates in nemo non optio?</p>
+              </div>
+              <Image src={sampleImage} alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
+            </div>
+          </div>
 
-              <Typography variant="h4" sx={{
-                fontStyle: 'Roboto', fontWeight: 400, fontSize: '34px', lineHeight: '40px',
-                letterSpacing: '0.25px', color: '#9E9E9E', paddingBottom: '20px',
-              }}
-              >
-                new note-taking experience
-              </Typography>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '40px', marginTop: '40px', padding: '0 20px' }}>
+            <div style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242' }}>
+              <div style={{ textAlign: 'left' }}>
+                <h3 style={{ fontSize: '30px' }}>Canvas</h3>
+                <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente voluptatibus tempore quas totam architecto ipsa asperiores. Autem quibusdam veritatis eos repudiandae explicabo. Id odio, error voluptates in nemo non optio?</p>
+              </div>
+              <Image src={sampleImage} alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
+            </div>
 
-              <Box>
-                {/* <Button variant="contained" onClick={() => signIn('google')}>
-                  <Typography variant="h4" sx={{ fontStyle: 'Roboto', fontWeight: 500, fontSize: '14px',
-                      lineHeight: '36px', letterSpacing: '1.25px', color: '#FFFFFF',
-                    }}
-                  >
-                    Start Taking Notes
-                  </Typography>
+            <div style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242' }}>
+              <div style={{ textAlign: 'left' }}>
+                <h3 style={{ fontSize: '30px' }}>Plugins</h3>
+                <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente voluptatibus tempore quas totam architecto ipsa asperiores. Autem quibusdam veritatis eos repudiandae explicabo. Id odio, error voluptates in nemo non optio?</p>
+              </div>
+              <Image src={sampleImage} alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
+            </div>
+          </div>
+        </section>
 
-                  <CreateIcon />
-                </Button> */}
-                <Button variant="contained" LinkComponent={NextLink} href="/dashboard">
-                  <Typography variant="h4" sx={{
-                    fontStyle: 'Roboto', fontWeight: 500, fontSize: '14px',
-                    lineHeight: '36px', letterSpacing: '1.25px', color: '#FFFFFF',
-                  }}
-                  >
-                    Testing Shortcut - Dashboard Page
-                  </Typography>
-                </Button>
-              </Box>
-            </Box>
-          </section>
+        <section style={{ marginTop: '120px' }}>
+          <h1 style={{ fontSize: '60px', fontWeight: 'bold' }}>It's your time to shine.</h1>
+          <Button style={{ backgroundColor: '#54D8B3', color: 'white', padding: '20px 40px', borderRadius: '15px' }}>Get Started Now</Button>
 
-          <Box sx={{ display: 'flex', width: '50vw', justifyContent: 'center', paddingRight: '3%' }}>
-            <Image src={sampleImage} alt={`sample image`} width={800} height={456} />
-          </Box>
-        </Box>
+          <div style={{ display: 'flex', justifyContent: 'space-between', gap: '40px', marginTop: '40px', textAlign: 'left' }}>
+            <div className="hover-on-div" style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242' }}>
+              <h3>Join us on Discord</h3>
+              <p style={{ color: '#A3A3A3' }}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae eum deserunt soluta, quam sit sed amet delectus, atque doloribus aspernatur expedita tenetur! Vitae voluptas sunt incidunt accusantium! Odio, excepturi a.</p>
+            </div>
 
-        {/* ------------------ Main Section ------------------ */}
-        <main>
-          {/* Flexible Functionality Section */}
-          <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: 'center', padding: '50px' }}>
-            <Box>
-              <Typography variant="h3" sx={{ fontStyle: 'Roboto', color: '#424242', paddingTop: '20px' }}>
-                Flexible Functionality
-              </Typography>
-            </Box>
+            <div className="hover-on-div" style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242', textAlign: 'left' }}>
+              <h3>Discussion Forum</h3>
+              <p style={{ color: '#A3A3A3' }}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae eum deserunt soluta, quam sit sed amet delectus, atque doloribus aspernatur expedita tenetur! Vitae voluptas sunt incidunt accusantium! Odio, excepturi a.</p>
+            </div>
 
-            <Box sx={{ display: 'flex', justifyContent: 'space-evenly', paddingTop: '40px' }}>
-              <Box sx={{ width: '400px' }}>
-                <PersonIcon sx={{ fontSize: 80 }} />
+            <div className="hover-on-div" style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242', textAlign: 'left' }}>
+              <h3>Developer Docs</h3>
+              <p style={{ color: '#A3A3A3' }}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae eum deserunt soluta, quam sit sed amet delectus, atque doloribus aspernatur expedita tenetur! Vitae voluptas sunt incidunt accusantium! Odio, excepturi a.</p>
+            </div>
+          </div>
+        </section>
+      </main>
 
-                <Typography
-                  sx={{
-                    fontStyle: 'Roboto', fontWeight: 400, fontSize: '16px',
-                    lineHeight: '24px', letterSpacing: '0.5px', textAlign: 'center',
-                  }}
-                >
-                  Personal
-                </Typography>
-              </Box>
-
-              <Box sx={{ width: '400px' }}>
-                <SchoolIcon sx={{ fontSize: 80 }} />
-
-                <Typography sx={{
-                  fontStyle: 'Roboto', fontWeight: 400, fontSize: '16px',
-                  lineHeight: '24px', letterSpacing: '0.5px', textAlign: 'center',
-                }}
-                >
-                  School
-                </Typography>
-              </Box>
-
-              <Box sx={{ width: '400px' }}>
-                <WorkIcon sx={{ fontSize: 80 }} />
-
-                <Typography sx={{
-                  fontStyle: 'Roboto', fontWeight: 400, fontSize: '16px',
-                  lineHeight: '24px', letterSpacing: '0.5px', textAlign: 'center',
-                }}
-                >
-                  Work
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-
-          {/* Key features Section */}
-          <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: 'center', padding: '50px' }}>
-            <Box>
-              <Typography variant="h3" sx={{ fontStyle: 'Roboto', color: '#424242', paddingTop: '20px' }}>
-                Key Features
-              </Typography>
-            </Box>
-
-            <Box sx={{ paddingTop: '50px' }}>
-              {/* 1st row */}
-              <Box sx={{ display: 'flex', justifyContent: 'center', width: '1280px' }}>
-                {/* 1st column */}
-                <Box sx={{
-                  backgroundColor: '#F5F5F5', padding: '20px',
-                  margin: '10px', width: '100vw', borderRadius: '16px',
-
-                  '&:hover': {
-                    transform: 'translateY(-5px)',
-                    backgroundColor: '#c2ede6',
-                  }
-                }}
-                >
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Box>
-                      <TextFieldsIcon sx={{ fontSize: 60 }} />
-                    </Box>
-
-                    <Box>
-                      <Typography sx={{
-                        fontStyle: 'Roboto', color: 'black', fontSize: '20px',
-                        fontWeight: 700, lineHeight: '32px', letterSpacing: '0.25px', padding: '0px 0px 5px 10px',
-                      }}
-                      >
-                        Styled Text
-                      </Typography>
-                    </Box>
-                  </Box>
-
-                  <Box>
-                    <Typography sx={{ fontStyle: 'Roboto' }}>
-                      Enhance readability with varied text sizes and colors{' '}
-                    </Typography>
-                  </Box>
-                </Box>
-
-                {/* 2nd column */}
-                <Box sx={{
-                  backgroundColor: '#F5F5F5', padding: '20px',
-                  margin: '10px', width: '100vw', borderRadius: '16px',
-
-                  '&:hover': {
-                    transform: 'translateY(-5px)',
-                    backgroundColor: '#c2ede6',
-                  }
-                }}
-                >
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Box>
-                      <UploadFileIcon sx={{ fontSize: 60 }} />
-                    </Box>
-
-                    <Box>
-                      <Typography sx={{
-                        fontStyle: 'Roboto', color: 'black', fontSize: '20px',
-                        fontWeight: 700, lineHeight: '32px', letterSpacing: '0.25px', paddingLeft: '10px',
-                      }}
-                      >
-                        Publish & Share
-                      </Typography>
-                    </Box>
-                  </Box>
-
-                  <Box>
-                    <Typography sx={{ fontStyle: 'Roboto' }}>
-                      Publish read-only versions of your notes to share with your peers
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
-
-              {/* 2nd row */}
-              <Box sx={{ display: 'flex', justifyContent: 'center', width: '1280px' }}>
-                {/* 1st column */}
-                <Box sx={{
-                  backgroundColor: '#F5F5F5', padding: '20px',
-                  margin: '10px', width: '100vw', borderRadius: '16px',
-
-                  '&:hover': {
-                    transform: 'translateY(-5px)',
-                    backgroundColor: '#c2ede6',
-                  }
-                }}
-                >
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Box>
-                      <LibraryBooksIcon sx={{ fontSize: 60 }} />
-                    </Box>
-
-                    <Box>
-                      <Typography sx={{
-                        fontStyle: 'Roboto', color: 'black', fontSize: '20px', fontWeight: 700,
-                        lineHeight: '32px', letterSpacing: '0.25px', padding: '0px 0px 5px 10px',
-                      }}
-                      >
-                        Page Hierarchy
-                      </Typography>
-                    </Box>
-                  </Box>
-
-                  <Box>
-                    <Typography sx={{ fontStyle: 'Roboto' }}>
-                      Group your thoughts and stay organized
-                    </Typography>
-                  </Box>
-                </Box>
-
-                {/* 2nd column */}
-                <Box sx={{
-                  backgroundColor: '#F5F5F5', padding: '20px',
-                  margin: '10px', width: '100vw', borderRadius: '16px',
-
-                  '&:hover': {
-                    transform: 'translateY(-5px)',
-                    backgroundColor: '#c2ede6',
-                  }
-                }}
-                >
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Box>
-                      <WebIcon sx={{ fontSize: 60 }} />
-                    </Box>
-
-                    <Box>
-                      <Typography sx={{
-                        fontStyle: 'Roboto', color: 'black', fontSize: '20px',
-                        fontWeight: 700, lineHeight: '32px', letterSpacing: '0.25px', padding: '0px 0px 5px 10px',
-                      }}
-                      >
-                        Embed
-                      </Typography>
-                    </Box>
-                  </Box>
-
-                  <Box>
-                    <Typography sx={{ fontStyle: 'Roboto' }}>
-                      Enhance your notes with Youtube videos, Google Maps, Social Media posts, etc.
-                    </Typography>
-                  </Box>
-                </Box>
-
-                {/* 3rd column */}
-                <Box sx={{
-                  backgroundColor: '#F5F5F5', padding: '20px',
-                  margin: '10px', width: '100vw', borderRadius: '16px',
-
-                  '&:hover': {
-                    transform: 'translateY(-5px)',
-                    backgroundColor: '#c2ede6',
-                  }
-                }}
-                >
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Box>
-                      <CodeIcon sx={{ fontSize: 60 }} />
-                    </Box>
-
-                    <Box>
-                      <Typography sx={{
-                        fontStyle: 'Roboto', color: 'black', fontSize: '20px',
-                        fontWeight: 700, lineHeight: '32px', letterSpacing: '0.25px', padding: '0px 0px 5px 10px',
-                      }}
-                      >
-                        Code Snippet
-                      </Typography>
-                    </Box>
-                  </Box>
-
-                  <Box>
-                    <Typography sx={{ fontStyle: 'Roboto' }}>
-                      Write down your ideas so they never get lost
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-
-          {/* Community Insights Section */}
-          <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: 'center', padding: '50px 50px 0px 50px' }}>
-            <Box>
-              <Typography variant="h3" sx={{ fontStyle: 'Roboto', color: '#424242', paddingTop: '20px' }}>
-                Community Insights
-              </Typography>
-            </Box>
-
-            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height: '80vh' }}>
-              {/* 1st row */}
-              <Box sx={{ display: 'flex' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Image src={userImage} alt={`${siteName} Logo`} width={150} height={150} />
-                </Box>
-
-                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'left' }}>
-                  <Typography sx={{
-                    fontFamily: 'Roboto Serif', fontStyle: 'italic', fontWeight: 400,
-                    fontSize: '34px', lineHeight: '40px', letterSpacing: '0.25px', padding: '20px'
-                  }}>
-                    "An incredible app. The distinction between Opalescence and its competitors is
-                    beyond words."
-                  </Typography>
-
-                  <Typography
-                    sx={{
-                      fontStyle: 'Roboto', fontWeight: 400, fontSize: '16px', lineHeight: '24px',
-                      letterSpacing: '0.5px', padding: '0 20px 20px 20px', color: '#424242'
-                    }}
-                  >
-                    - No one ever
-                  </Typography>
-                </Box>
-              </Box>
-
-              {/* 2nd row */}
-              <Box sx={{ display: 'flex' }}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'left' }}>
-                  <Typography sx={{
-                    fontFamily: 'Roboto Serif', fontStyle: 'italic', fontWeight: 400, fontSize: '34px',
-                    lineHeight: '40px', letterSpacing: '0.25px', padding: '20px',
-                  }}
-                  >
-                    “Discovering Opalescence has been a game-changer for my productivity. With its
-                    intuitive interface and seamless functionality, I've found myself effortlessly
-                    organizing my thoughts and tasks like never before.”
-                  </Typography>
-
-                  <Typography sx={{
-                    fontStyle: 'Roboto', fontWeight: 400, fontSize: '16px', lineHeight: '24px',
-                    letterSpacing: '0.5px', padding: '0 20px 20px 20px', color: '#424242'
-                  }}
-                  >
-                    - ChatGPT
-                  </Typography>
-                </Box>
-
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Image src={userImage} alt={`${siteName} Logo`} width={150} height={150} />
-                </Box>
-              </Box>
-
-              {/* 3rd row */}
-              <Box sx={{ display: 'flex' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Image src={userImage} alt={`${siteName} Logo`} width={150} height={150} />
-                </Box>
-
-                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'left' }}>
-                  <Typography sx={{
-                    fontFamily: 'Roboto Serif', fontStyle: 'italic', fontWeight: 400,
-                    fontSize: '34px', lineHeight: '40px', letterSpacing: '0.25px', padding: '20px'
-                  }}
-                  >
-                    "Wow. Just wow."
-                  </Typography>
-
-                  <Typography
-                    sx={{
-                      fontStyle: 'Roboto', fontWeight: 400, fontSize: '16px', lineHeight: '24px',
-                      letterSpacing: '0.5px', padding: '0 20px 20px 20px', color: '#424242'
-                    }}>
-                    - Joe Mama?
-                  </Typography>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-        </main>
-
-        {/* ------------------ Footer ------------------ */}
-        <footer style={{ width: '100vw', borderTop: '2px solid #e0e0e0', marginTop: '50px' }}>
-          <Box>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '24px 320px 24px 320px', alignItems: 'center', height: '68px' }}>
-              <Typography sx={{ fontStyle: 'Roboto', fontWeight: 400, fontSize: '12px', lineHeight: '20px', letterSpacing: '0.4px' }}>
-                © Opalescence 2024
-              </Typography>
-
-              <Box sx={{ display: 'flex' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <LocalPhoneIcon sx={{ color: '#9E9E9E' }} />
-                  <Typography sx={{
-                    paddingLeft: '4px', fontStyle: 'Roboto', fontWeight: 400, fontSize: '12px',
-                    lineHeight: '20px', letterSpacing: '0.4px', color: '#9E9E9E'
-                  }}>
-                    {' '}911-911-911{' '}
-                  </Typography>
-                </Box>
-
-                <Box sx={{ padding: '10px' }}></Box>
-
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <EmailIcon sx={{ color: '#9E9E9E' }} />
-                  <Typography sx={{
-                    paddingLeft: '4px', fontStyle: 'Roboto', fontWeight: 400, fontSize: '12px', lineHeight: '20px',
-                    letterSpacing: '0.4px', color: '#9E9E9E'
-                  }}>
-                    {' '}mail@fake.com{' '}
-                  </Typography>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-        </footer>
-      </Container>
-    </>
+      {/* ------------------ Main Sections ------------------ */}
+      <footer style={{ marginTop: '120px', textAlign: 'left' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '40px', alignItems: 'center' }}>
+          <div>
+            <Image src={userImage} alt='User Image' width={100} height={100} />
+            <p style={{ textAlign: 'center', marginTop: '20px' }}>© 2023 Opal Labs. All rights reserved.</p>
+          </div>
+          <div>
+            <p>Follow us</p>
+            <div style={{ display: 'flex', gap: '20px' }}>
+              <p>Twitter</p>
+              <p>Mastodon</p>
+              <p>YouTube</p>
+              <p>GitHub</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
   )
 }
 

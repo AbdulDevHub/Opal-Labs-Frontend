@@ -259,7 +259,7 @@ const CodeBlockElement: React.FC<CodeBlockElementProps> = ({
             mode={language}
             ref={aceEditorRef}
             theme={theme}
-            readOnly={!isEditable || !isDraggable}
+            readOnly={!isEditable || isDraggable}
             value={item.content}
             onChange={(newValue) => {
               const updatedContent = {
