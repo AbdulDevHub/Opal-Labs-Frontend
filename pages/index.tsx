@@ -55,8 +55,8 @@ const HomePage = () => {
           <Image src={userImage} alt='User Image' width={75} height={75} />
 
           <div style={{ display: 'flex', gap: '20px' }}>
-            <Button style={{ color: 'white', padding: '5px 20px', borderRadius: '15px' }}>Log In</Button>
-            <Button style={{ backgroundColor: '#54D8B3', color: 'white', padding: '15px 30px', borderRadius: '15px' }}>Get Started</Button>
+            <Button onClick={() => signIn('google')} style={{ color: 'white', padding: '5px 20px', borderRadius: '15px' }}><GoogleIcon fontSize='small' /> Log In</Button>
+            <Button onClick={() => signIn('google')} style={{ backgroundColor: '#54D8B3', color: 'white', padding: '15px 30px', borderRadius: '15px' }}>Get Started</Button>
           </div>
         </div>
 
@@ -90,7 +90,7 @@ const HomePage = () => {
               <Image src={userImage} alt='Sample Image' width={200} height={200} />
             </div>
             <h1 style={{ fontSize: '40px', fontWeight: 'bold' }}>Opal Labs</h1>
-            <p style={{ fontSize: '18px' }}>Free for personal use <br /><span style={{ color: '#54D8B3' }}>Start Now</span></p>
+            <p style={{ fontSize: '18px' }}>Free for personal use <br /><span onClick={() => signIn('google')} style={{ color: '#54D8B3' }}>Start Now</span></p>
           </div>
         </section>
 
@@ -137,7 +137,7 @@ const HomePage = () => {
 
         <section style={{ marginTop: '120px' }}>
           <h1 style={{ fontSize: '60px', fontWeight: 'bold' }}>It's your time to shine.</h1>
-          <Button style={{ backgroundColor: '#54D8B3', color: 'white', padding: '20px 40px', borderRadius: '15px' }}>Get Started Now</Button>
+          <Button onClick={() => signIn('google')} style={{ backgroundColor: '#54D8B3', color: 'white', padding: '20px 40px', borderRadius: '15px' }}>Get Started Now</Button>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', gap: '40px', marginTop: '40px', textAlign: 'left' }}>
             <div className="hover-on-div" style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242' }}>
