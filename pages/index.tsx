@@ -17,7 +17,6 @@ const HomePage = () => {
   const { data: session } = useSession()
 
   // Easily Changeable User & Image Values
-  const siteName = 'Opalescence'
   const userImage = '/images/opal.png'
   const sampleImage = '/images/sampleHomePageImage.png'
 

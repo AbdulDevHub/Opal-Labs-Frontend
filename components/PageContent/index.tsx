@@ -263,7 +263,7 @@ const PageContent = ({
    */
   const handleFavoriteClick = async () => {
     setIsFavourited(!isFavourited)
-    await updatePage(selectedPageUuid, undefined, undefined, undefined, !isFavourited)
+    await updatePage(selectedPageUuid, pageTitle, isRoot, pageElements, !isFavourited, isPublicPage)
     setPages(pages.map(page => page.page_uuid === selectedPageUuid ? { ...page, is_favourite: !isFavourited } : page))
   }
 
@@ -341,7 +341,7 @@ const PageContent = ({
     // Check if isEditable is false
     if (!isEditable) return
 
-    await updatePage(selectedPageUuid, pageTitle, isRoot, pageElements)
+    await updatePage(selectedPageUuid, pageTitle, isRoot, pageElements, isFavourited, isPublicPage)
     setPages(pages.map(page => page.page_uuid === selectedPageUuid ? { ...page, page_name: pageTitle, elements: pageElements } : page))
   }
 
@@ -353,7 +353,7 @@ const PageContent = ({
   const handlePublish = async () => {
     // Set publish status
     setIsPublicPage(!isPublicPage)
-    await updatePage(selectedPageUuid, undefined, undefined, undefined, undefined, !isPublicPage)
+    await updatePage(selectedPageUuid, pageTitle, isRoot, pageElements, isFavourited, !isPublicPage)
     setPages(pages.map(page => page.page_uuid === selectedPageUuid ? { ...page, public_page: !isPublicPage } : page))
 
     // Check if user isn't a free account

@@ -148,7 +148,14 @@ const Sidebar = (props: Props) => {
    * @param {boolean} [is_favourite] - (Optional) Indicates if the page is a favourite.
    * @return {void} This function does not return a value.
    */
-  const handleClose = async (action: string, page_uuid: string, page_is_root?: boolean, page_name?: string, is_favourite?: boolean) => {
+  const handleClose = async (
+    action: string,
+    page_uuid: string,
+    page_is_root?: boolean,
+    page_name?: string,
+    page_elements?: any[],
+    is_favourite?: boolean,
+    public_page?: boolean) => {
     if (action === 'Delete') {
       deletePage(page_uuid)
       // Create this new var so selectedPageUuid is updated correctly b/c of async
@@ -164,7 +171,7 @@ const Sidebar = (props: Props) => {
     } else if (action === 'Rename') {
       setEditingPageUuid(page_uuid)
     } else if (action === 'Favourite' && page_name && page_is_root) {
-      updatePage(page_uuid, page_name, page_is_root, undefined, !is_favourite)
+      updatePage(page_uuid, page_name, page_is_root, page_elements, !is_favourite, public_page)
       setPages(pages.map(page => page.page_uuid === page_uuid ? { ...page, is_favourite: !is_favourite } : page))
       setIsFavouriteFromSidebar(!isFavouriteFromSidebar)
     }
@@ -208,6 +215,10 @@ const Sidebar = (props: Props) => {
               {pages.filter(page => page.is_favourite).map((page) => {
                 const isSelected = selectedPageUuid === page.page_uuid
                 const isHovered = hoveredItem === page.page_uuid
+                const isRoot = page.is_root
+                // const pageElements = page.page_elements <= Need to fix this as renaming loses elements for some reason [probably a backend issue]
+                const isPublicPage = page.public_page
+
                 return (
                   <ListItem
                     disablePadding
@@ -234,7 +245,7 @@ const Sidebar = (props: Props) => {
                           onBlur={(e) => {
                             const newName = e.target.value.trim() === '' ? 'Untitled' : e.target.value
                             setPages(pages.map(page => page.page_uuid === editingPageUuid ? { ...page, page_name: newName } : page))
-                            updatePage(editingPageUuid, newName, true)
+                            updatePage(editingPageUuid, newName, isRoot, undefined, isFavouriteFromSidebar, isPublicPage)
                             setEditingPageUuid(null)
                           }}
                           onKeyDown={(e) => {
@@ -269,7 +280,7 @@ const Sidebar = (props: Props) => {
                     >
                       <MenuItem onClick={() => handleClose('Delete', page.page_uuid)}>Delete</MenuItem>
                       <MenuItem onClick={() => handleClose('Rename', page.page_uuid)}>Rename</MenuItem>
-                      <MenuItem onClick={() => handleClose('Favourite', page.page_uuid, page.is_root, page.page_name, page.is_favourite)}>
+                      <MenuItem onClick={() => handleClose('Favourite', page.page_uuid, page.is_root, page.page_name, undefined, page.is_favourite, page.public_page)}>
                         {page.is_favourite ? 'Unfavourite' : 'Favourite'}
                       </MenuItem>
                     </Menu>
@@ -294,6 +305,10 @@ const Sidebar = (props: Props) => {
             {/*{pages.map((page) => { <= Uncomment this line if you want to see all of the pages (including hidden subpages)*/ }
             const isSelected = selectedPageUuid === page.page_uuid
             const isHovered = hoveredItem === page.page_uuid
+            const isRoot = page.is_root
+            // const pageElements = page.page_elements <= Need to fix this as renaming loses elements for some reason [probably a backend issue]
+            const isPublicPage = page.public_page
+
             return (
               <ListItem
                 disablePadding
@@ -320,7 +335,7 @@ const Sidebar = (props: Props) => {
                       onBlur={(e) => {
                         const newName = e.target.value.trim() === '' ? 'Untitled' : e.target.value
                         setPages(pages.map(page => page.page_uuid === editingPageUuid ? { ...page, page_name: newName } : page))
-                        updatePage(editingPageUuid, newName, true)
+                        updatePage(editingPageUuid, newName, isRoot, undefined, isFavouriteFromSidebar, isPublicPage)
                         setEditingPageUuid(null)
                       }}
                       onKeyDown={(e) => {
@@ -355,7 +370,7 @@ const Sidebar = (props: Props) => {
                 >
                   <MenuItem onClick={() => handleClose('Delete', page.page_uuid)}>Delete</MenuItem>
                   <MenuItem onClick={() => handleClose('Rename', page.page_uuid)}>Rename</MenuItem>
-                  <MenuItem onClick={() => handleClose('Favourite', page.page_uuid, page.is_root, page.page_name, page.is_favourite)}>
+                  <MenuItem onClick={() => handleClose('Favourite', page.page_uuid, page.is_root, page.page_name, undefined, page.is_favourite, page.public_page)}>
                     {page.is_favourite ? 'Unfavourite' : 'Favourite'}
                   </MenuItem>
                 </Menu>
