@@ -1,26 +1,12 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { signIn } from 'next-auth/react'
 import { useEffect } from 'react'
 
-import CodeIcon from '@mui/icons-material/Code'
-import EmailIcon from '@mui/icons-material/Email'
 import GoogleIcon from '@mui/icons-material/Google';
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks'
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
-import PersonIcon from '@mui/icons-material/Person'
-import SchoolIcon from '@mui/icons-material/School'
-import TextFieldsIcon from '@mui/icons-material/TextFields'
-import UploadFileIcon from '@mui/icons-material/UploadFile'
-import WebIcon from '@mui/icons-material/Web'
-import WorkIcon from '@mui/icons-material/Work'
-import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Container from '@mui/material/Container'
-import Typography from '@mui/material/Typography'
 
 /**
  * Renders the homepage with user information and login functionality.
@@ -55,8 +41,8 @@ const HomePage = () => {
           <Image src={userImage} alt='User Image' width={75} height={75} />
 
           <div style={{ display: 'flex', gap: '20px' }}>
-            <Button onClick={() => signIn('google')} style={{ color: 'white', padding: '5px 20px', borderRadius: '15px' }}><GoogleIcon fontSize='small' /> Log In</Button>
-            <Button onClick={() => signIn('google')} style={{ backgroundColor: '#54D8B3', color: 'white', padding: '15px 30px', borderRadius: '15px' }}>Get Started</Button>
+            <Button onClick={() => signIn('google')} style={{ color: 'white', padding: '5px 20px', borderRadius: '15px' }}>Log In</Button>
+            <Button onClick={() => signIn('google')} style={{ backgroundColor: '#54D8B3', color: 'white', padding: '15px 30px', borderRadius: '15px' }}><GoogleIcon fontSize='small' /> Get Started</Button>
           </div>
         </div>
 
