@@ -31,7 +31,7 @@ const HomePage = () => {
   return (
     <div className='homepage' style={{ backgroundColor: '171717', color: 'white', padding: '60px 100px', textAlign: 'center' }}>
       <Head>
-        <title>Opalescence</title>
+        <title>Opal Labs</title>
       </Head>
 
       {/* ------------------ Header ------------------ */}
