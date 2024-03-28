@@ -26,7 +26,7 @@ import { usePageCreate } from '@/hooks/Page/usePageCreate'
 import { usePageGet } from '@/hooks/Page/usePageGet'
 import { usePageUpdate } from '@/hooks/Page/usePageUpdate'
 import loadingGif from 'public/images/loader.gif'
-import loadingGifDark from 'public/images/loaderNoBackground.gif'
+import loadingGifDark from 'public/images/loaderNoBackgroundWhite.gif'
 import { v4 as uuidv4 } from 'uuid'
 
 {/* PAGE TYPE VALUES PROVIDED BY BACKEND */ }
