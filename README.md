@@ -1,6 +1,8 @@
 # Opal Labs [Frontend]
 
-> Opalescence Dashboard
+## Introduction
+
+This is a public copy of a private repository in which I am currently working with a team of 7 people to create a Notion-like productivity website. The project is built using Next.js, TypeScript, Google OAuth, the Agile Model, PostgreSQL, Redis, Playwright, and Go. NOTE: This repository is the frontend section of the site, to view the backend, go to [this repository link](https://github.com/AbdulDevHub/Opal-Labs-Backend).
 
 [//]: <> 'TODO: Add CI/CD Badges'
 
@@ -62,3 +64,13 @@ Playwright is a framework for writing tests for web applications. We use it to w
 7. For a more visual display of the tests in real-time, you can also run `npx playwright test --ui` instead of `npx playwright test`.
 
 Please refer to the [Playwright documentation](https://playwright.dev/docs/intro) for more detailed information.
+
+## Contributing
+
+Contributions are welcome! If you have suggestions for improvements, please open an issue.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+<br>
