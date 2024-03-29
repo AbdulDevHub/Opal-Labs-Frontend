@@ -45,7 +45,7 @@ const Dashboard = () => {
     if (session?.userToken) {
       // Need to set `Authorization=; path=/; domain=${process.env.NEXT_PUBLIC_SITE_URL};`
       // for deployed version
-      document.cookie = `Authorization=${session.userToken}; path=/; domain=${process.env.NEXT_PUBLIC_SITE_URL};`
+      document.cookie = `Authorization=${session.userToken}; path=/`
     }
   }, [session])
 
