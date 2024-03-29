@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import PublicIcon from '@mui/icons-material/Public'
 import Typography from '@mui/material/Typography'
 
 import NewElementMenu from '@/components/DashboardComponents/NewElementMenu'
@@ -142,19 +143,22 @@ const AnalyticsChart: React.FC<AnalyticsChartProps> = ({
     return dateRange
   }
 
-  // Get the start and end dates from dateViewCount
-  const dates = Object.keys(dateViewCount)
-  const startDate = dates[0]
-  const endDate = dates[dates.length - 1]
+  // Get the start and end dates from dateViewCount if it's not null
+  let views: any[] | undefined = []
+  if (dateViewCount) {
+    const dates = Object.keys(dateViewCount)
+    const startDate = dates[0]
+    const endDate = dates[dates.length - 1]
 
-  // Generate the date range
-  const dateRange = generateDateRange(startDate, endDate)
+    // Generate the date range
+    const dateRange = generateDateRange(startDate, endDate)
 
-  // Create the views array
-  const views = dateRange.map((date) => ({
-    date,
-    viewCount: dateViewCount[date] || 0,
-  }))
+    // Create the views array
+    views = dateRange.map((date) => ({
+      date,
+      viewCount: dateViewCount[date] || 0,
+    }))
+  }
 
   // For Testing Purposes
   // const views = Object.entries(dateViewCount).map(([date, viewCount]) => ({
@@ -196,7 +200,7 @@ const AnalyticsChart: React.FC<AnalyticsChartProps> = ({
       )}
 
       {/* -------------------------- BROKE USER UPGRADE TO PREMIUM -----------------------*/}
-      {isUserBroke ? (
+      {isUserBroke || !dateViewCount ? (
         <div
           ref={toolbarRef}
           id="analyticsChartDiv"
@@ -206,8 +210,17 @@ const AnalyticsChart: React.FC<AnalyticsChartProps> = ({
             borderRadius: '5px', outline: isAnalyticsChartFocused ? '2px solid #1976d2' : 'none'
           }}
         >
-          <AccountCircleIcon style={{ color: isDarkMode ? '#fff' : 'black', marginRight: '10px' }} />
-          <p style={{ margin: '0', color: isDarkMode ? '#fff' : 'black' }}>Upgrade Your Account To View Analytics</p>
+          {isUserBroke ? (
+            <>
+              <AccountCircleIcon style={{ color: isDarkMode ? '#fff' : 'black', marginRight: '10px' }} />
+              <p style={{ margin: '0', color: isDarkMode ? '#fff' : 'black' }}>Upgrade Your Account To View Analytics</p>
+            </>
+          ) : !dateViewCount ? (
+            <>
+              <PublicIcon style={{ color: isDarkMode ? '#fff' : 'black', marginRight: '10px' }} />
+              <p style={{ margin: '0', color: isDarkMode ? '#fff' : 'black' }}>You Need To Publish The Page To See Analytics</p>
+            </>
+          ) : null}
         </div>
       ) : (
         <div id="analyticsChartDiv"
