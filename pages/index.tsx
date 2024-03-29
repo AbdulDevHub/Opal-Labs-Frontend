@@ -17,7 +17,8 @@ const HomePage = () => {
   const { data: session } = useSession()
 
   // Easily Changeable User & Image Values
-  const userImage = '/images/opal.png'
+  const logoImage = '/images/opal.png'
+  const fullLogoNameImage = '/images/Opalesence Logo/Full Name.png'
   const sampleImage = '/images/sampleHomePageImage.png'
 
   // If a session exists (user logged in), navigate to the dashboard
@@ -37,7 +38,7 @@ const HomePage = () => {
       {/* ------------------ Header ------------------ */}
       <header>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: '20px', alignItems: 'center' }}>
-          <Image src={userImage} alt='User Image' width={75} height={75} />
+          <Image src={fullLogoNameImage} alt='Opal Labs' width={300} height={75} />
 
           <div style={{ display: 'flex', gap: '20px' }}>
             <Button onClick={() => signIn('google')} style={{ backgroundColor: '#54D8B3', color: 'white', padding: '15px 30px', borderRadius: '15px' }}><GoogleIcon fontSize='small' /> Log In</Button>
@@ -46,10 +47,19 @@ const HomePage = () => {
 
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: '80px', marginTop: '40px', alignItems: 'center', padding: '0 150px' }}>
           <div style={{ textAlign: 'left' }}>
-            <h1 style={{ fontSize: '60px', fontWeight: 'bold' }}>Unleash Your Potential.</h1>
+            <h1 style={{ fontSize: '60px', fontWeight: 'bold' }}>Unleash Your{' '}
+              <span style={{
+                background: '-webkit-linear-gradient(45deg, #c0ebff, #00ff95 80%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'
+              }}>
+                Potential.
+              </span>
+            </h1>
+
             <h3 style={{ color: '#BFBFBF', fontFamily: 'Arial', fontWeight: 'normal', fontSize: '32px' }}>Opal Labs is the flexible writing app that adapts to the way you think.</h3>
           </div>
-          <Image src={userImage} alt='Sample Image' width={225} height={225} />
+          <Image src={logoImage} alt='Sample Image' width={225} height={225} />
         </div>
 
         <Image src={sampleImage} alt='User Image' width={1250} height={650} style={{ borderRadius: '20px', marginTop: '40px', padding: '10px', backgroundColor: '#1E1E1E', border: '1px solid #fff' }} />
@@ -57,24 +67,24 @@ const HomePage = () => {
 
       {/* ------------------ Main Sections ------------------ */}
       <main style={{ marginTop: '80px' }}>
-        <section style={{ display: 'flex', gap: '100px', padding: '0 110px', justifyContent: 'center' }}>
-          <div style={{ textAlign: 'left' }} >
-            <h2>Your thoughts are yours.</h2>
+        <section style={{ display: 'flex', gap: '100px', padding: '0 110px', justifyContent: 'center', alignItems: 'center' }}>
+          <div style={{ textAlign: 'left' }}>
+            <h2>For Personal Use.</h2>
             <p style={{ color: '#A3A3A3' }}>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus sint dolore rem ratione nesciunt. Exercitationem eius reiciendis, maxime vitae animi debitis. Possimus exercitationem nihil doloribus illum laborum. Doloremque, deleniti atque!</p>
 
-            <h2>Your mind is unique.</h2>
+            <h2>For School Use.</h2>
             <p style={{ color: '#A3A3A3' }}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum voluptatum esse culpa id deleniti tenetur dignissimos consequatur, facere magni molestiae veniam iure itaque minus explicabo ipsum quod tempore velit quas.</p>
 
-            <h2>Your knowledge should last.</h2>
+            <h2>For Work Use.</h2>
             <p style={{ color: '#A3A3A3' }}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae adipisci, earum velit placeat sed voluptatem alias, repudiandae dolorem aspernatur officia dicta enim, unde corporis est ex aut illo cumque quasi.</p>
           </div>
 
-          <div>
+          <div style={{ padding: '0 30px' }}>
             <div style={{ padding: '20px 30px', backgroundColor: '#222222', borderRadius: '20px', border: '2px solid #54D8B3' }}>
-              <Image src={userImage} alt='Sample Image' width={200} height={200} />
+              <Image src={logoImage} alt='Sample Image' width={200} height={200} />
             </div>
             <h1 style={{ fontSize: '40px', fontWeight: 'bold' }}>Opal Labs</h1>
-            <p style={{ fontSize: '18px' }}>Free for personal use <br /><span onClick={() => signIn('google')} style={{ color: '#54D8B3' }}>Start Now</span></p>
+            <p style={{ fontSize: '18px' }}>Free for personal use <br /><span onClick={() => signIn('google')} style={{ color: '#54D8B3', cursor: 'pointer' }}>Start Now</span></p>
           </div>
         </section>
 
@@ -85,16 +95,16 @@ const HomePage = () => {
           <div style={{ display: 'flex', justifyContent: 'center', gap: '40px', marginTop: '40px', padding: '0 20px' }}>
             <div style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242' }}>
               <div style={{ textAlign: 'left' }}>
-                <h3 style={{ fontSize: '30px' }}>Links</h3>
-                <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente voluptatibus tempore quas totam architecto ipsa asperiores. Autem quibusdam veritatis eos repudiandae explicabo. Id odio, error voluptates in nemo non optio?</p>
+                <h3 style={{ fontSize: '30px' }}>Styled Text</h3>
+                <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Enhance readability with varied text sizes and colors</p>
               </div>
               <Image src={sampleImage} alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
             </div>
 
             <div style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242' }}>
               <div style={{ textAlign: 'left' }}>
-                <h3 style={{ fontSize: '30px' }}>Graph</h3>
-                <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente voluptatibus tempore quas totam architecto ipsa asperiores. Autem quibusdam veritatis eos repudiandae explicabo. Id odio, error voluptates in nemo non optio?</p>
+                <h3 style={{ fontSize: '30px' }}>Publish & Share</h3>
+                <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Publish read-only versions of your notes to share with your peers</p>
               </div>
               <Image src={sampleImage} alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
             </div>
@@ -103,16 +113,16 @@ const HomePage = () => {
           <div style={{ display: 'flex', justifyContent: 'center', gap: '40px', marginTop: '40px', padding: '0 20px' }}>
             <div style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242' }}>
               <div style={{ textAlign: 'left' }}>
-                <h3 style={{ fontSize: '30px' }}>Canvas</h3>
-                <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente voluptatibus tempore quas totam architecto ipsa asperiores. Autem quibusdam veritatis eos repudiandae explicabo. Id odio, error voluptates in nemo non optio?</p>
+                <h3 style={{ fontSize: '30px' }}>Page Hierarchy</h3>
+                <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Group your thoughts and stay organized</p>
               </div>
               <Image src={sampleImage} alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
             </div>
 
             <div style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242' }}>
               <div style={{ textAlign: 'left' }}>
-                <h3 style={{ fontSize: '30px' }}>Plugins</h3>
-                <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente voluptatibus tempore quas totam architecto ipsa asperiores. Autem quibusdam veritatis eos repudiandae explicabo. Id odio, error voluptates in nemo non optio?</p>
+                <h3 style={{ fontSize: '30px' }}>Embed</h3>
+                <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Enhance your notes with Youtube videos, Google Maps, Social Media posts, etc.</p>
               </div>
               <Image src={sampleImage} alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
             </div>
@@ -125,18 +135,18 @@ const HomePage = () => {
 
           <div style={{ display: 'flex', justifyContent: 'space-between', gap: '40px', marginTop: '40px', textAlign: 'left' }}>
             <div className="hover-on-div" style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242' }}>
-              <h3>Join us on Discord</h3>
-              <p style={{ color: '#A3A3A3' }}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae eum deserunt soluta, quam sit sed amet delectus, atque doloribus aspernatur expedita tenetur! Vitae voluptas sunt incidunt accusantium! Odio, excepturi a.</p>
+              <h3>Customer 1</h3>
+              <p style={{ color: '#A3A3A3' }}>“An incredible app. The distinction between Opalescence and its competitors is beyond words.”</p>
             </div>
 
             <div className="hover-on-div" style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242', textAlign: 'left' }}>
-              <h3>Discussion Forum</h3>
-              <p style={{ color: '#A3A3A3' }}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae eum deserunt soluta, quam sit sed amet delectus, atque doloribus aspernatur expedita tenetur! Vitae voluptas sunt incidunt accusantium! Odio, excepturi a.</p>
+              <h3>Customer 2</h3>
+              <p style={{ color: '#A3A3A3' }}>“Discovering Opalescence has been a game-changer for my productivity, with its intuitive interface and seamless functionality.”</p>
             </div>
 
             <div className="hover-on-div" style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242', textAlign: 'left' }}>
-              <h3>Developer Docs</h3>
-              <p style={{ color: '#A3A3A3' }}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae eum deserunt soluta, quam sit sed amet delectus, atque doloribus aspernatur expedita tenetur! Vitae voluptas sunt incidunt accusantium! Odio, excepturi a.</p>
+              <h3>Customer 3</h3>
+              <p style={{ color: '#A3A3A3' }}>“Wow. Just wow. I've found myself effortlessly organizing my thoughts and tasks like never before.”</p>
             </div>
           </div>
         </section>
@@ -146,7 +156,7 @@ const HomePage = () => {
       <footer style={{ marginTop: '120px', textAlign: 'left' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: '40px', alignItems: 'center' }}>
           <div>
-            <Image src={userImage} alt='User Image' width={100} height={100} />
+            <Image src={logoImage} alt='User Image' width={100} height={100} />
             <p style={{ textAlign: 'center', marginTop: '20px' }}>© 2023 Opal Labs. All rights reserved.</p>
           </div>
           <div>
