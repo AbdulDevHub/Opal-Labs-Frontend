@@ -25,7 +25,6 @@ export const usePageList = (): [PageType[], React.Dispatch<React.SetStateAction<
       try {
         // Make a GET request to the server to fetch the list of pages
         const response = await fetch(`${process.env.NEXT_PUBLIC_OPALESCENCE_BASE_URL}/page-list`, {
-          mode: 'no-cors',
           method: 'GET',
           credentials: 'include',
         })

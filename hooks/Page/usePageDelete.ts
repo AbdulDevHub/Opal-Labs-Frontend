@@ -11,7 +11,6 @@ export const usePageDelete = () => {
     try {
       // Making a POST request to the server to delete the page
       const response = await fetch(`${process.env.NEXT_PUBLIC_OPALESCENCE_BASE_URL}/page-delete`, {
-        mode: 'no-cors',
         method: 'POST',
         body: JSON.stringify({ page_uuid }),
         credentials: 'include',

@@ -42,7 +42,6 @@ export const usePageCreate = (
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_OPALESCENCE_BASE_URL}/page-create`,
           {
-            mode: 'no-cors',
             method: 'POST',
             body: JSON.stringify(newPage),
             credentials: 'include',
