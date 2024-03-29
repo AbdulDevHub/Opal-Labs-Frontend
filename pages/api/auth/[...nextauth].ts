@@ -7,6 +7,7 @@ import axios from 'axios'
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!
+const SECRET = process.env.SECRET!
 
 /**
  * Configures NextAuth with Google OAuth provider for authentication.
@@ -22,6 +23,7 @@ export default NextAuth({
         'https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code',
     }),
   ],
+  secret: SECRET,
   callbacks: {
     /**
      * Asynchronously generates a JSON Web Token (JWT) by adding additional properties to the token object.
