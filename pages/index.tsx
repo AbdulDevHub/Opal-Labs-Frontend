@@ -20,6 +20,10 @@ const HomePage = () => {
   const logoImage = '/images/opal.png'
   const fullLogoNameImage = '/images/Opalesence Logo/Full Name.png'
   const sampleImage = '/images/sampleHomePageImage.png'
+  const sampleImageStyleText = '/images/sampleHomePageImage.png'
+  const sampleImagePublish = '/images/sampleHomePageImage.png'
+  const sampleImageSubpages = '/images/sampleHomePageImage.png'
+  const sampleImageEmbed = '/images/sampleHomePageImage.png'
 
   // If a session exists (user logged in), navigate to the dashboard
   useEffect(() => {
