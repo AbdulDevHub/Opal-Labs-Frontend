@@ -3,7 +3,6 @@ import { signOut } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
 import Box from '@mui/material/Box'
-import Container from '@mui/material/Container'
 
 import PageContent from '@/components/PageContent'
 import Sidebar from '@/components/Sidebar'
@@ -46,7 +45,7 @@ const Dashboard = () => {
     if (session?.userToken) {
       // Need to set `Authorization=; path=/; domain=${process.env.NEXT_PUBLIC_SITE_URL};`
       // for deployed version
-      document.cookie = `Authorization=${session.userToken}; path=/`
+      document.cookie = `Authorization=${session.userToken}; path=/ domain=${process.env.NEXT_PUBLIC_SITE_URL};`
     }
   }, [session])
 

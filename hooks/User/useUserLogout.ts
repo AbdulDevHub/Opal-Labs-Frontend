@@ -11,6 +11,7 @@ export const useUserLogout = () => {
     try {
       // Making a POST request to the server to log out the user
       const response = await fetch(`${process.env.NEXT_PUBLIC_OPALESCENCE_BASE_URL}/user-logout`, {
+        mode: 'no-cors',
         method: 'POST',
         credentials: 'include',
       })

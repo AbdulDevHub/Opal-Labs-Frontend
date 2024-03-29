@@ -71,6 +71,7 @@ export const usePageUpdate = () => {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_OPALESCENCE_BASE_URL}/page-update`,
           {
+            mode: 'no-cors',
             method: 'POST',
             credentials: 'include',
             headers: {

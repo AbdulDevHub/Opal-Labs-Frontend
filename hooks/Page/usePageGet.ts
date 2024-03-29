@@ -27,6 +27,7 @@ export const usePageGet = (pageUuid: string, setIsLoading?: (isLoading: boolean)
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_OPALESCENCE_BASE_URL}/page-get/${pageUuid}`,
           {
+            mode: 'no-cors',
             method: 'GET',
             credentials: 'include',
           }
