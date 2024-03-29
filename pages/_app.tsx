@@ -5,6 +5,8 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
 
 import Toast from '@/components/Shared/Toast'
+import { APIProvider } from '@/contexts/API'
+import { AuthProvider } from '@/contexts/Auth'
 import { FeatureToggleProvider } from '@/contexts/FeatureToggle'
 import { ToastProvider } from '@/contexts/Toast'
 import theme from '@/styles/theme'
@@ -31,22 +33,24 @@ import '../types/extensions'
  */
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <APIProvider>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           <CssBaseline>
             <ToastProvider>
               <FeatureToggleProvider>
-                <SessionProvider session={pageProps.session}>
-                  <Component {...pageProps} />
-                </SessionProvider>
-                <Toast />
+                <AuthProvider>
+                  <SessionProvider session={pageProps.session}>
+                    <Component {...pageProps} />
+                  </SessionProvider>
+                  <Toast />
+                </AuthProvider>
               </FeatureToggleProvider>
             </ToastProvider>
           </CssBaseline>
         </ThemeProvider>
       </StyledEngineProvider>
       <ReactQueryDevtools />
-    </>
+    </APIProvider>
   )
 }
