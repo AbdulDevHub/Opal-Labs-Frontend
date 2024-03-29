@@ -7,10 +7,10 @@
  */
 export default function handler(req, res) {
   // Set headers
-  res.setHeader('Access-Control-Allow-Credentials', 'true', true)
-  res.setHeader('Access-Control-Allow-Origin', `${process.env.NEXT_PUBLIC_SITE_URL}`, true)
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE', true)
-  res.setHeader('Access-Control-Allow-Headers', 'Authorization', true)
+  res.setHeader('Access-Control-Allow-Credentials', 'true')
+  res.setHeader('Access-Control-Allow-Origin', `${process.env.NEXT_PUBLIC_SITE_URL}`)
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
+  res.setHeader('Access-Control-Allow-Headers', 'Authorization')
   // Add more headers as needed
 
   // Handle your request as you normally would
