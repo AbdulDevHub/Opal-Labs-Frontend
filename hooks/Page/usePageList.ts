@@ -27,6 +27,13 @@ export const usePageList = (): [PageType[], React.Dispatch<React.SetStateAction<
         const response = await fetch(`${process.env.NEXT_PUBLIC_OPALESCENCE_BASE_URL}/page-list`, {
           method: 'GET',
           credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': `${process.env.NEXT_PUBLIC_SITE_URL}`,
+            'Access-Control-Allow-Credentials': 'true',
+            'Access-Control-Allow-Headers': 'Authorization',
+            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+          },
         })
 
         if (!response.ok) {

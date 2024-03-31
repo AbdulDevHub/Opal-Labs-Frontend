@@ -43,9 +43,8 @@ const Dashboard = () => {
   useEffect(() => {
     // Set the cookie only if session?.userToken is not empty or undefined
     if (session?.userToken) {
-      // Need to set `Authorization=; path=/; domain=${process.env.NEXT_PUBLIC_SITE_URL};`
-      // for deployed version
-      document.cookie = `Authorization=${session.userToken}; path=/; Secure; SameSite=None`;
+      // document.cookie = `Authorization=${session.userToken}; path=/`; <= This is for local version
+      document.cookie = `Authorization=${session.userToken}; path=/; Secure; SameSite=None`; // <= This is for deployed version
     }
   }, [session])
 
