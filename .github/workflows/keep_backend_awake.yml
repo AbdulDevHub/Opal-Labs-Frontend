@@ -1,0 +1,14 @@
+name: API Call Workflow
+
+on:
+  schedule:
+    - cron: '*/14 * * * *'
+
+jobs:
+  make-api-call:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Send API request
+      run: |
+        curl -X GET https://opal-labs-backend-muej.onrender.com/page-get/123
