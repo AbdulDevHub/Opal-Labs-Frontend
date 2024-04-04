@@ -26,14 +26,10 @@ export const usePageUpdate = () => {
           page_uuid: string
           page_name?: string
           is_root?: boolean
-          //element_positions: string[] // The database no longer has this, so this can be removed/refactored
-          page_elements?: string // The database no longer has this, so this can be removed/refactored
           public_page?: boolean
-          elements?: any[]
           is_favourite?: boolean
         } = {
           page_uuid: pageUuid,
-          //element_positions: ['1'],
         }
 
         // If Defined, add it to the page data
@@ -47,7 +43,7 @@ export const usePageUpdate = () => {
         // To fix it, you just need to replace all elementStyling and element_styling in project with "etc"
         let updatedContentForBackend: any[] = []
         // If pageElements was updated/provided, add it to the page data
-        if (updatedContent) {
+        if (updatedContent !== undefined) {
           updatedContentForBackend = updatedContent.map(
             ({ content, elementStyling, ...element }) => {
               return {
@@ -59,12 +55,19 @@ export const usePageUpdate = () => {
           )
 
           console.log('Elements Data:', updatedContentForBackend)
-          pageData.page_elements = JSON.stringify(updatedContent)
-          pageData.elements = updatedContentForBackend
         }
 
-        console.log('Page Data:', pageData)
-        const backendData = { page: pageData, elements: updatedContentForBackend }
+        // Define a type for the backend data
+        type BackendData = {
+          page: typeof pageData
+          elements?: typeof updatedContentForBackend
+        }
+
+        // Prepare the backend data
+        let backendData: BackendData = { page: pageData }
+
+        // If updatedContent is not undefined, add elements to the backend data
+        if (updatedContent !== undefined) backendData.elements = updatedContentForBackend
         console.log('Updating Backend Data:', backendData)
 
         // Making a POST request to the server to update the page
@@ -76,7 +79,7 @@ export const usePageUpdate = () => {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ page: pageData, elements: updatedContentForBackend }),
+            body: JSON.stringify(backendData),
           }
         )
 

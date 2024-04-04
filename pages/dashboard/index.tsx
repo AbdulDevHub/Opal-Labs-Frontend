@@ -15,7 +15,7 @@ import { useUserLogout } from '@/hooks/User/useUserLogout'
  *
  * The Dashboard component represents the main dashboard interface of the application.
  * It includes functionality for managing selected pages, editability, dark mode, and user logout.
- * 
+ *
  * @return {JSX.Element} The rendered Dashboard component
  */
 const Dashboard = () => {
@@ -73,11 +73,6 @@ const Dashboard = () => {
   const handleSignOut = async () => {
     // Call the logoutUser endpoint
     await logoutUser()
-
-    // Delete the Authorization cookie <= This isn't working for some reason
-    // Need to set `Authorization=; path=/; domain=${process.env.NEXT_PUBLIC_SITE_URL}; expires=Thu, 01 Jan 1970 00:00:00 GMT;`
-    // for deployed version [IGNORE ALL OF THIS BECAUSE THE BACKEND DELETES THE COOKIE THEMSELVES]
-    // document.cookie = `Authorization=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;`
 
     // Redirect back to homepage
     signOut({ callbackUrl: '/' })

@@ -66,15 +66,8 @@ export const usePageGet = (pageUuid: string, setIsLoading?: (isLoading: boolean)
           }))
           console.log('Elements set to this value:', elements)
         } else {
-          try {
-            // Parsing the page elements field from the response data
-            // The database no longer has page_elements so this can be removed/refactored
-            elements = JSON.parse(responseData.page.page_elements)
-            console.log('MyPageElementsField:', elements)
-          } catch (error) {
-            console.log('No elements found in response data, setting to empty array')
-            elements = []
-          }
+          elements = []
+          console.log('No elements found in response data, setting to empty array')
         }
         setPageElements(elements)
       } catch (error) {
