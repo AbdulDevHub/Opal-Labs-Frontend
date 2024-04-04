@@ -31,7 +31,7 @@ export default defineConfig({
     baseURL: process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
       : process.env.CI
-      ? 'https://opalescence.vercel.app/'
+      ? 'opal-labs.vercel.app/'
       : 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
