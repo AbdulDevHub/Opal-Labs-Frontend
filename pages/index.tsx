@@ -20,10 +20,10 @@ const HomePage = () => {
   const logoImage = '/images/opal.png'
   const fullLogoNameImage = '/images/Logo/Full Name.png'
   const sampleImage = '/images/sampleHomePageImage.png'
-  const sampleImageStyleText = '/images/sampleHomePageImage.png'
-  const sampleImagePublish = '/images/sampleHomePageImage.png'
-  const sampleImageSubpages = '/images/sampleHomePageImage.png'
-  const sampleImageEmbed = '/images/sampleHomePageImage.png'
+  const sampleImageStyleText = '/images/sampleImageStyleText.png'
+  const sampleImagePublish = '/images/sampleImagePublish.png'
+  const sampleImageSubpages = '/images/sampleImageSubpages.png'
+  const sampleImageEmbed = '/images/sampleImageEmbed.png'
 
   // If a session exists (user logged in), navigate to the dashboard
   useEffect(() => {
@@ -102,7 +102,7 @@ const HomePage = () => {
                 <h3 style={{ fontSize: '30px' }}>Styled Text</h3>
                 <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Enhance readability with varied text sizes and colors</p>
               </div>
-              <Image src={sampleImage} alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
+              <Image src={sampleImageStyleText} alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
             </div>
 
             <div style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242' }}>
@@ -110,7 +110,7 @@ const HomePage = () => {
                 <h3 style={{ fontSize: '30px' }}>Publish & Share</h3>
                 <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Publish read-only versions of your notes to share with your peers</p>
               </div>
-              <Image src={sampleImage} alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
+              <Image src={sampleImagePublish} alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
             </div>
           </div>
 
@@ -120,7 +120,7 @@ const HomePage = () => {
                 <h3 style={{ fontSize: '30px' }}>Page Hierarchy</h3>
                 <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Group your thoughts and stay organized</p>
               </div>
-              <Image src={sampleImage} alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
+              <Image src={sampleImageSubpages} alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
             </div>
 
             <div style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242' }}>
@@ -128,7 +128,7 @@ const HomePage = () => {
                 <h3 style={{ fontSize: '30px' }}>Embed</h3>
                 <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Enhance your notes with Youtube videos, Google Maps, Social Media posts, etc.</p>
               </div>
-              <Image src={sampleImage} alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
+              <Image src={sampleImageEmbed} alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
             </div>
           </div>
         </section>
@@ -161,13 +161,13 @@ const HomePage = () => {
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: '40px', alignItems: 'center' }}>
           <div>
             <Image src={logoImage} alt='User Image' width={100} height={100} />
-            <p style={{ textAlign: 'center', marginTop: '20px' }}>© 2023 Opal Labs. All rights reserved.</p>
+            <p style={{ textAlign: 'center', marginTop: '20px' }}>© 2024 Opal Labs. All rights reserved.</p>
           </div>
           <div>
             <p>Follow us</p>
             <div style={{ display: 'flex', gap: '20px' }}>
-              <p>Twitter</p>
-              <p>Mastodon</p>
+              <p>Portfolio</p>
+              <p>LinkedIn</p>
               <p>YouTube</p>
               <p>GitHub</p>
             </div>
