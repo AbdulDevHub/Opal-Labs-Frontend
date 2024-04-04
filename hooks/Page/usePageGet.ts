@@ -25,7 +25,7 @@ export const usePageGet = (pageUuid: string, setIsLoading?: (isLoading: boolean)
         if (setIsLoading) setIsLoading(true)
         // Making a GET request to the server to fetch the page
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_OPALESCENCE_BASE_URL}/page-get/${pageUuid}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/page-get/${pageUuid}`,
           {
             method: 'GET',
             credentials: 'include',

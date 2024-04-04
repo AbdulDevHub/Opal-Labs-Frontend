@@ -10,7 +10,7 @@ export const usePageDelete = () => {
   const deletePage = useCallback(async (page_uuid: string) => {
     try {
       // Making a POST request to the server to delete the page
-      const response = await fetch(`${process.env.NEXT_PUBLIC_OPALESCENCE_BASE_URL}/page-delete`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/page-delete`, {
         method: 'POST',
         body: JSON.stringify({ page_uuid }),
         credentials: 'include',

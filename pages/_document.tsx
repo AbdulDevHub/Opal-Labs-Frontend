@@ -19,20 +19,20 @@ export default function Document() {
 
         <meta
           name="description"
-          content="Opalescence is the all in one dashboard for productivity, management, and organization."
+          content="Opal Labs is the all in one dashboard for productivity, management, and organization."
         />
         <meta
           name="keywords"
-          content="Opalescence, Opalescence Dashboard, Productivity, Organization"
+          content="Opal Labs, Opal Labs Dashboard, Productivity, Organization"
         />
 
         {/* <meta name="theme-color" content="TODO" /> */}
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Opalescence" />
+        <meta property="og:title" content="Opal Labs" />
         <meta
           property="og:description"
-          content="Opalescence is the all in one dashboard for productivity, management, and organization."
+          content="Opal Labs is the all in one dashboard for productivity, management, and organization."
         />
 
         {/*

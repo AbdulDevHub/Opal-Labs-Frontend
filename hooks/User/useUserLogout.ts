@@ -10,7 +10,7 @@ export const useUserLogout = () => {
   const logoutUser = useCallback(async () => {
     try {
       // Making a POST request to the server to log out the user
-      const response = await fetch(`${process.env.NEXT_PUBLIC_OPALESCENCE_BASE_URL}/user-logout`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user-logout`, {
         method: 'POST',
         credentials: 'include',
       })

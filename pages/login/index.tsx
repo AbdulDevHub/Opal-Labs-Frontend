@@ -19,7 +19,7 @@ const LoginPage = () => {
   return (
     <>
       <Head>
-        <title>Opalescence | Login</title>
+        <title>Opal Labs | Login</title>
       </Head>
       <Container maxWidth={false} sx={{ minHeight: '100vh' }}>
         <Container>

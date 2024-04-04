@@ -99,7 +99,7 @@ const Sidebar = (props: Props) => {
   const session = useSession()
 
   // Use user's name and profile picture if they exist, otherwise use default values
-  const userName = session.data?.user?.name || 'Opalescence'
+  const userName = session.data?.user?.name || 'Opal Labs'
   const userImage = session.data?.user?.image || '/images/opal.png'
 
   // Set image border radius and name text size based on whether user's image and name exist

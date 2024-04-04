@@ -24,7 +24,7 @@ export const usePageList = (): [PageType[], React.Dispatch<React.SetStateAction<
     const fetchPageList = async () => {
       try {
         // Make a GET request to the server to fetch the list of pages
-        const response = await fetch(`${process.env.NEXT_PUBLIC_OPALESCENCE_BASE_URL}/page-list`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/page-list`, {
           method: 'GET',
           credentials: 'include',
         })
@@ -59,14 +59,11 @@ export const usePageList = (): [PageType[], React.Dispatch<React.SetStateAction<
 
           try {
             // Make a POST request to the server to create a new page
-            const response = await fetch(
-              `${process.env.NEXT_PUBLIC_OPALESCENCE_BASE_URL}/page-create`,
-              {
-                method: 'POST',
-                body: JSON.stringify(EmptyPage),
-                credentials: 'include',
-              }
-            )
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/page-create`, {
+              method: 'POST',
+              body: JSON.stringify(EmptyPage),
+              credentials: 'include',
+            })
 
             if (!response.ok) {
               throw new Error('Page creation failed')

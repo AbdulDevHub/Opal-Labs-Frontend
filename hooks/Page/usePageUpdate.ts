@@ -71,17 +71,14 @@ export const usePageUpdate = () => {
         console.log('Updating Backend Data:', backendData)
 
         // Making a POST request to the server to update the page
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_OPALESCENCE_BASE_URL}/page-update`,
-          {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(backendData),
-          }
-        )
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/page-update`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(backendData),
+        })
 
         if (!response.ok) {
           throw new Error('Failed to update page')

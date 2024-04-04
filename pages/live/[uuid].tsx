@@ -79,7 +79,7 @@ const LivePage = () => {
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   <Image src={logo} alt={'Site Opal Logo'} width={50} height={50} />
                   <Typography variant="h4" sx={{ marginLeft: '20px', lineHeight: '40px', letterSpacing: '0.25px', fontSize: '34px', fontWeight: 400 }}>
-                    Opalescence
+                    Opal Labs
                   </Typography>
                 </div>
 

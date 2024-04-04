@@ -39,14 +39,11 @@ export const usePageCreate = (
 
       try {
         // Making a POST request to the server to create the new page
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_OPALESCENCE_BASE_URL}/page-create`,
-          {
-            method: 'POST',
-            body: JSON.stringify(newPage),
-            credentials: 'include',
-          }
-        )
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/page-create`, {
+          method: 'POST',
+          body: JSON.stringify(newPage),
+          credentials: 'include',
+        })
 
         if (!response.ok) {
           throw new Error('Page creation failed')

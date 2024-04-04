@@ -140,12 +140,12 @@ const HomePage = () => {
           <div style={{ display: 'flex', justifyContent: 'space-between', gap: '40px', marginTop: '40px', textAlign: 'left' }}>
             <div className="hover-on-div" style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242' }}>
               <h3>Customer 1</h3>
-              <p style={{ color: '#A3A3A3' }}>“An incredible app. The distinction between Opalescence and its competitors is beyond words.”</p>
+              <p style={{ color: '#A3A3A3' }}>“An incredible app. The distinction between Opal Labs and its competitors is beyond words.”</p>
             </div>
 
             <div className="hover-on-div" style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242', textAlign: 'left' }}>
               <h3>Customer 2</h3>
-              <p style={{ color: '#A3A3A3' }}>“Discovering Opalescence has been a game-changer for my productivity, with its intuitive interface and seamless functionality.”</p>
+              <p style={{ color: '#A3A3A3' }}>“Discovering Opal Labs has been a game-changer for my productivity, with its intuitive interface and seamless functionality.”</p>
             </div>
 
             <div className="hover-on-div" style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242', textAlign: 'left' }}>

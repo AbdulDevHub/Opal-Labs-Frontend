@@ -10,12 +10,9 @@ export const useUserGet = (sessionToken: string | undefined) => {
     // Asynchronous function to fetch user data
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_OPALESCENCE_BASE_URL}/user-get`,
-          {
-            withCredentials: true,
-          }
-        )
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user-get`, {
+          withCredentials: true,
+        })
         console.log('Fetched User Data:', response.data)
 
         // Update the state with the fetched user data

@@ -38,7 +38,7 @@ export default NextAuth({
         token.provider = account.provider
         if (typeof account.access_token === 'string' && account.expires_at) {
           const response = await axios.post(
-            `${process.env.NEXT_PUBLIC_OPALESCENCE_BASE_URL}/user-login`,
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/user-login`,
             {
               access_token: account.access_token,
               expires_in: account.expires_at - Math.floor(Date.now() / 1000),
