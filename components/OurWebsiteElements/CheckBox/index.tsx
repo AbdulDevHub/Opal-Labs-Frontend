@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
 import CloseIcon from '@mui/icons-material/Close'
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import Checkbox from '@mui/material/Checkbox'
 import IconButton from '@mui/material/IconButton'
 import TextField from '@mui/material/TextField'
@@ -31,6 +32,34 @@ interface CheckBoxProps {
   setPageElements: (value: Item[] | ((prevState: Item[]) => Item[])) => void
   setComponentFocused: (isFocused: boolean) => void
 }
+
+{/* POSITION THE TOOLBAR TO THE TOP OF THE SCREEN */ }
+type StyledDivProps = {
+  isDarkMode: boolean;
+};
+
+const StyledDiv = styled.div<StyledDivProps>`
+  position: fixed;
+  top: 90px;
+  left: 574px;
+  background-color: ${props => props.isDarkMode ? '#212121' : 'white'};
+  z-index: 1;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid ${props => props.isDarkMode ? 'white' : 'lightgray'};
+
+  @media (max-width: 1920px) and (min-width: 870px) {
+    left: calc(1009px + ((100vw - 1920px) / 2));
+  }
+
+  @media (max-width: 870px) {
+    left: 483px;
+  }
+
+  @media (max-width: 884px) {
+    top: calc(90px + 25px);
+  }
+`;
 
 /**
  * Renders a checkbox component with options for editing, deleting, and selecting other types.
@@ -65,30 +94,6 @@ const CheckBox: React.FC<CheckBoxProps> = ({
   {/* -------------------------- CHECKBOX STATES -----------------------*/ }
   // State to show or hide options
   const [isFocused, setIsFocused] = useState(false)
-
-  // Position the toolbar on the top of the screen
-  const StyledDiv = styled.div`
-    position: fixed;
-    top: 90px;
-    left: 574px;
-    background-color: ${isDarkMode ? '#212121' : 'white'};
-    z-index: 1;
-    padding: 15px;
-    border-radius: 5px;
-    border: 1px solid ${isDarkMode ? 'white' : 'lightgray'};
-
-    @media (max-width: 1920px) and (min-width: 870px) {
-      left: calc(1009px + ((100vw - 1920px) / 2));
-    }
-
-    @media (max-width: 870px) {
-      left: 483px;
-    }
-
-    @media (max-width: 884px) {
-      top: calc(90px + 25px);
-    }
-`;
 
   {/* -------------------------- CALLOUT EFFECTS -----------------------*/ }
   // Inside your component
@@ -139,7 +144,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
     <>
       {/* TOOLBAR */}
       {(isFocused) && !isDraggable && isEditable && (
-        <StyledDiv ref={toolbarRef}>
+        <StyledDiv isDarkMode={isDarkMode} ref={toolbarRef}>
           <CheckboxToolbarElement
             index={index}
             handleDeleteContent={handleDeleteContent}
@@ -150,7 +155,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
       )}
 
       {/* CHECKBOX COMPONENT */}
-      <div style={{ display: 'flex', alignItems: 'center', maxWidth: '600px', gap: '20px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', width: '100%', gap: '20px' }}>
         <Checkbox
           checked={item.elementStyling === 'checked'}
           onChange={() => { handleChecked(index) }}
@@ -218,6 +223,8 @@ const CheckBox: React.FC<CheckBoxProps> = ({
             </IconButton>
           </div>
         )}
+
+        {isDraggable && isEditable && <DragIndicatorIcon />}
       </div>
 
       {/* NEW ELEMENT MENU */}

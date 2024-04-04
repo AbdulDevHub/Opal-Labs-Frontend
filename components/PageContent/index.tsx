@@ -11,6 +11,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
+import Tooltip from '@mui/material/Tooltip'
 
 import NewElementMenu from '@/components/DashboardComponents/NewElementMenu'
 import ToggleEditSwitch from '@/components/DashboardComponents/ToggleEditSwitch'
@@ -31,12 +32,12 @@ import { v4 as uuidv4 } from 'uuid'
 
 {/* PAGE TYPE VALUES PROVIDED BY BACKEND */ }
 type PageType = {
-  page_uuid: string,
-  page_name: string,
-  is_root: boolean,
-  element_positions: any[],
-  public_page: boolean,
-  page_uuid_url?: string,
+  page_uuid: string
+  page_name: string
+  is_root: boolean
+  element_positions: any[]
+  public_page: boolean
+  page_uuid_url?: string
   is_favourite?: boolean
 }
 
@@ -402,12 +403,20 @@ const PageContent = ({
 
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
           {/* Toggle Draggable State */}
-          {isEditable && <OpenWithIcon onClick={() => setIsDraggable(!isDraggable)} sx={{ color: isDraggable ? (isDarkMode ? 'white' : 'black') : "grey", cursor: 'pointer' }} />}
+          {isEditable &&
+            <Tooltip title="Drag & Drop">
+              <OpenWithIcon
+                onClick={() => setIsDraggable(!isDraggable)}
+                sx={{ color: isDraggable ? (isDarkMode ? 'white' : 'black') : "grey", cursor: 'pointer' }} />
+            </Tooltip>
+          }
 
           {/* Favourite Button */}
-          <button onClick={handleFavoriteClick} style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}>
-            {(isFavourited) ? <StarIcon style={{ color: 'yellow' }} /> : <StarBorderIcon style={{ color: isDarkMode ? 'white' : 'black' }} />}
-          </button>
+          <Tooltip title="Favourite">
+            <button onClick={handleFavoriteClick} style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}>
+              {(isFavourited) ? <StarIcon style={{ color: 'yellow' }} /> : <StarBorderIcon style={{ color: isDarkMode ? 'white' : 'black' }} />}
+            </button>
+          </Tooltip>
 
           {/* Toggle theme switch */}
           <ToggleThemeSwitch isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
@@ -421,17 +430,21 @@ const PageContent = ({
           </Button>}
           {/* Publish button */}
           {!isEditable && (
-            <Button
-              onClick={handlePublish}
-              disabled={isUserBroke}
-              sx={{
-                border: '2px solid',
-                borderColor: isUserBroke ? '#A9A9A9' : 'rgb(25, 118, 210)',
-                backgroundColor: isUserBroke ? (isDarkMode ? 'azure' : 'inherit') : 'inherit'
-              }}
-            >
-              {isPublicPage ? 'Unpublish' : 'Publish'}
-            </Button>
+            <Tooltip title={isUserBroke ? 'Upgrade To Unlock' : (isPublicPage ? 'Unpublish' : 'Publish')}>
+              <span>
+                <Button
+                  onClick={handlePublish}
+                  disabled={isUserBroke}
+                  sx={{
+                    border: '2px solid',
+                    borderColor: isUserBroke ? '#A9A9A9' : 'rgb(25, 118, 210)',
+                    backgroundColor: isUserBroke ? (isDarkMode ? 'azure' : 'inherit') : 'inherit'
+                  }}
+                >
+                  {isPublicPage ? 'Unpublish' : 'Publish'}
+                </Button>
+              </span>
+            </Tooltip>
           )}
           {/* Sign out button */}
           <Button onClick={handleSignOut} sx={{ border: '2px solid #FF5252', color: '#FF5252' }}>Sign Out</Button>

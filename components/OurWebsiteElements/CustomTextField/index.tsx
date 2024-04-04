@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import TextField from '@mui/material/TextField'
 
 import NewElementMenu from '@/components/DashboardComponents/NewElementMenu'
@@ -28,6 +29,34 @@ interface CustomTextFieldProps {
   setPageElements: (value: Item[] | ((prevState: Item[]) => Item[])) => void
   setComponentFocused: (isFocused: boolean) => void
 }
+
+{/* POSITION THE TOOLBAR TO THE TOP OF THE SCREEN */ }
+type StyledDivProps = {
+  isDarkMode: boolean;
+};
+
+const StyledDiv = styled.div<StyledDivProps>`
+  position: fixed;
+  top: 90px;
+  left: 385px;
+  background-color: ${props => props.isDarkMode ? '#212121' : 'white'};
+  z-index: 1;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid ${props => props.isDarkMode ? 'white' : 'lightgray'};
+
+  @media (max-width: 1920px) and (min-width: 753px) {
+    left: calc(837px + ((100vw - 1920px) / 2));
+  }
+
+  @media (max-width: 753px) {
+    left: 257px;
+  }
+
+  @media (max-width: 884px) {
+    top: calc(90px + 25px);
+  }
+`;
 
 /**
  * Generates the custom text field component with various styling and editing options.
@@ -77,29 +106,6 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
   const [isItalic, setIsItalic] = useState(false)
   const [isUnderline, setIsUnderline] = useState(false)
 
-  // Position toolbar to top of screen
-  const StyledDiv = styled.div`
-    position: fixed;
-    top: 90px;
-    left: 385px;
-    background-color: ${isDarkMode ? '#212121' : 'white'};
-    z-index: 1;
-    padding: 15px;
-    border-radius: 5px;
-    border: 1px solid ${isDarkMode ? 'white' : 'lightgray'};
-  
-    @media (max-width: 1920px) and (min-width: 753px) {
-      left: calc(820px + ((100vw - 1920px) / 2));
-    }
-  
-    @media (max-width: 753px) {
-      left: 240px;
-    }
-  
-    @media (max-width: 884px) {
-      top: calc(90px + 25px);
-    }
-  `;
   {/* -------------------------- CUSTOM TEXT FIELD EFFECTS -----------------------*/ }
   // Inside your component
   const toolbarRef = useRef<HTMLDivElement>(null)
@@ -220,7 +226,7 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
 
       {/* TOOLBAR */}
       {(isCustomTextFieldFocused || isSelectOpen || showTextColorOptions || showTextHighlightOptions) && isEditable && !isDraggable && (
-        <StyledDiv ref={toolbarRef}>
+        <StyledDiv isDarkMode={isDarkMode} ref={toolbarRef}>
           <CustomTextFieldToolbar
             index={index}
             handleDeleteContent={handleDeleteContent}
@@ -251,70 +257,74 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
       )}
 
       {/* CUSTOM TEXT FIELD COMPONENT */}
-      <div style={{ outline: isCustomTextFieldFocused ? '3px solid #1976d2' : 'none', borderRadius: '5px', display: 'flex' }}>
-        <TextField
-          ref={toolbarRef}
-          id={uuid}
-          value={item.content}
-          fullWidth
-          onChange={(e) => {
-            const updatedContent = {
-              ...item,
-              content: e.target.value,
-              ...(item.element_uuid ? { element_uuid: item.element_uuid } : {})
-            }
-            setPageElements([
-              ...pageElements.slice(0, index),
-              updatedContent,
-              ...pageElements.slice(index + 1)
-            ])
-          }}
-          multiline
-          variant="standard"
-          disabled={(!isEditable || isDraggable)}
-          InputProps={{
-            disableUnderline: true,
-            sx: {
-              // Override Color For Disabled TextField
-              '& .MuiInputBase-input.Mui-disabled': {
-                WebkitTextFillColor: isDarkMode ? '#ffffff' : '#000000',
+      <div style={{ width: "100%", display: "flex", alignItems: "center", gap: "10px" }}>
+        <div style={{ outline: isCustomTextFieldFocused ? '3px solid #1976d2' : 'none', borderRadius: '5px', display: 'flex', width: '100%' }}>
+          <TextField
+            ref={toolbarRef}
+            id={uuid}
+            value={item.content}
+            fullWidth
+            onChange={(e) => {
+              const updatedContent = {
+                ...item,
+                content: e.target.value,
+                ...(item.element_uuid ? { element_uuid: item.element_uuid } : {})
+              }
+              setPageElements([
+                ...pageElements.slice(0, index),
+                updatedContent,
+                ...pageElements.slice(index + 1)
+              ])
+            }}
+            multiline
+            variant="standard"
+            disabled={(!isEditable || isDraggable)}
+            InputProps={{
+              disableUnderline: true,
+              sx: {
+                // Override Color For Disabled TextField
+                '& .MuiInputBase-input.Mui-disabled': {
+                  WebkitTextFillColor: isDarkMode ? '#ffffff' : (item.elementStyling.split(';').find(style => style.includes('color'))?.split(':')[1]?.trim() || '#000000'),
+                },
               },
-            },
-            style: {
-              fontSize: item.type === 'Heading 1' ? '48px' : item.type === 'Heading 2' ? '34px' : item.type === 'Heading 3' ? '23px' : '16px',
-              color: isDarkMode ? '#ffffff' : (item.elementStyling.split(';').find(style => style.includes('color'))?.split(':')[1]?.trim() || '#000000'),
-              backgroundColor: item.elementStyling.split(';').find(style => style.includes('background-color'))?.split(':')[1]?.trim() || 'transparent',
-              fontWeight: item.elementStyling.includes('bold') ? 'bold' : 'normal',
-              fontStyle: item.elementStyling.includes('italic') ? 'italic' : 'normal',
-              textDecoration: item.elementStyling.includes('underline') ? 'underline' : 'none',
-              paddingLeft: '10px'
-            }
-          }}
-          autoFocus={item.elementStyling.includes('autofocus')} // Set cursor to the new text field
-          onClick={() => { setCustomTextFieldFocused(true); setComponentFocused(true); }}
-          onBlur={async () => {
-            // Delay the execution of losing focus to allow deletion to occur first
-            setTimeout(() => {
-              // Save autoFocus sate to prevent it from gaining focus again
-              setPageElements((prevState) => {
-                return prevState.map((item, i) => {
-                  if (i === index) {
-                    return {
-                      ...item,
-                      elementStyling: item.elementStyling.replace('autofocus;', ''),
+              style: {
+                fontSize: item.type === 'Heading 1' ? '48px' : item.type === 'Heading 2' ? '34px' : item.type === 'Heading 3' ? '23px' : '16px',
+                color: isDarkMode ? '#ffffff' : (item.elementStyling.split(';').find(style => style.includes('color'))?.split(':')[1]?.trim() || '#000000'),
+                backgroundColor: item.elementStyling.split(';').find(style => style.includes('background-color'))?.split(':')[1]?.trim() || 'transparent',
+                fontWeight: item.elementStyling.includes('bold') ? 'bold' : 'normal',
+                fontStyle: item.elementStyling.includes('italic') ? 'italic' : 'normal',
+                textDecoration: item.elementStyling.includes('underline') ? 'underline' : 'none',
+                paddingLeft: '10px'
+              }
+            }}
+            autoFocus={item.elementStyling.includes('autofocus')} // Set cursor to the new text field
+            onClick={() => { setCustomTextFieldFocused(true); setComponentFocused(true); }}
+            onBlur={async () => {
+              // Delay the execution of losing focus to allow deletion to occur first
+              setTimeout(() => {
+                // Save autoFocus sate to prevent it from gaining focus again
+                setPageElements((prevState) => {
+                  return prevState.map((item, i) => {
+                    if (i === index) {
+                      return {
+                        ...item,
+                        elementStyling: item.elementStyling.replace('autofocus;', ''),
+                      }
                     }
-                  }
-                  return item
+                    return item
+                  })
                 })
-              })
-            }, 250)
+              }, 250)
 
-            // Delete the element if the content is empty
-            if (item.content === '') {
-              handleDeleteContent(index)
-            }
-          }}
-        />
+              // Delete the element if the content is empty
+              if (item.content === '') {
+                handleDeleteContent(index)
+              }
+            }}
+          />
+        </div>
+
+        {isDraggable && isEditable && <DragIndicatorIcon />}
       </div>
 
       {/* NEW ELEMENT MENU */}

@@ -4,6 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import LinkIcon from '@mui/icons-material/Link'
+import Tooltip from '@mui/material/Tooltip'
 
 interface IframeToolbarElementProps {
   index: number
@@ -90,21 +91,30 @@ const IframeToolbarElement: React.FC<IframeToolbarElementProps> = ({
       <div onClick={handleToolbarClick} style={{ width: "100%", display: "flex", alignItems: "center", gap: "10px", justifyContent: "center" }}>
         {/* -------------------------- MOVE UP/DOWN OPTIONS -----------------------*/}
         <div style={{ display: "flex", paddingRight: "10px", borderRight: "1px solid rgba(0, 0, 0, 0.12)", gap: "10px", height: "100%", alignItems: "center" }}>
-          <KeyboardArrowUpIcon onClick={() => moveElement(index, -1)} style={{ cursor: "pointer", color: isDarkMode ? "white" : "black" }} />
-          <KeyboardArrowDownIcon onClick={() => moveElement(index, 1)} style={{ cursor: "pointer", color: isDarkMode ? "white" : "black" }} />
+          <Tooltip title="Move Up">
+            <KeyboardArrowUpIcon onClick={() => moveElement(index, -1)} style={{ cursor: "pointer", color: isDarkMode ? "white" : "black" }} />
+          </Tooltip>
+
+          <Tooltip title="Move Down">
+            <KeyboardArrowDownIcon onClick={() => moveElement(index, 1)} style={{ cursor: "pointer", color: isDarkMode ? "white" : "black" }} />
+          </Tooltip>
         </div>
 
         {/* -------------------------- IFRAME LINK INPUT -----------------------*/}
         <div style={{ display: "flex", paddingRight: "10px", borderRight: "1px solid rgba(0, 0, 0, 0.12)", height: "100%", alignItems: "center" }}>
-          <LinkIcon style={{ cursor: "pointer", color: isDarkMode ? "white" : "black" }} onClick={() => setShowIframeInput(!showIframeInput)} />
+          <Tooltip title="Iframe Link">
+            <LinkIcon style={{ cursor: "pointer", color: isDarkMode ? "white" : "black" }} onClick={() => setShowIframeInput(!showIframeInput)} />
+          </Tooltip>
         </div>
 
         {/* -------------------------- DELETE ELEMENT -----------------------*/}
         <div style={{ display: "flex", height: "100%", alignItems: "center" }}>
-          <DeleteIcon
-            style={{ cursor: "pointer", color: "red" }}
-            onClick={() => { handleDeleteContent(index); setComponentFocused(false) }}
-          />
+          <Tooltip title="Delete">
+            <DeleteIcon
+              style={{ cursor: "pointer", color: "red" }}
+              onClick={() => { handleDeleteContent(index); setComponentFocused(false) }}
+            />
+          </Tooltip>
         </div>
       </div>
 

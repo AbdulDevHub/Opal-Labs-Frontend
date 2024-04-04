@@ -6,6 +6,7 @@ import RepeatIcon from '@mui/icons-material/Repeat'
 import FormControl from '@mui/material/FormControl'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
+import Tooltip from '@mui/material/Tooltip'
 
 interface CodeBlockToolbarElementProps {
   index: number
@@ -80,8 +81,13 @@ const CodeBlockToolbarElement: React.FC<CodeBlockToolbarElementProps> = ({
       }}>
       {/* -------------------------- MOVE UP/DOWN OPTIONS -----------------------*/}
       <div style={{ display: "flex", paddingRight: "10px", borderRight: "1px solid rgba(0, 0, 0, 0.12)", gap: "10px", height: "100%", alignItems: "center" }}>
-        <KeyboardArrowUpIcon onClick={() => moveElement(index, -1)} style={{ cursor: "pointer", color: isDarkMode ? "white" : "black" }} />
-        <KeyboardArrowDownIcon onClick={() => moveElement(index, 1)} style={{ cursor: "pointer", color: isDarkMode ? "white" : "black" }} />
+        <Tooltip title="Move Up">
+          <KeyboardArrowUpIcon onClick={() => moveElement(index, -1)} style={{ cursor: "pointer", color: isDarkMode ? "white" : "black" }} />
+        </Tooltip>
+
+        <Tooltip title="Move Down">
+          <KeyboardArrowDownIcon onClick={() => moveElement(index, 1)} style={{ cursor: "pointer", color: isDarkMode ? "white" : "black" }} />
+        </Tooltip>
       </div>
 
       {/* -------------------------- LANGUAGE OPTIONS -----------------------*/}
@@ -124,16 +130,23 @@ const CodeBlockToolbarElement: React.FC<CodeBlockToolbarElementProps> = ({
 
       {/* -------------------------- LINE TOGGLE OPTIONS -----------------------*/}
       <div style={{ display: 'flex', paddingRight: '10px', borderRight: '1px solid rgba(0, 0, 0, 0.12)', gap: '10px', height: '100%', alignItems: 'center' }}>
-        <FormatListNumberedIcon style={{ cursor: 'pointer', color: isDarkMode ? 'white' : 'black' }} onClick={toggleLineNumbers} />
-        <RepeatIcon style={{ cursor: 'pointer', color: isDarkMode ? 'white' : 'black' }} onClick={toggleWrapLines} />
+        <Tooltip title="Toggle Line Numbers">
+          <FormatListNumberedIcon style={{ cursor: 'pointer', color: isDarkMode ? 'white' : 'black' }} onClick={toggleLineNumbers} />
+        </Tooltip>
+
+        <Tooltip title="Toggle Wrap Lines">
+          <RepeatIcon style={{ cursor: 'pointer', color: isDarkMode ? 'white' : 'black' }} onClick={toggleWrapLines} />
+        </Tooltip>
       </div>
 
       {/* -------------------------- DELETE OPTIONS -----------------------*/}
       <div style={{ display: "flex", height: "100%", alignItems: "center" }}>
-        <DeleteIcon
-          style={{ cursor: "pointer", color: "red" }}
-          onClick={() => handleDeleteContent(index)}
-        />
+        <Tooltip title="Delete">
+          <DeleteIcon
+            style={{ cursor: "pointer", color: "red" }}
+            onClick={() => handleDeleteContent(index)}
+          />
+        </Tooltip>
       </div>
     </div>
   )

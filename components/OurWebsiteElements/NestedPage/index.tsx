@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 import DescriptionIcon from '@mui/icons-material/Description'
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 
 import NewElementMenu from '@/components/DashboardComponents/NewElementMenu'
 import NestedPageToolbarElement from '@/components/Toolbar/NestedPage'
@@ -33,6 +34,34 @@ interface NestedPageElementProps {
   setNestedElementDeleted: (value: boolean) => void
   setComponentFocused: (isFocused: boolean) => void
 }
+
+{/* POSITION THE TOOLBAR TO THE TOP OF THE SCREEN */ }
+type StyledDivProps = {
+  isDarkMode: boolean;
+};
+
+const StyledDiv = styled.div<StyledDivProps>`
+  position: fixed;
+  top: 90px;
+  left: 574px;
+  background-color: ${props => props.isDarkMode ? '#212121' : 'white'};
+  z-index: 1;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid ${props => props.isDarkMode ? 'white' : 'lightgray'};
+
+  @media (max-width: 1920px) and (min-width: 870px) {
+    left: calc(1009px + ((100vw - 1920px) / 2));
+  }
+
+  @media (max-width: 870px) {
+    left: 483px;
+  }
+
+  @media (max-width: 884px) {
+    top: calc(90px + 25px);
+  }
+`;
 
 /**
  * Renders a nested page element component.
@@ -79,30 +108,6 @@ const NestedPageElement: React.FC<NestedPageElementProps> = ({
   // State to determine whether to hide/show nested page toolbar
   const [isFocused, setIsFocused] = useState(false)
 
-  // Div to position the toolbar on the top of the screen
-  const StyledDiv = styled.div`
-    position: fixed;
-    top: 90px;
-    left: 574px;
-    background-color: ${isDarkMode ? '#212121' : 'white'};
-    z-index: 1;
-    padding: 15px;
-    border-radius: 5px;
-    border: 1px solid ${isDarkMode ? 'white' : 'lightgray'};
-
-    @media (max-width: 1920px) and (min-width: 870px) {
-      left: calc(1009px + ((100vw - 1920px) / 2));
-    }
-
-    @media (max-width: 870px) {
-      left: 483px;
-    }
-
-    @media (max-width: 928px) {
-      top: calc(90px + 25px);
-    }
-`;
-
   {/* -------------------------- NESTED PAGE EFFECTS -----------------------*/ }
   // Inside your component
   const toolbarRef = useRef<HTMLDivElement>(null);
@@ -144,7 +149,7 @@ const NestedPageElement: React.FC<NestedPageElementProps> = ({
     <div id={`nested-page-${index}`} style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
       {/* TOOLBAR */}
       {(isFocused) && isEditable && !isDraggable && (
-        <StyledDiv ref={toolbarRef}>
+        <StyledDiv isDarkMode={isDarkMode} ref={toolbarRef}>
           <NestedPageToolbarElement
             index={index}
             isDarkMode={isDarkMode}
@@ -155,13 +160,17 @@ const NestedPageElement: React.FC<NestedPageElementProps> = ({
       )}
 
       {/* NESTED PAGE COMPONENT */}
-      <div
-        ref={toolbarRef}
-        onClick={() => { setIsFocused(!isFocused); setComponentFocused(!isFocused) }}
-        onDoubleClick={() => navigateToPage(subPageUUID, currentPageName)}
-        style={{ display: "inline-flex", alignItems: "center", padding: "5px 20px", cursor: "pointer", color: isDarkMode ? 'white' : 'black' }}>
-        <DescriptionIcon style={{ marginRight: "10px", color: isDarkMode ? 'white' : 'black' }} />
-        <p>{currentPageName}</p>
+      <div style={{ width: "100%", display: "flex", alignItems: "center", gap: "10px", justifyContent: "space-between" }}>
+        <div
+          ref={toolbarRef}
+          onClick={() => { setIsFocused(!isFocused); setComponentFocused(!isFocused) }}
+          onDoubleClick={() => navigateToPage(subPageUUID, currentPageName)}
+          style={{ display: "inline-flex", alignItems: "center", padding: "5px 20px", cursor: "pointer", color: isDarkMode ? 'white' : 'black' }}>
+          <DescriptionIcon style={{ marginRight: "10px", color: isDarkMode ? 'white' : 'black' }} />
+          <p>{currentPageName}</p>
+        </div>
+
+        {isDraggable && isEditable && <DragIndicatorIcon />}
       </div>
 
       {/* NEW ELEMENT MENU */}

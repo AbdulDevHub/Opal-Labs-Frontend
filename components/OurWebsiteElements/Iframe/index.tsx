@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import LanguageIcon from '@mui/icons-material/Language'
 
 import NewElementMenu from '@/components/DashboardComponents/NewElementMenu'
@@ -28,6 +29,34 @@ interface IframeElementProps {
   setPageElements: (value: Item[] | ((prevState: Item[]) => Item[])) => void
   setComponentFocused: (isFocused: boolean) => void
 }
+
+{/* POSITION THE TOOLBAR TO THE TOP OF THE SCREEN */ }
+type StyledDivProps = {
+  isDarkMode: boolean;
+};
+
+const StyledDiv = styled.div<StyledDivProps>`
+  position: fixed;
+  top: 90px;
+  left: 555px;
+  background-color: ${props => props.isDarkMode ? '#212121' : 'white'};
+  z-index: 1;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid ${props => props.isDarkMode ? 'white' : 'lightgray'};
+
+  @media (max-width: 1920px) and (min-width: 870px) {
+    left: calc(990px + ((100vw - 1920px) / 2));
+  }
+
+  @media (max-width: 870px) {
+    left: 460px;
+  }
+
+  @media (max-width: 884px) {
+    top: calc(90px + 25px);
+  }
+`;
 
 /**
  * Generates a React functional component for an iframe element with toolbar functionality.
@@ -65,30 +94,6 @@ const IframeElement: React.FC<IframeElementProps> = ({
   const [appliedIframeUrl, setAppliedIframeUrl] = useState('')
   const [isIframeFocused, setIframeFocused] = useState(false)
   const [iframeActive, setIframeActive] = useState(false)
-
-  // Position toolbar to top of screen
-  const StyledDiv = styled.div`
-    position: fixed;
-    top: 90px;
-    left: 555px;
-    background-color: ${isDarkMode ? '#212121' : 'white'};
-    z-index: 1;
-    padding: 15px;
-    border-radius: 5px;
-    border: 1px solid ${isDarkMode ? 'white' : 'lightgray'};
-
-    @media (max-width: 1920px) and (min-width: 870px) {
-      left: calc(990px + ((100vw - 1920px) / 2));
-    }
-
-    @media (max-width: 870px) {
-      left: 460px;
-    }
-
-    @media (max-width: 884px) {
-      top: calc(90px + 25px);
-    }
-  `;
 
   {/* -------------------------- IFRAME EFFECTS -----------------------*/ }
   {/* CHECK IF URL IS VALID, IF SO, SET APPLIED URL */ }
@@ -157,7 +162,7 @@ const IframeElement: React.FC<IframeElementProps> = ({
 
       {/* TOOLBAR */}
       {(isIframeFocused || showIframeInput) && !isDraggable && isEditable && (
-        <StyledDiv>
+        <StyledDiv isDarkMode={isDarkMode}>
           <IframeToolbarElement
             index={index}
             handleDeleteContent={handleDeleteContent}
@@ -174,62 +179,67 @@ const IframeElement: React.FC<IframeElementProps> = ({
       )}
 
       {/* IFRAME COMPONENT => INACTVE, ACTIVE, AND ERROR MODE*/}
-      {(appliedIframeUrl === '' && !showError) ? (
-        <div
-          id="iframeDiv"
-          style={{
-            display: 'flex',
-            width: '100%',
-            background: isDarkMode ? '#424242' : '#F5F5F5',
-            padding: '15px 20px',
-            borderRadius: '5px',
-            outline: isIframeFocused ? '2px solid #1976d2' : 'none',
-          }}
-          onClick={() => { setIframeFocused(true); setComponentFocused(true); }}
-        >
-          <LanguageIcon style={{ marginRight: '10px', color: isDarkMode ? 'white' : 'black' }} />
-          <p style={{ margin: '0', color: isDarkMode ? 'white' : 'black' }}>Missing URL</p>
-        </div>
-      ) : iframeActive ? (
-        <div
-          id="iframeDiv"
-          style={{
-            padding: '14px',
-            backgroundColor: isDarkMode ? '#424242' : '#F5F5F5',
-            borderRadius: '5px',
-            outline: isIframeFocused ? '2px solid #1976d2' : 'none',
-          }}
-          onClick={() => { setIframeFocused(true); setComponentFocused(true); }}
-        >
-          <iframe
-            src={appliedIframeUrl}
-            width="100%"
-            height="400px"
-            onError={() => {
-              setIframeActive(false)
-              setShowError(true)
-              setTimeout(() => setShowError(false), 3000)
+      <div style={{ width: "100%", display: "flex", alignItems: "center", gap: "10px" }}>
+        {(appliedIframeUrl === '' && !showError) ? (
+          <div
+            id="iframeDiv"
+            style={{
+              display: 'flex',
+              width: '100%',
+              background: isDarkMode ? '#424242' : '#F5F5F5',
+              padding: '15px 20px',
+              borderRadius: '5px',
+              outline: isIframeFocused ? '2px solid #1976d2' : 'none',
             }}
-          />
-        </div>
-      ) : showError ? (
-        <div
-          id="iframeDiv"
-          style={{
-            backgroundColor: '#FFEBEE',
-            borderRadius: '5px',
-            color: '#FF5252',
-            padding: '15px 20px',
-            display: 'flex',
-            width: '100%',
-            outline: isIframeFocused ? '2px solid #1976d2' : 'none',
-          }}
-          onClick={() => { setIframeFocused(true); setComponentFocused(true); }}
-        >
-          <LanguageIcon style={{ marginRight: '10px' }} />
-          <p style={{ margin: '0' }}>Provided URL does not support embed</p>
-        </div>
-      ) : null}
+            onClick={() => { setIframeFocused(true); setComponentFocused(true); }}
+          >
+            <LanguageIcon style={{ marginRight: '10px', color: isDarkMode ? 'white' : 'black' }} />
+            <p style={{ margin: '0', color: isDarkMode ? 'white' : 'black' }}>Missing URL</p>
+          </div>
+        ) : iframeActive ? (
+          <div
+            id="iframeDiv"
+            style={{
+              width: '100%',
+              padding: '14px',
+              backgroundColor: isDarkMode ? '#424242' : '#F5F5F5',
+              borderRadius: '5px',
+              outline: isIframeFocused ? '2px solid #1976d2' : 'none',
+            }}
+            onClick={() => { setIframeFocused(true); setComponentFocused(true); }}
+          >
+            <iframe
+              src={appliedIframeUrl}
+              width="100%"
+              height="400px"
+              onError={() => {
+                setIframeActive(false)
+                setShowError(true)
+                setTimeout(() => setShowError(false), 3000)
+              }}
+            />
+          </div>
+        ) : showError ? (
+          <div
+            id="iframeDiv"
+            style={{
+              backgroundColor: '#FFEBEE',
+              borderRadius: '5px',
+              color: '#FF5252',
+              padding: '15px 20px',
+              display: 'flex',
+              width: '100%',
+              outline: isIframeFocused ? '2px solid #1976d2' : 'none',
+            }}
+            onClick={() => { setIframeFocused(true); setComponentFocused(true); }}
+          >
+            <LanguageIcon style={{ marginRight: '10px' }} />
+            <p style={{ margin: '0' }}>Provided URL does not support embed</p>
+          </div>
+        ) : null}
+
+        {isDraggable && isEditable && <DragIndicatorIcon />}
+      </div>
 
       {/* NEW ELEMENT MENU */}
       <NewElementMenu

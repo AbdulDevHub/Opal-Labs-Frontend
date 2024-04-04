@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import AceEditor from 'react-ace'
 
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+
 import NewElementMenu from '@/components/DashboardComponents/NewElementMenu'
 import CodeBlockToolbarElement from '@/components/Toolbar/CodeBlock'
 import styled from 'styled-components'
@@ -38,6 +40,34 @@ interface CodeBlockElementProps {
   setPageElements: (value: Item[] | ((prevState: Item[]) => Item[])) => void
   setComponentFocused: (isFocused: boolean) => void
 }
+
+{/* POSITION THE TOOLBAR TO THE TOP OF THE SCREEN */ }
+type StyledDivProps = {
+  isDarkMode: boolean;
+};
+
+const StyledDiv = styled.div<StyledDivProps>`
+  position: fixed;
+  top: 90px;
+  left: 390px;
+  background-color: ${props => props.isDarkMode ? '#212121' : 'white'};
+  z-index: 1;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid ${props => props.isDarkMode ? 'white' : 'lightgray'};
+
+  @media (max-width: 1920px) and (min-width: 753px) {
+    left: calc(825px + ((100vw - 1920px) / 2));
+  }
+
+  @media (max-width: 753px) {
+    left: 240px;
+  }
+
+  @media (max-width: 884px) {
+    top: calc(90px + 25px);
+  }
+`;
 
 type Theme = 'github' | 'dracula' | 'tomorrow_night_blue' | 'chaos'
 
@@ -84,30 +114,6 @@ const CodeBlockElement: React.FC<CodeBlockElementProps> = ({
     'tomorrow_night_blue': '#002451',
     'chaos': '#161616'
   }
-
-  // Position the toolbar to top of screen
-  const StyledDiv = styled.div`
-   position: fixed;
-   top: 90px;
-   left: 390px;
-   background-color: ${isDarkMode ? '#212121' : 'white'};
-   z-index: 1;
-   padding: 15px;
-   border-radius: 5px;
-   border: 1px solid ${isDarkMode ? 'white' : 'lightgray'};
- 
-   @media (max-width: 1920px) and (min-width: 753px) {
-     left: calc(825px + ((100vw - 1920px) / 2));
-   }
- 
-   @media (max-width: 753px) {
-     left: 240px;
-   }
- 
-   @media (max-width: 884px) {
-     top: calc(90px + 25px);
-   }
- `;
 
   {/* -------------------------- CODE BLOCK EFFECTS -----------------------*/ }
   const aceEditorRef = useRef<AceEditor | null>(null)
@@ -230,7 +236,7 @@ const CodeBlockElement: React.FC<CodeBlockElementProps> = ({
     <div>
       {/* TOOLBAR */}
       {(isFocused || isMenuOpen) && isEditable && !isDraggable && (
-        <StyledDiv ref={toolbarRef}>
+        <StyledDiv isDarkMode={isDarkMode} ref={toolbarRef}>
           <CodeBlockToolbarElement
             index={index}
             handleDeleteContent={handleDeleteContent}
@@ -248,10 +254,11 @@ const CodeBlockElement: React.FC<CodeBlockElementProps> = ({
       )}
 
       {/* CODE BLOCK COMPONENT */}
-      <div style={{ position: 'relative' }}>
+      <div style={{ width: "100%", display: "flex", alignItems: "center", gap: "10px" }}>
         <div ref={toolbarRef} style={{
           padding: '20px',
           borderRadius: '5px',
+          width: '100%',
           background: themeBackgrounds[theme],
           outline: isFocused ? '2px solid #1976d2' : 'none'
         }}>
@@ -296,16 +303,18 @@ const CodeBlockElement: React.FC<CodeBlockElementProps> = ({
           />
         </div>
 
-        {/* NEW ELEMENT MENU */}
-        <NewElementMenu
-          index={index}
-          isTopElement={false}
-          isEditable={isEditable}
-          isDarkMode={isDarkMode}
-          isDraggable={isDraggable}
-          handleSelectType={handleSelectType}
-        />
+        {isDraggable && isEditable && <DragIndicatorIcon />}
       </div >
+
+      {/* NEW ELEMENT MENU */}
+      <NewElementMenu
+        index={index}
+        isTopElement={false}
+        isEditable={isEditable}
+        isDarkMode={isDarkMode}
+        isDraggable={isDraggable}
+        handleSelectType={handleSelectType}
+      />
     </div>
   )
 }

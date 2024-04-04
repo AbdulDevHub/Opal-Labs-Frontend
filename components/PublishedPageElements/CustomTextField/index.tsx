@@ -34,7 +34,7 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
             sx: {
               // Override Color For Disabled TextField
               '& .MuiInputBase-input.Mui-disabled': {
-                WebkitTextFillColor: '#000000',
+                WebkitTextFillColor: item.elementStyling.split(';').find(style => style.includes('color'))?.split(':')[1]?.trim() || '#000000',
               },
             },
             style: {

@@ -8,10 +8,10 @@ import FormatItalicIcon from '@mui/icons-material/FormatItalic'
 import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import LinkIcon from '@mui/icons-material/Link'
 import FormControl from '@mui/material/FormControl'
 import MenuItem from '@mui/material/MenuItem'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
+import Tooltip from '@mui/material/Tooltip'
 
 interface ColorOptionsProps {
   onColorChange: (color: string, index: number) => void
@@ -127,7 +127,6 @@ const CustomTextFieldToolbar: React.FC<CustomTextFieldToolbarProps> = ({
 }) => {
   {/* -------------------------- CUSTOM TEXT FIELD STATES -----------------------*/ }
   const [activeStyle, setActiveStyle] = useState(textType)
-  const [showTextUrlInput, setShowTextUrlInput] = useState(false) // This is for text url input which is not yet implemented
 
   {/* -------------------------- CUSTOM TEXT FIELD FUNCTIONS/HANDLERS -----------------------*/ }
 
@@ -208,8 +207,13 @@ const CustomTextFieldToolbar: React.FC<CustomTextFieldToolbarProps> = ({
         <div onClick={handleToolbarClick} style={{ width: "100%", display: "flex", alignItems: "center", gap: "10px", justifyContent: "center" }}>
           {/* -------------------------- MOVE UP/DOWN OPTIONS -----------------------*/}
           <div style={{ display: 'flex', paddingRight: '10px', borderRight: '1px solid rgba(0, 0, 0, 0.12)', gap: '10px', height: '100%', alignItems: 'center' }}>
-            <KeyboardArrowUpIcon onClick={() => moveElement(index, -1)} style={{ cursor: 'pointer', color: isDarkMode ? 'white' : 'black' }} />
-            <KeyboardArrowDownIcon onClick={() => moveElement(index, 1)} style={{ cursor: 'pointer', color: isDarkMode ? 'white' : 'black' }} />
+            <Tooltip title="Move Up">
+              <KeyboardArrowUpIcon onClick={() => moveElement(index, -1)} style={{ cursor: 'pointer', color: isDarkMode ? 'white' : 'black' }} />
+            </Tooltip>
+
+            <Tooltip title="Move Down">
+              <KeyboardArrowDownIcon onClick={() => moveElement(index, 1)} style={{ cursor: 'pointer', color: isDarkMode ? 'white' : 'black' }} />
+            </Tooltip>
           </div>
 
           {/* -------------------------- TEXT FORMATTING OPTION -----------------------*/}
@@ -235,100 +239,56 @@ const CustomTextFieldToolbar: React.FC<CustomTextFieldToolbarProps> = ({
             display: 'flex', paddingRight: '10px', borderRight: '1px solid rgba(0, 0, 0, 0.12)',
             gap: '10px', height: '100%', alignItems: 'center'
           }}>
-            <FormatBoldIcon
-              style={{
-                cursor: 'pointer', backgroundColor: isBold ? '#E0E0E0' : 'transparent',
-                borderRadius: isBold ? '5px' : '0', color: isDarkMode ? 'white' : 'black'
-              }}
-              onClick={() => { onSelectStyle('bold', index); setIsBold(!isBold) }} />
-            <FormatItalicIcon
-              style={{
-                cursor: 'pointer', backgroundColor: isItalic ? '#E0E0E0' : 'transparent',
-                borderRadius: isItalic ? '5px' : '0', color: isDarkMode ? 'white' : 'black'
-              }}
-              onClick={() => { onSelectStyle('italic', index); setIsItalic(!isItalic) }} />
-            <FormatUnderlinedIcon
-              style={{
-                cursor: 'pointer', backgroundColor: isUnderline ? '#E0E0E0' : 'transparent',
-                borderRadius: isUnderline ? '5px' : '0', color: isDarkMode ? 'white' : 'black'
-              }}
-              onClick={() => { onSelectStyle('underline', index); setIsUnderline(!isUnderline) }} />
+            <Tooltip title="Bold">
+              <FormatBoldIcon
+                style={{
+                  cursor: 'pointer', backgroundColor: isBold ? '#E0E0E0' : 'transparent',
+                  borderRadius: isBold ? '5px' : '0', color: isDarkMode ? 'white' : 'black'
+                }}
+                onClick={() => { onSelectStyle('bold', index); setIsBold(!isBold) }} />
+            </Tooltip>
+
+            <Tooltip title="Italic">
+              <FormatItalicIcon
+                style={{
+                  cursor: 'pointer', backgroundColor: isItalic ? '#E0E0E0' : 'transparent',
+                  borderRadius: isItalic ? '5px' : '0', color: isDarkMode ? 'white' : 'black'
+                }}
+                onClick={() => { onSelectStyle('italic', index); setIsItalic(!isItalic) }} />
+            </Tooltip>
+
+            <Tooltip title="Underline">
+              <FormatUnderlinedIcon
+                style={{
+                  cursor: 'pointer', backgroundColor: isUnderline ? '#E0E0E0' : 'transparent',
+                  borderRadius: isUnderline ? '5px' : '0', color: isDarkMode ? 'white' : 'black'
+                }}
+                onClick={() => { onSelectStyle('underline', index); setIsUnderline(!isUnderline) }} />
+            </Tooltip>
           </div>
 
           {/* -------------------------- TEXT COLOR AND TEXT HIGHLIGHT OPTIONS -----------------------*/}
           <div style={{ display: 'flex', paddingRight: '10px', borderRight: '1px solid rgba(0, 0, 0, 0.12)', gap: '10px', height: '100%', alignItems: 'center', position: 'relative' }}>
             <div style={{ position: 'relative' }}>
-              <FormatColorTextIcon style={{ cursor: 'pointer', color: isDarkMode ? 'white' : 'black' }} onClick={() => handleTextIconClick()} />
+              <Tooltip title="Text Color">
+                <FormatColorTextIcon style={{ cursor: 'pointer', color: isDarkMode ? 'white' : 'black' }} onClick={() => handleTextIconClick()} />
+              </Tooltip>
               {showTextColorOptions && <ColorOptions onColorChange={onColorChange} elementIndex={index} showTextHighlightOptions={false} selectedTextColor={activeTextColor} selectedTextHighlightColor={activeTextHighlightColor} />}
             </div>
             <div style={{ position: 'relative' }}>
-              <FormatColorFillIcon style={{ cursor: 'pointer', color: isDarkMode ? 'white' : 'black' }} onClick={() => handleFillIconClick()} />
+              <Tooltip title="Text Highlight Color">
+                <FormatColorFillIcon style={{ cursor: 'pointer', color: isDarkMode ? 'white' : 'black' }} onClick={() => handleFillIconClick()} />
+              </Tooltip>
               {showTextHighlightOptions && <ColorOptions onColorChange={onColorChange} elementIndex={index} showTextHighlightOptions={true} selectedTextColor={activeTextColor} selectedTextHighlightColor={activeTextHighlightColor} />}
             </div>
           </div>
 
-          {/* -------------------------- EMBEDDED URL LINK INPUT OPTION -----------------------*/}
-          <div style={{ display: 'flex', paddingRight: '10px', borderRight: '1px solid rgba(0, 0, 0, 0.12)', height: '100%', alignItems: 'center' }}>
-            <LinkIcon
-              /*onClick={() => setShowTextUrlInput(!showTextUrlInput) <= Url Feature Not Implemented}*/
-              style={{ cursor: 'pointer', color: isDarkMode ? 'white' : 'black' }} />
-          </div>
-
           {/* -------------------------- DELETE OPTION -----------------------*/}
           <div style={{ display: 'flex', height: '100%', alignItems: 'center' }}>
-            <DeleteIcon style={{ cursor: 'pointer', color: 'red' }} onClick={() => handleDeleteContent(index)} />
+            <Tooltip title="Delete">
+              <DeleteIcon style={{ cursor: 'pointer', color: 'red' }} onClick={() => handleDeleteContent(index)} />
+            </Tooltip>
           </div>
-
-          {/* -------------------------- LINK COMPONENT -----------------------*/}
-          {showTextUrlInput && (
-            <div style={{
-              backgroundColor: isDarkMode ? '#212121' : 'white',
-              width: '350px',
-              padding: '15px',
-              border: `1px solid ${isDarkMode ? 'white' : 'lightgray'}`,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-end',
-              position: 'absolute',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              zIndex: 1,
-              marginTop: '10px'
-            }}>
-              {/* -------------------------- URL INPUT -----------------------*/}
-              <input
-                type="text"
-                // value={textUrl}
-                // onChange={(e) => setTextUrl(e.target.value)}
-                placeholder="URL [THIS FEATURE IS NOT AVAILABLE YET ]"
-                style={{
-                  width: '100%',
-                  border: 'none',
-                  borderBottom: `1px solid ${isDarkMode ? 'white' : 'black'}`,
-                  outline: 'none',
-                  paddingBottom: '5px',
-                  backgroundColor: 'transparent',
-                }}
-              />
-
-              {/* -------------------------- APPLY BUTTON -----------------------*/}
-              <button
-                // onClick={handleApply}
-                style={{
-                  marginTop: '20px',
-                  border: 'none',
-                  background: 'none',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  color: isDarkMode ? 'white' : 'black',
-                }}
-                onMouseOver={(e) => (e.currentTarget.style.color = '#1976d2')}
-                onMouseOut={(e) => (e.currentTarget.style.color = 'black')}
-              >
-                Apply
-              </button>
-            </div>
-          )}
         </div>
       </div >
     </div>

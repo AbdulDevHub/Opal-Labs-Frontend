@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import PublicIcon from '@mui/icons-material/Public'
 import Typography from '@mui/material/Typography'
 
@@ -44,6 +45,34 @@ interface AnalyticsChartProps {
   setComponentFocused: (isFocused: boolean) => void
 }
 
+{/* POSITION THE TOOLBAR TO THE TOP OF THE SCREEN */ }
+type StyledDivProps = {
+  isDarkMode: boolean;
+};
+
+const StyledDiv = styled.div<StyledDivProps>`
+  position: fixed;
+  top: 90px;
+  left: 574px;
+  background-color: ${props => props.isDarkMode ? '#212121' : 'white'};
+  z-index: 1;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid ${props => props.isDarkMode ? 'white' : 'lightgray'};
+
+  @media (max-width: 1920px) and (min-width: 870px) {
+    left: calc(1009px + ((100vw - 1920px) / 2));
+  }
+
+  @media (max-width: 870px) {
+    left: 483px;
+  }
+
+  @media (max-width: 884px) {
+    top: calc(90px + 25px);
+  }
+`;
+
 /**
  * A React functional component that renders an analytics chart with various features and UI elements.
  *
@@ -74,30 +103,6 @@ const AnalyticsChart: React.FC<AnalyticsChartProps> = ({
   {/* -------------------------- ANALYTICS CHART STATES -----------------------*/ }
   const [isHovered, setIsHovered] = useState(false)
   const [isAnalyticsChartFocused, setIsAnalyticsChartFocused] = useState(false)
-
-  // Div to position the toolbar on the top of the screen
-  const StyledDiv = styled.div`
-    position: fixed;
-    top: 90px;
-    left: 574px;
-    background-color: ${isDarkMode ? '#212121' : 'white'};
-    z-index: 1;
-    padding: 15px;
-    border-radius: 5px;
-    border: 1px solid ${isDarkMode ? 'white' : 'lightgray'};
-
-    @media (max-width: 1920px) and (min-width: 870px) {
-      left: calc(1009px + ((100vw - 1920px) / 2));
-    }
-
-    @media (max-width: 870px) {
-      left: 483px;
-    }
-
-    @media (max-width: 928px) {
-      top: calc(90px + 25px);
-    }
-`;
 
   {/* -------------------------- ANALYTICS CHART EFFECTS -----------------------*/ }
   // Inside your component
@@ -188,7 +193,7 @@ const AnalyticsChart: React.FC<AnalyticsChartProps> = ({
     <div>
       {/* TOOLBAR */}
       {isAnalyticsChartFocused && isEditable && !isDraggable && (
-        <StyledDiv ref={toolbarRef}>
+        <StyledDiv isDarkMode={isDarkMode} ref={toolbarRef}>
           <AnalyticsChartToolbarElement
             index={index}
             isDarkMode={isDarkMode}
@@ -199,79 +204,85 @@ const AnalyticsChart: React.FC<AnalyticsChartProps> = ({
         </StyledDiv>
       )}
 
-      {/* -------------------------- BROKE USER UPGRADE TO PREMIUM -----------------------*/}
-      {isUserBroke || !dateViewCount ? (
-        <div
-          ref={toolbarRef}
-          id="analyticsChartDiv"
-          onClick={() => { setIsAnalyticsChartFocused(true); setComponentFocused(true); }}
-          style={{
-            display: 'flex', width: '100%', background: isDarkMode ? '#424242' : '#F5F5F5', padding: '15px 20px',
-            borderRadius: '5px', outline: isAnalyticsChartFocused ? '2px solid #1976d2' : 'none'
-          }}
-        >
-          {isUserBroke ? (
-            <>
-              <AccountCircleIcon style={{ color: isDarkMode ? '#fff' : 'black', marginRight: '10px' }} />
-              <p style={{ margin: '0', color: isDarkMode ? '#fff' : 'black' }}>Upgrade Your Account To View Analytics</p>
-            </>
-          ) : !dateViewCount ? (
-            <>
-              <PublicIcon style={{ color: isDarkMode ? '#fff' : 'black', marginRight: '10px' }} />
-              <p style={{ margin: '0', color: isDarkMode ? '#fff' : 'black' }}>You Need To Publish The Page To See Analytics</p>
-            </>
-          ) : null}
-        </div>
-      ) : (
-        <div id="analyticsChartDiv"
-          ref={toolbarRef}
-          onClick={() => { setIsAnalyticsChartFocused(true); setComponentFocused(true); }}
-          style={{
-            paddingTop: '14px',
-            paddingRight: '30px',
-            border: '15px solid lightblue',
-            borderRadius: '5px',
-            outline: isAnalyticsChartFocused ? '2px solid #1976d2' : 'none',
-          }}>
-          {/* -------------------------- PREMIUM USERS GET ANALYTICS CHART -----------------------*/}
-          <Typography variant="h6" style={{ color: isDarkMode ? '#fff' : 'black' }}>Total View Count: {totalViewCount}</Typography>
-          <ResponsiveContainer width="100%" height={400}>
-            <AreaChart
-              onMouseMove={(event) => {
-                if (event && event.activePayload) {
-                  setIsHovered(true)
-                }
-              }}
-              onMouseLeave={() => setIsHovered(false)}
-              data={views}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" ticks={views.map((v, i) => (i % interval === 0 ? v.date : ''))} />
-              <YAxis />
-              <Tooltip />
-              <Legend verticalAlign="bottom" height={36} />
-              <Area
-                type="monotone"
-                dataKey="viewCount"
-                stroke="#8884d8"
-                strokeWidth={3}
-                fill="#add8e6"
-                dot={false}
-                name="View Count"
-                animationBegin={400}
-                animationDuration={3000}
-                activeDot={isHovered ? { r: 8 } : { r: 0 }}
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        </div>
-      )}
+      {/* -------------------------- ANALYTICS CHART COMPONENT -----------------------*/}
+      <div style={{ width: "100%", display: "flex", alignItems: "center", gap: "10px" }}>
+        {/* -------------------------- UPGRADE TO PREMIUM OR PUBLISH PAGE -----------------------*/}
+        {isUserBroke || !dateViewCount ? (
+          <div
+            ref={toolbarRef}
+            id="analyticsChartDiv"
+            onClick={() => { setIsAnalyticsChartFocused(true); setComponentFocused(true); }}
+            style={{
+              display: 'flex', width: '100%', background: isDarkMode ? '#424242' : '#F5F5F5', padding: '15px 20px',
+              borderRadius: '5px', outline: isAnalyticsChartFocused ? '2px solid #1976d2' : 'none'
+            }}
+          >
+            {isUserBroke ? (
+              <>
+                <AccountCircleIcon style={{ color: isDarkMode ? '#fff' : 'black', marginRight: '10px' }} />
+                <p style={{ margin: '0', color: isDarkMode ? '#fff' : 'black' }}>Upgrade Your Account To View Analytics</p>
+              </>
+            ) : !dateViewCount ? (
+              <>
+                <PublicIcon style={{ color: isDarkMode ? '#fff' : 'black', marginRight: '10px' }} />
+                <p style={{ margin: '0', color: isDarkMode ? '#fff' : 'black' }}>You Need To Publish The Page To See Analytics</p>
+              </>
+            ) : null}
+          </div>
+        ) : (
+          <div id="analyticsChartDiv"
+            ref={toolbarRef}
+            onClick={() => { setIsAnalyticsChartFocused(true); setComponentFocused(true); }}
+            style={{
+              width: '100%',
+              paddingTop: '14px',
+              paddingRight: '30px',
+              border: '15px solid lightblue',
+              borderRadius: '5px',
+              outline: isAnalyticsChartFocused ? '2px solid #1976d2' : 'none',
+            }}>
+            {/* -------------------------- PREMIUM USERS GET ANALYTICS CHART -----------------------*/}
+            <Typography variant="h6" style={{ color: isDarkMode ? '#fff' : 'black' }}>Total View Count: {totalViewCount}</Typography>
+            <ResponsiveContainer width="100%" height={400}>
+              <AreaChart
+                onMouseMove={(event) => {
+                  if (event && event.activePayload) {
+                    setIsHovered(true)
+                  }
+                }}
+                onMouseLeave={() => setIsHovered(false)}
+                data={views}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="date" ticks={views.map((v, i) => (i % interval === 0 ? v.date : ''))} />
+                <YAxis />
+                <Tooltip />
+                <Legend verticalAlign="bottom" height={36} />
+                <Area
+                  type="monotone"
+                  dataKey="viewCount"
+                  stroke="#8884d8"
+                  strokeWidth={3}
+                  fill="#add8e6"
+                  dot={false}
+                  name="View Count"
+                  animationBegin={400}
+                  animationDuration={3000}
+                  activeDot={isHovered ? { r: 8 } : { r: 0 }}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        )}
+
+        {isDraggable && isEditable && <DragIndicatorIcon />}
+      </div>
 
       {/* NEW ELEMENT MENU */}
       <NewElementMenu

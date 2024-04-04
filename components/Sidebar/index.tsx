@@ -127,7 +127,7 @@ const Sidebar = (props: Props) => {
   }
 
   /**
-   * A description of the entire function.
+   * Handles the click action based on the provided parameters.
    *
    * @param {React.MouseEvent<HTMLElement>} event - description of parameter
    * @param {string} page_uuid - description of parameter
@@ -155,19 +155,17 @@ const Sidebar = (props: Props) => {
     page_name?: string,
     page_elements?: any[],
     is_favourite?: boolean,
-    public_page?: boolean) => {
+    public_page?: boolean
+  ) => {
     if (action === 'Delete') {
       deletePage(page_uuid)
       // Create this new var so selectedPageUuid is updated correctly b/c of async
       const newPages = pages.filter(page => page.page_uuid !== page_uuid)
       setPages(newPages)
       setSelectedPageUuid(newPages[0]?.page_uuid)
-      // If pages is now empty, set create a new empty page
-      if (newPages.length === 0) {
-        createPage()
-        // Reload Page
-        window.location.reload()
-      }
+
+      // If pages is now empty, reload tab to retrieve welcome page from backend
+      if (newPages.length === 0) window.location.reload()
     } else if (action === 'Rename') {
       setEditingPageUuid(page_uuid)
     } else if (action === 'Favourite' && page_name && page_is_root) {
@@ -216,7 +214,6 @@ const Sidebar = (props: Props) => {
                 const isSelected = selectedPageUuid === page.page_uuid
                 const isHovered = hoveredItem === page.page_uuid
                 const isRoot = page.is_root
-                // const pageElements = page.page_elements <= Need to fix this as renaming loses elements for some reason [probably a backend issue]
                 const isPublicPage = page.public_page
 
                 return (
@@ -306,7 +303,6 @@ const Sidebar = (props: Props) => {
             const isSelected = selectedPageUuid === page.page_uuid
             const isHovered = hoveredItem === page.page_uuid
             const isRoot = page.is_root
-            // const pageElements = page.page_elements <= Need to fix this as renaming loses elements for some reason [probably a backend issue]
             const isPublicPage = page.public_page
 
             return (

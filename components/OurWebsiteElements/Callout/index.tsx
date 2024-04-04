@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import TextField from '@mui/material/TextField'
 
 import NewElementMenu from '@/components/DashboardComponents/NewElementMenu'
@@ -27,6 +28,34 @@ interface CalloutElementProps {
   setPageElements: (value: Item[] | ((prevState: Item[]) => Item[])) => void
   setComponentFocused: (isFocused: boolean) => void
 }
+
+{/* POSITION THE TOOLBAR TO THE TOP OF THE SCREEN */ }
+type StyledDivProps = {
+  isDarkMode: boolean;
+};
+
+const StyledDiv = styled.div<StyledDivProps>`
+  position: fixed;
+  top: 90px;
+  left: 555px;
+  background-color: ${props => props.isDarkMode ? '#212121' : 'white'};
+  z-index: 1;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid ${props => props.isDarkMode ? 'white' : 'lightgray'};
+
+  @media (max-width: 1920px) and (min-width: 870px) {
+    left: calc(990px + ((100vw - 1920px) / 2));
+  }
+
+  @media (max-width: 870px) {
+    left: 460px;
+  }
+
+  @media (max-width: 884px) {
+    top: calc(90px + 25px);
+  }
+`;
 
 /**
  * Renders a callout element with a toolbar and a text field.
@@ -61,30 +90,6 @@ const CalloutElement: React.FC<CalloutElementProps> = ({
   // State to show or hide options
   const [showEmojiPicker, setShowEmojiPicker] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
-
-  // Position the toolbar on the top of the screen
-  const StyledDiv = styled.div`
-    position: fixed;
-    top: 90px;
-    left: 555px;
-    background-color: ${isDarkMode ? '#212121' : 'white'};
-    z-index: 1;
-    padding: 15px;
-    border-radius: 5px;
-    border: 1px solid ${isDarkMode ? 'white' : 'lightgray'};
-
-    @media (max-width: 1920px) and (min-width: 870px) {
-      left: calc(990px + ((100vw - 1920px) / 2));
-    }
-
-    @media (max-width: 870px) {
-      left: 460px;
-    }
-
-    @media (max-width: 884px) {
-      top: calc(90px + 25px);
-    }
-`;
 
   {/* -------------------------- CALLOUT EFFECTS -----------------------*/ }
   // Inside your component
@@ -134,7 +139,7 @@ const CalloutElement: React.FC<CalloutElementProps> = ({
 
       {/* TOOLBAR */}
       {(isFocused || showEmojiPicker) && !isDraggable && isEditable && (
-        <StyledDiv ref={toolbarRef}>
+        <StyledDiv isDarkMode={isDarkMode} ref={toolbarRef}>
           <CalloutToolbarElement
             index={index}
             handleDeleteContent={handleDeleteContent}
@@ -162,54 +167,58 @@ const CalloutElement: React.FC<CalloutElementProps> = ({
       )}
 
       {/* CALLOUT COMPONENT */}
-      <div ref={toolbarRef} style={{
-        width: "100%",
-        display: "flex",
-        backgroundColor: isDarkMode ? "#424242" : "#F5F5F5",
-        padding: " 10px",
-        borderRadius: "5px",
-        border: isFocused ? "2px solid #1976d2" : "2px solid transparent"
-      }}>
+      <div style={{ width: "100%", display: "flex", alignItems: "center", gap: "10px" }}>
+        <div ref={toolbarRef} style={{
+          width: "100%",
+          display: "flex",
+          backgroundColor: isDarkMode ? "#424242" : "#F5F5F5",
+          padding: " 10px",
+          borderRadius: "5px",
+          border: isFocused ? "2px solid #1976d2" : "2px solid transparent"
+        }}>
 
-        {/* CALLOUT EMOJI */}
-        <p style={{ marginTop: "0px", marginBottom: "0px", marginRight: "10px", paddingTop: "3px" }}>
-          {item.elementStyling}
-        </p>
+          {/* CALLOUT EMOJI */}
+          <p style={{ marginTop: "0px", marginBottom: "0px", marginRight: "10px", paddingTop: "3px" }}>
+            {item.elementStyling}
+          </p>
 
-        {/* CALLOUT TEXT */}
-        <TextField
-          ref={toolbarRef}
-          value={item.content}
-          onChange={(e) => {
-            const updatedContent = {
-              ...item,
-              content: e.target.value,
-              ...(item.element_uuid ? { element_uuid: item.element_uuid } : {})
-            }
-            setPageElements([
-              ...pageElements.slice(0, index),
-              updatedContent,
-              ...pageElements.slice(index + 1)
-            ])
-          }}
-          fullWidth
-          multiline
-          variant="standard"
-          disabled={(!isEditable || isDraggable)}
-          InputProps={{
-            disableUnderline: true,
-            sx: {
-              // Override Color For Disabled TextField
-              '& .MuiInputBase-input.Mui-disabled': {
-                WebkitTextFillColor: isDarkMode ? 'white' : '#000000',
+          {/* CALLOUT TEXT */}
+          <TextField
+            ref={toolbarRef}
+            value={item.content}
+            onChange={(e) => {
+              const updatedContent = {
+                ...item,
+                content: e.target.value,
+                ...(item.element_uuid ? { element_uuid: item.element_uuid } : {})
+              }
+              setPageElements([
+                ...pageElements.slice(0, index),
+                updatedContent,
+                ...pageElements.slice(index + 1)
+              ])
+            }}
+            fullWidth
+            multiline
+            variant="standard"
+            disabled={(!isEditable || isDraggable)}
+            InputProps={{
+              disableUnderline: true,
+              sx: {
+                // Override Color For Disabled TextField
+                '& .MuiInputBase-input.Mui-disabled': {
+                  WebkitTextFillColor: isDarkMode ? 'white' : '#000000',
+                },
               },
-            },
-            style: {
-              color: isDarkMode ? "white" : "black",
-            }
-          }}
-          onClick={() => { setIsFocused(true); setComponentFocused(true); }}
-        />
+              style: {
+                color: isDarkMode ? "white" : "black",
+              }
+            }}
+            onClick={() => { setIsFocused(true); setComponentFocused(true); }}
+          />
+        </div>
+
+        {isDraggable && isEditable && <DragIndicatorIcon />}
       </div>
 
       {/* NEW ELEMENT MENU */}
