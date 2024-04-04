@@ -6,7 +6,7 @@ type Method = (typeof methodKeys)[number]
 const baseURLKeys = ['BE', 'CUSTOM'] as const
 type BaseURL = (typeof baseURLKeys)[number]
 
-const OPALESCENCE_BASE_URL = process.env.NEXT_PUBLIC_OPALESCENCE_BASE_URL
+const OPAL_LABS_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
 type Props = {
   method: Method
@@ -33,7 +33,7 @@ const fetchHelper = async (props: Props): Promise<{ data: any; error: any; statu
   const api = () => {
     switch (base) {
       case 'BE':
-        return `${OPALESCENCE_BASE_URL}/${url}`
+        return `${OPAL_LABS_BASE_URL}/${url}`
       default:
         return url
     }

@@ -18,7 +18,7 @@ const HomePage = () => {
 
   // Easily Changeable User & Image Values
   const logoImage = '/images/opal.png'
-  const fullLogoNameImage = '/images/Opalesence Logo/Full Name.png'
+  const fullLogoNameImage = '/images/Logo/Full Name.png'
   const sampleImage = '/images/sampleHomePageImage.png'
   const sampleImageStyleText = '/images/sampleHomePageImage.png'
   const sampleImagePublish = '/images/sampleHomePageImage.png'

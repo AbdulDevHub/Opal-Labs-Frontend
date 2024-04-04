@@ -26,7 +26,7 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('/')`. */
     // Tests will try to run run on GitHub Actions (i.e., process.env.CI is true),
     // and if process.env.VERCEL_URL is not available, it will use
-    // official link (https://opalescence.vercel.app/) as the baseURL.
+    // official link (https://opal-labs.vercel.app/) as the baseURL.
     // Otherwise, it will use localhost:3000 for local testing.
     baseURL: process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
