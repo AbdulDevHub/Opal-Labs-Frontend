@@ -102,7 +102,7 @@ const HomePage = () => {
                 <h3 style={{ fontSize: '30px' }}>Styled Text</h3>
                 <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Enhance readability with various text sizes, styles, and colors</p>
               </div>
-              <Image src={sampleImageStyleText} layout='responsive' alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
+              <Image src={sampleImageStyleText} unoptimized layout='responsive' alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
             </div>
 
             <div style={{ backgroundColor: '#222222', padding: '20px 30px', maxWidth: '615px', borderRadius: '20px', border: '2px solid #424242' }}>
@@ -110,7 +110,7 @@ const HomePage = () => {
                 <h3 style={{ fontSize: '30px' }}>Publish & Share</h3>
                 <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Publish read-only versions of your notes to share with peers</p>
               </div>
-              <Image src={sampleImagePublish} layout='responsive' alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
+              <Image src={sampleImagePublish} unoptimized layout='responsive' alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
             </div>
           </div>
 
@@ -120,7 +120,7 @@ const HomePage = () => {
                 <h3 style={{ fontSize: '30px' }}>Page Hierarchy</h3>
                 <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Group your thoughts and stay organized with our subpages</p>
               </div>
-              <Image src={sampleImageSubpages} layout='responsive' alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
+              <Image src={sampleImageSubpages} unoptimized layout='responsive' alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
             </div>
 
             <div style={{ backgroundColor: '#222222', padding: '20px 30px', maxWidth: '615px', borderRadius: '20px', border: '2px solid #424242' }}>
@@ -128,7 +128,7 @@ const HomePage = () => {
                 <h3 style={{ fontSize: '30px' }}>Embed Elements</h3>
                 <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Enhance your notes by embedding entire websites & videos</p>
               </div>
-              <Image src={sampleImageEmbed} layout='responsive' alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
+              <Image src={sampleImageEmbed} unoptimized layout='responsive' alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
             </div>
           </div>
         </section>
