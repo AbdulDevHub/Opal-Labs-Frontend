@@ -97,7 +97,7 @@ const HomePage = () => {
           <p style={{ color: '#BFBFBF', fontFamily: 'Arial', fontWeight: 'normal', fontSize: '26px', margin: '0 auto 60px auto', maxWidth: '750px' }}>From personal notes to journal entries, knowledge bases, and project management, Opal Labs gives you the tools to come up with idea and oraganize them.</p>
 
           <div className="responsive-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '40px', marginTop: '40px', padding: '0 20px' }}>
-            <div style={{ backgroundColor: '#222222', padding: '20px 30px', maxWidth: '605px', borderRadius: '20px', border: '2px solid #424242' }}>
+            <div style={{ backgroundColor: '#222222', padding: '20px 30px', maxWidth: '615px', borderRadius: '20px', border: '2px solid #424242' }}>
               <div style={{ textAlign: 'left' }}>
                 <h3 style={{ fontSize: '30px' }}>Styled Text</h3>
                 <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Enhance readability with various text sizes, styles, and colors</p>
@@ -105,7 +105,7 @@ const HomePage = () => {
               <Image src={sampleImageStyleText} layout='responsive' alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
             </div>
 
-            <div style={{ backgroundColor: '#222222', padding: '20px 30px', maxWidth: '605px', borderRadius: '20px', border: '2px solid #424242' }}>
+            <div style={{ backgroundColor: '#222222', padding: '20px 30px', maxWidth: '615px', borderRadius: '20px', border: '2px solid #424242' }}>
               <div style={{ textAlign: 'left' }}>
                 <h3 style={{ fontSize: '30px' }}>Publish & Share</h3>
                 <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Publish read-only versions of your notes to share with peers</p>
@@ -115,7 +115,7 @@ const HomePage = () => {
           </div>
 
           <div className="responsive-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '40px', marginTop: '40px', padding: '0 20px' }}>
-            <div style={{ backgroundColor: '#222222', padding: '20px 30px', maxWidth: '605px', borderRadius: '20px', border: '2px solid #424242' }}>
+            <div style={{ backgroundColor: '#222222', padding: '20px 30px', maxWidth: '615px', borderRadius: '20px', border: '2px solid #424242' }}>
               <div style={{ textAlign: 'left' }}>
                 <h3 style={{ fontSize: '30px' }}>Page Hierarchy</h3>
                 <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Group your thoughts and stay organized with our subpages</p>
@@ -123,7 +123,7 @@ const HomePage = () => {
               <Image src={sampleImageSubpages} layout='responsive' alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
             </div>
 
-            <div style={{ backgroundColor: '#222222', padding: '20px 30px', maxWidth: '605px', borderRadius: '20px', border: '2px solid #424242' }}>
+            <div style={{ backgroundColor: '#222222', padding: '20px 30px', maxWidth: '615px', borderRadius: '20px', border: '2px solid #424242' }}>
               <div style={{ textAlign: 'left' }}>
                 <h3 style={{ fontSize: '30px' }}>Embed Elements</h3>
                 <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Enhance your notes by embedding entire websites & videos</p>
