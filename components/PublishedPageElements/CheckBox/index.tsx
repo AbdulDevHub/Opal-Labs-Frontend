@@ -21,7 +21,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
   return (
     <>
       {/* CHECKBOX COMPONENT */}
-      <div style={{ display: 'flex', alignItems: 'center', maxWidth: '600px', gap: '20px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', width: '100%', gap: '20px' }}>
         <Checkbox checked={item.elementStyling === 'checked'} />
         <TextField
           value={item.content}
