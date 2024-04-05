@@ -41,7 +41,7 @@ const HomePage = () => {
 
       {/* ------------------ Header ------------------ */}
       <header>
-        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '20px', alignItems: 'center' }}>
+        <div className='responsive-login' style={{ display: 'flex', justifyContent: 'space-between', gap: '20px', alignItems: 'center' }}>
           <Image src={fullLogoNameImage} alt='Opal Labs' width={300} height={75} />
 
           <div style={{ display: 'flex', gap: '20px' }}>
@@ -49,7 +49,7 @@ const HomePage = () => {
           </div>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '80px', marginTop: '40px', alignItems: 'center', padding: '0 150px' }}>
+        <div className='responsive-logo' style={{ display: 'flex', justifyContent: 'space-between', gap: '80px', margin: '40px auto 0 auto', alignItems: 'center', maxWidth: '1040px' }}>
           <div style={{ textAlign: 'left' }}>
             <h1 style={{ fontSize: '60px', fontWeight: 'bold' }}>Unleash Your{' '}
               <span style={{
@@ -63,24 +63,24 @@ const HomePage = () => {
 
             <h3 style={{ color: '#BFBFBF', fontFamily: 'Arial', fontWeight: 'normal', fontSize: '32px' }}>Opal Labs is the flexible writing app that adapts to the way you think.</h3>
           </div>
-          <Image src={logoImage} alt='Sample Image' width={225} height={225} />
+          <Image src={logoImage} alt='Site Opal Logo' width={225} height={225} />
         </div>
 
-        <Image src={sampleImage} alt='User Image' width={1250} height={650} style={{ borderRadius: '20px', marginTop: '40px', padding: '10px', backgroundColor: '#1E1E1E', border: '1px solid #fff' }} />
+        <Image layout='responsive' src={sampleImage} alt='Sample Homepage Image' width={1250} height={650} style={{ borderRadius: '20px', marginTop: '40px', padding: '10px', backgroundColor: '#1E1E1E', border: '1px solid #fff' }} />
       </header>
 
       {/* ------------------ Main Sections ------------------ */}
       <main style={{ marginTop: '80px' }}>
-        <section style={{ display: 'flex', gap: '100px', padding: '0 110px', justifyContent: 'center', alignItems: 'center' }}>
+        <section className="responsive-container use-section" style={{ display: 'flex', gap: '100px', padding: '0 110px', justifyContent: 'center', alignItems: 'center' }}>
           <div style={{ textAlign: 'left' }}>
             <h2>For Personal Use.</h2>
-            <p style={{ color: '#A3A3A3' }}>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus sint dolore rem ratione nesciunt. Exercitationem eius reiciendis, maxime vitae animi debitis. Possimus exercitationem nihil doloribus illum laborum. Doloremque, deleniti atque!</p>
+            <p style={{ color: '#A3A3A3' }}>Our note-taking platform is perfect for personal use. Organize your thoughts, jot down your ideas, or simply keep track of your daily activities. With our rich text editor, you can style your notes to your liking.</p>
 
             <h2>For School Use.</h2>
-            <p style={{ color: '#A3A3A3' }}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum voluptatum esse culpa id deleniti tenetur dignissimos consequatur, facere magni molestiae veniam iure itaque minus explicabo ipsum quod tempore velit quas.</p>
+            <p style={{ color: '#A3A3A3' }}>Whether you're a student or a teacher, our platform can help you stay on top of your academic work. Create subpages for different subjects or projects, embed relevant webpages, and even track your progress with checkboxes.</p>
 
             <h2>For Work Use.</h2>
-            <p style={{ color: '#A3A3A3' }}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae adipisci, earum velit placeat sed voluptatem alias, repudiandae dolorem aspernatur officia dicta enim, unde corporis est ex aut illo cumque quasi.</p>
+            <p style={{ color: '#A3A3A3' }}>Stay productive with our platform's features tailored for professional use. Collaborate with your team by sharing your notes, keep track of tasks with checkboxes, and present your ideas clearly with our callout component.</p>
           </div>
 
           <div style={{ padding: '0 30px' }}>
@@ -94,41 +94,41 @@ const HomePage = () => {
 
         <section style={{ marginTop: '80px' }}>
           <h1 style={{ fontSize: '60px', fontWeight: 'bold' }}>Spark Brilliance</h1>
-          <p style={{ color: '#BFBFBF', fontFamily: 'Arial', fontWeight: 'normal', fontSize: '26px', padding: '0 270px', marginBottom: '60px' }}>From personal notes to journal entries, knowledge bases, and project management, Opal Labs gives you the tools to come up with idea and oraganize them.</p>
+          <p style={{ color: '#BFBFBF', fontFamily: 'Arial', fontWeight: 'normal', fontSize: '26px', margin: '0 auto 60px auto', maxWidth: '750px' }}>From personal notes to journal entries, knowledge bases, and project management, Opal Labs gives you the tools to come up with idea and oraganize them.</p>
 
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '40px', marginTop: '40px', padding: '0 20px' }}>
-            <div style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242' }}>
+          <div className="responsive-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '40px', marginTop: '40px', padding: '0 20px' }}>
+            <div style={{ backgroundColor: '#222222', padding: '20px 30px', maxWidth: '605px', borderRadius: '20px', border: '2px solid #424242' }}>
               <div style={{ textAlign: 'left' }}>
                 <h3 style={{ fontSize: '30px' }}>Styled Text</h3>
-                <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Enhance readability with varied text sizes and colors</p>
+                <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Enhance readability with various text sizes, styles, and colors</p>
               </div>
-              <Image src={sampleImageStyleText} alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
+              <Image src={sampleImageStyleText} layout='responsive' alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
             </div>
 
-            <div style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242' }}>
+            <div style={{ backgroundColor: '#222222', padding: '20px 30px', maxWidth: '605px', borderRadius: '20px', border: '2px solid #424242' }}>
               <div style={{ textAlign: 'left' }}>
                 <h3 style={{ fontSize: '30px' }}>Publish & Share</h3>
-                <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Publish read-only versions of your notes to share with your peers</p>
+                <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Publish read-only versions of your notes to share with peers</p>
               </div>
-              <Image src={sampleImagePublish} alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
+              <Image src={sampleImagePublish} layout='responsive' alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
             </div>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '40px', marginTop: '40px', padding: '0 20px' }}>
-            <div style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242' }}>
+          <div className="responsive-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '40px', marginTop: '40px', padding: '0 20px' }}>
+            <div style={{ backgroundColor: '#222222', padding: '20px 30px', maxWidth: '605px', borderRadius: '20px', border: '2px solid #424242' }}>
               <div style={{ textAlign: 'left' }}>
                 <h3 style={{ fontSize: '30px' }}>Page Hierarchy</h3>
-                <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Group your thoughts and stay organized</p>
+                <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Group your thoughts and stay organized with our subpages</p>
               </div>
-              <Image src={sampleImageSubpages} alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
+              <Image src={sampleImageSubpages} layout='responsive' alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
             </div>
 
-            <div style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242' }}>
+            <div style={{ backgroundColor: '#222222', padding: '20px 30px', maxWidth: '605px', borderRadius: '20px', border: '2px solid #424242' }}>
               <div style={{ textAlign: 'left' }}>
-                <h3 style={{ fontSize: '30px' }}>Embed</h3>
-                <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Enhance your notes with Youtube videos, Google Maps, Social Media posts, etc.</p>
+                <h3 style={{ fontSize: '30px' }}>Embed Elements</h3>
+                <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Enhance your notes by embedding entire websites & videos</p>
               </div>
-              <Image src={sampleImageEmbed} alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
+              <Image src={sampleImageEmbed} layout='responsive' alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
             </div>
           </div>
         </section>
@@ -137,7 +137,7 @@ const HomePage = () => {
           <h1 style={{ fontSize: '60px', fontWeight: 'bold' }}>It's your time to shine.</h1>
           <Button onClick={() => signIn('google')} style={{ backgroundColor: '#54D8B3', color: 'white', padding: '20px 40px', borderRadius: '15px' }}>Get Started Now</Button>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', gap: '40px', marginTop: '40px', textAlign: 'left' }}>
+          <div className="responsive-container" style={{ display: 'flex', justifyContent: 'space-between', gap: '40px', marginTop: '40px', textAlign: 'left' }}>
             <div className="hover-on-div" style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242' }}>
               <h3>Customer 1</h3>
               <p style={{ color: '#A3A3A3' }}>“An incredible app. The distinction between Opal Labs and its competitors is beyond words.”</p>
@@ -165,11 +165,11 @@ const HomePage = () => {
           </div>
           <div>
             <p>Follow us</p>
-            <div style={{ display: 'flex', gap: '20px' }}>
-              <p>Portfolio</p>
-              <p>LinkedIn</p>
-              <p>YouTube</p>
-              <p>GitHub</p>
+            <div className='footer-links responsive-container' style={{ display: 'flex', gap: '20px' }}>
+              <a href='https://abdulhadikhan.netlify.app/' target='_blank' rel='noreferrer' aria-label='Portfolio'><p>Portfolio</p></a>
+              <a href='https://www.linkedin.com/in/abdul-hadi-khan/' target='_blank' rel='noreferrer' aria-label='LinkedIn'><p>LinkedIn</p></a>
+              <a href='https://www.youtube.com/@learningexpressway/videos' target='_blank' rel='noreferrer' aria-label='YouTube'><p>YouTube</p></a>
+              <a href='https://github.com/AbdulDevHub/' target='_blank' rel='noreferrer' aria-label='GitHub'><p>GitHub</p></a>
             </div>
           </div>
         </div>

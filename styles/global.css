@@ -58,3 +58,46 @@
 .hover-on-div:hover p {
   color: white !important;
 }
+
+/*---------------- Homepage Footer ----------*/
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.footer-links a:hover {
+  color: #54d8b3;
+  transform: translateY(-5px);
+}
+
+/*---------------- Responsive Design ----------*/
+@media only screen and (max-width: 1000px) {
+  .responsive-container {
+    flex-direction: column;
+  }
+
+  .footer-links,
+  .footer-links p {
+    gap: 0 !important;
+    margin-top: 5px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .responsive-logo {
+    flex-direction: column;
+  }
+
+  .use-section {
+    padding: 0 !important;
+  }
+}
+
+@media only screen and (max-width: 675px) {
+  .responsive-login {
+    flex-direction: column;
+  }
+}

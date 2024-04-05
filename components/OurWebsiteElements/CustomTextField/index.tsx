@@ -102,9 +102,9 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
   const [activeTextHighlightColor, setActiveTextHighlightColor] = useState("transparent")
 
   // States for text styles
-  const [isBold, setIsBold] = useState(false)
-  const [isItalic, setIsItalic] = useState(false)
-  const [isUnderline, setIsUnderline] = useState(false)
+  const [isBold, setIsBold] = useState(item.elementStyling.includes('bold'))
+  const [isItalic, setIsItalic] = useState(item.elementStyling.includes('italic'))
+  const [isUnderline, setIsUnderline] = useState(item.elementStyling.includes('underline'))
 
   {/* -------------------------- CUSTOM TEXT FIELD EFFECTS -----------------------*/ }
   // Inside your component
