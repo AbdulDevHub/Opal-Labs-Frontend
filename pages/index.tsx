@@ -34,7 +34,7 @@ const HomePage = () => {
 
   {/* -------------------------- HOMEPAGE RENDERER -----------------------*/ }
   return (
-    <div className='homepage' style={{ backgroundColor: '171717', color: 'white', padding: '60px 100px', textAlign: 'center' }}>
+    <div className='homepage' style={{ backgroundColor: '#171717', color: 'white', padding: '60px 100px', textAlign: 'center' }}>
       <Head>
         <title>Opal Labs</title>
       </Head>
