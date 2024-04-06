@@ -6,10 +6,6 @@
   scroll-behavior: smooth;
 }
 
-.homepage {
-  background-color: #171717;
-}
-
 /*---------------- Hide Code Block Cursor ----------*/
 .ace_hidden-cursors {
   opacity: 0;
