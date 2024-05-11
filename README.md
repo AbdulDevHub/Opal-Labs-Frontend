@@ -1,5 +1,9 @@
 # Opal Labs [Frontend]
 
+<a href="https://opal-labs.vercel.app/" target="_blank" rel="noreferrer"> 
+  <img height="400" src="public/images/Screenshot.png">
+</a>
+
 ## Introduction
 
 This is a public copy of a private repository in which I am currently working with a team of 7 people to create a Notion-like productivity website. The project is built using Next.js, TypeScript, Google OAuth, the Agile Model, PostgreSQL, Redis, Playwright, and Go. NOTE: This repository is the frontend section of the site, to view the backend, go to [this repository link](https://github.com/AbdulDevHub/Opal-Labs-Backend).
@@ -71,6 +75,6 @@ Contributions are welcome! If you have suggestions for improvements, please open
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 <br>
