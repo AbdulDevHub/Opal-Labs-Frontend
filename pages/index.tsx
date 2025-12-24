@@ -84,8 +84,8 @@ const HomePage = () => {
           </div>
 
           <div style={{ padding: '0 30px' }}>
-            <div style={{ padding: '20px 30px', backgroundColor: '#222222', borderRadius: '20px', border: '2px solid #54D8B3' }}>
-              <Image src={logoImage} alt='Sample Image' width={200} height={200} />
+            <div className="glass" style={{ padding: '20px 30px' }}>
+              <Image src={logoImage} alt="Sample Image" width={200} height={200} />
             </div>
             <h1 style={{ fontSize: '40px', fontWeight: 'bold' }}>Opal Labs</h1>
             <p style={{ fontSize: '18px' }}>Free for personal use <br /><span onClick={() => signIn('google')} style={{ color: '#54D8B3', cursor: 'pointer' }}>Start Now</span></p>
@@ -97,7 +97,7 @@ const HomePage = () => {
           <p style={{ color: '#BFBFBF', fontFamily: 'Arial', fontWeight: 'normal', fontSize: '26px', margin: '0 auto 60px auto', maxWidth: '750px' }}>From personal notes to journal entries, knowledge bases, and project management, Opal Labs gives you the tools to come up with idea and oraganize them.</p>
 
           <div className="responsive-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '40px', marginTop: '40px', padding: '0 20px' }}>
-            <div style={{ backgroundColor: '#222222', padding: '20px 30px', maxWidth: '615px', borderRadius: '20px', border: '2px solid #424242' }}>
+            <div className="glass" style={{ padding: '20px 30px', maxWidth: '615px' }}>
               <div style={{ textAlign: 'left' }}>
                 <h3 style={{ fontSize: '30px' }}>Styled Text</h3>
                 <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Enhance readability with various text sizes, styles, and colors</p>
@@ -105,7 +105,7 @@ const HomePage = () => {
               <Image src={sampleImageStyleText} unoptimized layout='responsive' alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
             </div>
 
-            <div style={{ backgroundColor: '#222222', padding: '20px 30px', maxWidth: '615px', borderRadius: '20px', border: '2px solid #424242' }}>
+            <div className="glass" style={{ padding: '20px 30px', maxWidth: '615px' }}>
               <div style={{ textAlign: 'left' }}>
                 <h3 style={{ fontSize: '30px' }}>Publish & Share</h3>
                 <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Publish read-only versions of your notes to share with peers</p>
@@ -115,7 +115,7 @@ const HomePage = () => {
           </div>
 
           <div className="responsive-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '40px', marginTop: '40px', padding: '0 20px' }}>
-            <div style={{ backgroundColor: '#222222', padding: '20px 30px', maxWidth: '615px', borderRadius: '20px', border: '2px solid #424242' }}>
+            <div className="glass" style={{ padding: '20px 30px', maxWidth: '615px' }}>
               <div style={{ textAlign: 'left' }}>
                 <h3 style={{ fontSize: '30px' }}>Page Hierarchy</h3>
                 <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Group your thoughts and stay organized with our subpages</p>
@@ -123,7 +123,7 @@ const HomePage = () => {
               <Image src={sampleImageSubpages} unoptimized layout='responsive' alt='Sample Image' width={600} height={350} style={{ borderRadius: '20px', marginTop: '20px' }} />
             </div>
 
-            <div style={{ backgroundColor: '#222222', padding: '20px 30px', maxWidth: '615px', borderRadius: '20px', border: '2px solid #424242' }}>
+            <div className="glass" style={{ padding: '20px 30px', maxWidth: '615px' }}>
               <div style={{ textAlign: 'left' }}>
                 <h3 style={{ fontSize: '30px' }}>Embed Elements</h3>
                 <p style={{ color: '#A3A3A3', fontSize: '18px' }}>Enhance your notes by embedding entire websites & videos</p>
@@ -138,17 +138,17 @@ const HomePage = () => {
           <Button onClick={() => signIn('google')} style={{ backgroundColor: '#54D8B3', color: 'white', padding: '20px 40px', borderRadius: '15px' }}>Get Started Now</Button>
 
           <div className="responsive-container" style={{ display: 'flex', justifyContent: 'space-between', gap: '40px', marginTop: '40px', textAlign: 'left' }}>
-            <div className="hover-on-div" style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242' }}>
+            <div className="glass hover-on-div" style={{ padding: '20px 30px' }}>
               <h3>Customer 1</h3>
               <p style={{ color: '#A3A3A3' }}>“An incredible app. The distinction between Opal Labs and its competitors is beyond words.”</p>
             </div>
 
-            <div className="hover-on-div" style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242', textAlign: 'left' }}>
+            <div className="glass hover-on-div" style={{ padding: '20px 30px' }}>
               <h3>Customer 2</h3>
               <p style={{ color: '#A3A3A3' }}>“Discovering Opal Labs has been a game-changer for my productivity, with its intuitive interface and seamless functionality.”</p>
             </div>
 
-            <div className="hover-on-div" style={{ backgroundColor: '#222222', padding: '20px 30px', borderRadius: '20px', border: '2px solid #424242', textAlign: 'left' }}>
+            <div className="glass hover-on-div" style={{ padding: '20px 30px' }}>
               <h3>Customer 3</h3>
               <p style={{ color: '#A3A3A3' }}>“Wow. Just wow. I've found myself effortlessly organizing my thoughts and tasks like never before.”</p>
             </div>
