@@ -1,4 +1,5 @@
 name: Playwright Tests
+
 on:
   push:
     branches: [main, master]
@@ -9,6 +10,9 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+
+    container:
+      image: mcr.microsoft.com/playwright:v1.43.0-jammy
 
     steps:
       - uses: actions/checkout@v4
@@ -23,16 +27,8 @@ jobs:
       - name: Build project
         run: yarn build
 
-      - name: Install system dependencies for Playwright
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            libasound2t64 \
-            libffi8 \
-            libx264-164
-
       - name: Install Playwright Browsers
-        run: yarn playwright install
+        run: yarn playwright install --with-deps
 
       - name: Run Playwright tests
         run: yarn playwright test
