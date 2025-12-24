@@ -4,27 +4,39 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
+
       - name: Install dependencies
         run: npm install -g yarn && yarn
+
       - name: Build project
         run: yarn build
+
       - name: Install system dependencies for Playwright
         run: |
           sudo apt-get update
-          sudo apt-get install -y libasound2t64 libffi8 libx264-164
+          sudo apt-get install -y \
+            libasound2t64 \
+            libffi8 \
+            libx264-164
+
       - name: Install Playwright Browsers
-        run: yarn playwright install --with-deps
+        run: yarn playwright install
+
       - name: Run Playwright tests
         run: yarn playwright test
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
