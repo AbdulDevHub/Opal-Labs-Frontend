@@ -69,6 +69,24 @@
   transform: translateY(-5px);
 }
 
+/*---------------- Glassmorphism Card Style ----------*/
+.glass {
+  background: rgba(144, 144, 144, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border-radius: 20px;
+  border: 2px solid rgba(84, 216, 179, 0.5);
+
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s ease;
+}
+
+.glass:hover {
+  background: rgba(144, 144, 144, 0.12);
+  transform: translateY(-4px);
+}
+
 /*---------------- Responsive Design ----------*/
 @media only screen and (max-width: 1000px) {
   .responsive-container {
