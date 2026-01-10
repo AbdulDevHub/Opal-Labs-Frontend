@@ -1,80 +1,170 @@
-# Opal Labs [Frontend]
+# 🚀 Opal Labs — Frontend
 
-<a href="https://opal-labs.vercel.app/" target="_blank" rel="noreferrer"> 
-  <img height="400" src="public/images/Screenshot.png">
+A modern, Notion-like productivity platform built with cutting-edge web technologies.
+
+<a href="https://opal-labs.vercel.app/" target="_blank" rel="noreferrer">
+  <img src="public/images/Screenshot.png" width="85%" />
 </a>
 
-## Introduction
+<br />
 
-This is a public copy of a private repository in which I am currently working with a team of 7 people to create a Notion-like productivity website. The project is built using Next.js, TypeScript, Google OAuth, the Agile Model, PostgreSQL, Redis, Playwright, and Go. NOTE: This repository is the frontend section of the site, to view the backend, go to [this repository link](https://github.com/AbdulDevHub/Opal-Labs-Backend).
+[🌐 Live Demo](https://opal-labs.vercel.app/) •
+[🛠 Backend Repo](https://github.com/AbdulDevHub/Opal-Labs-Backend)
 
-[//]: <> 'TODO: Add CI/CD Badges'
+<br />
 
-## Setup
+![Next.js](https://img.shields.io/badge/Next.js-000?logo=nextdotjs)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?logo=postgresql&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-DC382D?logo=redis&logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-45ba4b?logo=playwright&logoColor=white)
+![MIT License](https://img.shields.io/badge/License-MIT-green)
 
-1. Run `yarn install` to install dependencies
-2. Install all the required workspace `@recommended` extensions
-3. Add the required `.env` configs from the team drive
+</div>
 
-## Getting Started
+---
 
-First, run the development server:
+## ✨ Introduction
+
+This is a **public copy of a private repository** where I am collaborating with a **team of 7 developers** to build a Notion-like productivity application.
+
+This repository contains the **frontend** portion of the project.  
+For the backend implementation, visit 👉 **[Opal Labs Backend](https://github.com/AbdulDevHub/Opal-Labs-Backend)**
+
+### 🧱 Tech Stack
+
+- **Framework:** Next.js (App Router)
+- **Language:** TypeScript
+- **Auth:** Google OAuth 2.0
+- **Database:** PostgreSQL
+- **Caching:** Redis
+- **Testing:** Playwright
+- **Backend Language:** Go
+- **Methodology:** Agile
+
+---
+
+## 🛠 Setup
+
+```bash
+yarn install
+````
+
+1. Install all required workspace `@recommended` extensions
+2. Add the required `.env` values from the team drive
+
+---
+
+## 🚀 Getting Started
+
+Start the development server:
 
 ```bash
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open:
 
-## Google OAuth 2.0
+👉 **[http://localhost:3000](http://localhost:3000)**
 
-Follow the instructions outlined in [Google OAuth 2.0 Setup](https://drive.google.com/drive/folders/1PWzpsJGXIDA_RnRRoEcJe_U5yvGC6s_U?usp=sharing)
+---
 
-## Storybook
+## 🔐 Google OAuth 2.0
 
-Run the command to run the storybook components at port 6000:
+Follow the instructions in the shared document:
+
+👉 [Google OAuth 2.0 Setup Guide](https://drive.google.com/drive/folders/1PWzpsJGXIDA_RnRRoEcJe_U5yvGC6s_U?usp=sharing)
+
+---
+
+## 📘 Storybook
+
+Run Storybook on port **6000**:
 
 ```bash
 yarn storybook
 ```
 
-## Testing
+---
 
-Run the commands to catch any linting / type errors:
+## 🧪 Testing & Quality Checks
+
+Run linting and type checks:
 
 ```bash
 yarn lint
 yarn check-types
 ```
 
-These commands are run before pushing with `husky` and in our CI/CD pipeline with `GitHub Actions`.
+These commands run:
 
-## Playwright Testing
+- **Pre-push** via `husky`
+- **CI/CD** via GitHub Actions
 
-Playwright is a framework for writing tests for web applications. We use it to write tests for common user interactions and to test our endpoints. Here's how you can set it up and use it:
+---
 
-1. Make sure to install all the necessary packages by running `yarn`.
+## 🎭 Playwright Testing
 
-2. Start the frontend by running `yarn dev`.
+Playwright is used for **end-to-end testing** of user interactions and API flows.
 
-3. Generate test code by running `npx playwright codegen`. This will open a browser where you can interact with your application at `localhost:3000`. Playwright will record your interactions and generate test code.
+### Usage
 
-4. Once you're done interacting with your site, copy the generated test code and paste it into `tests\TestWithoutBackend.spec.ts`.
+1. Install dependencies:
 
-5. You can then run your tests using `npx playwright test`. This will run the tests in the command line. You might encounter timeout errors because your code took too long to compile the page, so just run the command again.
+   ```bash
+   yarn
+   ```
 
-6. After the tests are done, you can see the results by running `npx playwright show-report`. This will generate a report of your tests.
+2. Start the dev server:
 
-7. For a more visual display of the tests in real-time, you can also run `npx playwright test --ui` instead of `npx playwright test`.
+   ```bash
+   yarn dev
+   ```
 
-Please refer to the [Playwright documentation](https://playwright.dev/docs/intro) for more detailed information.
+3. Generate test code:
 
-## Contributing
+   ```bash
+   npx playwright codegen
+   ```
 
-Contributions are welcome! If you have suggestions for improvements, please open an issue.
+4. Save generated tests to:
 
-## License
+   ```text
+   tests/TestWithoutBackend.spec.ts
+   ```
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+5. Run tests:
 
-<br>
+   ```bash
+   npx playwright test
+   ```
+
+6. View reports:
+
+   ```bash
+   npx playwright show-report
+   ```
+
+7. Run tests visually:
+
+   ```bash
+   npx playwright test --ui
+   ```
+
+📚 Learn more: [Playwright Documentation](https://playwright.dev/docs/intro)
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome!
+
+- Open an issue for bugs or feature requests
+- Submit a PR for improvements
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
+See the [LICENSE](LICENSE) file for details.
