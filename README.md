@@ -1,18 +1,22 @@
-# 🚀 Opal Labs — Frontend
+<div align="center">
 
-A modern, Notion-like productivity platform built with cutting-edge web technologies.
+# 🚀 Opal Labs: A Notion-Style Note-Taking App (Frontend)
+
+A Notion-like notes and productivity app built with **Next.js, TypeScript and Material UI**: rich text, nested pages, web embeds, one-click publishing, Google sign-in, and a **guest mode that needs no account**.
 
 <a href="https://opal-labs.vercel.app/" target="_blank" rel="noreferrer">
-  <img src="public/images/Screenshot.png" width="85%" />
+  <img src="public/images/Screenshot.png" alt="Opal Labs Notion-style note-taking app dashboard" width="85%" />
 </a>
 
 <br />
 
-[🌐 Live Demo](https://opal-labs.vercel.app/) •
+[🌐 Live Demo](https://opal-labs.vercel.app/) (click **Try Without Signing In**) •
 [🛠 Backend Repo](https://github.com/AbdulDevHub/Opal-Labs-Backend)
 
 <br />
 
+[![CI](https://github.com/AbdulDevHub/Opal-Labs-Frontend/actions/workflows/ci.yml/badge.svg)](https://github.com/AbdulDevHub/Opal-Labs-Frontend/actions/workflows/ci.yml)
+[![Playwright Tests](https://github.com/AbdulDevHub/Opal-Labs-Frontend/actions/workflows/playwright.yml/badge.svg)](https://github.com/AbdulDevHub/Opal-Labs-Frontend/actions/workflows/playwright.yml)
 ![Next.js](https://img.shields.io/badge/Next.js-000?logo=nextdotjs)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?logo=postgresql&logoColor=white)
@@ -33,13 +37,14 @@ For the backend implementation, visit 👉 **[Opal Labs Backend](https://github.
 
 ### 🧱 Tech Stack
 
-- **Framework:** Next.js (App Router)
+- **Framework:** Next.js (Pages Router), React, Material UI
 - **Language:** TypeScript
-- **Auth:** Google OAuth 2.0
-- **Database:** PostgreSQL
-- **Caching:** Redis
-- **Testing:** Playwright
+- **Auth:** Google OAuth 2.0 via NextAuth, plus a browser-only guest mode
+- **Database:** PostgreSQL (Neon)
+- **Caching:** Redis (optional)
+- **Testing:** Playwright end-to-end tests, Storybook
 - **Backend Language:** Go
+- **Hosting:** Vercel (frontend), Render (backend)
 - **Methodology:** Agile
 
 ---
