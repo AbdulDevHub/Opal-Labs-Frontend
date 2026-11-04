@@ -21,6 +21,9 @@ export const usePageGet = (pageUuid: string, setIsLoading?: (isLoading: boolean)
     { element_uuid: string; type: string; content: string; elementStyling: string }[]
   >([])
   const [isFavourited, setIsFavourited] = useState(false)
+  const [pageEtc, setPageEtc] = useState<Record<string, unknown>>({})
+  const [subPages, setSubPages] = useState<Record<string, string>>({})
+  const [notFound, setNotFound] = useState(false)
 
   // Running the effect whenever the page UUID changes
   useEffect(() => {
@@ -36,7 +39,9 @@ export const usePageGet = (pageUuid: string, setIsLoading?: (isLoading: boolean)
           ? remoteDataSource
           : getDataSource()
         const responseData: any = await dataSource.getPage(pageUuid)
-        console.log('Fetched page successfully', responseData)
+        setNotFound(false)
+        setPageEtc(responseData.page.etc ?? {})
+        setSubPages(responseData.sub_pages ?? {})
 
         // Set the state from the response data
         setPageTitle(responseData.page.page_name)
@@ -62,14 +67,13 @@ export const usePageGet = (pageUuid: string, setIsLoading?: (isLoading: boolean)
             elementStyling: element.etc && element.etc.text ? element.etc.text : '',
             element_uuid: element.element_uuid,
           }))
-          console.log('Elements set to this value:', elements)
         } else {
           elements = []
-          console.log('No elements found in response data, setting to empty array')
         }
         setPageElements(elements)
       } catch (error) {
         console.error(`Failed to fetch page`)
+        setNotFound(true)
       } finally {
         if (setIsLoading) setIsLoading(false)
       }
@@ -93,5 +97,8 @@ export const usePageGet = (pageUuid: string, setIsLoading?: (isLoading: boolean)
     setIsFavourited,
     isPublicPage,
     setIsPublicPage,
+    pageEtc,
+    subPages,
+    notFound,
   }
 }

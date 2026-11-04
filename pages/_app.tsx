@@ -1,12 +1,13 @@
 import type { AppProps } from 'next/app'
+import Head from 'next/head'
 import { SessionProvider } from 'next-auth/react'
 
 import CssBaseline from '@mui/material/CssBaseline'
-import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
+import { StyledEngineProvider } from '@mui/material/styles'
 
 import Toast from '@/components/Shared/Toast'
+import { ColorModeProvider } from '@/contexts/ColorMode'
 import { ToastProvider } from '@/contexts/Toast'
-import theme from '@/styles/theme'
 
 import '../styles/global.css'
 
@@ -19,7 +20,7 @@ import '../types/extensions'
 /**
  * Renders the main application component with the provided props.
  *
- * Provides the MUI theme, toast notifications and the NextAuth session.
+ * Provides the MUI theme (light / dark / system), toast notifications and the NextAuth session.
  *
  * @param {AppProps} props - The props object containing the Component and pageProps.
  * @return {JSX.Element} The rendered application component.
@@ -27,16 +28,18 @@ import '../types/extensions'
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <CssBaseline>
-          <ToastProvider>
-            <SessionProvider session={pageProps.session}>
-              <Component {...pageProps} />
-            </SessionProvider>
-            <Toast />
-          </ToastProvider>
-        </CssBaseline>
-      </ThemeProvider>
+      <ColorModeProvider>
+        <CssBaseline />
+        <Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </Head>
+        <ToastProvider>
+          <SessionProvider session={pageProps.session}>
+            <Component {...pageProps} />
+          </SessionProvider>
+          <Toast />
+        </ToastProvider>
+      </ColorModeProvider>
     </StyledEngineProvider>
   )
 }

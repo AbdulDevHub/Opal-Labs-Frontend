@@ -1,16 +1,8 @@
 import { useCallback } from 'react'
 
+import type { PageType } from '@/hooks/Page/usePageList'
 import { getDataSource } from '@/lib/data/mode'
 import { v4 as uuidv4 } from 'uuid'
-
-type PageType = {
-  page_uuid: string
-  page_name: string
-  is_root: boolean
-  element_positions: any[]
-  public_page: boolean
-  page_uuid_url?: string
-}
 
 /**
  * Creates a new page and saves it. Updates the state with the new page and returns the created page.
@@ -26,16 +18,18 @@ export const usePageCreate = (
   isRoot: boolean
 ) => {
   const createPage = useCallback(
-    async (parentPageUUID?: string) => {
+    async (parentPageUUID?: string, pageName = 'Untitled', etc?: Record<string, unknown>) => {
       // Creating a new page with default values
       const newPage = {
         page_uuid: uuidv4(),
-        page_name: 'Untitled',
+        page_name: pageName,
         is_root: isRoot,
         element_positions: [],
         public_page: false,
         is_favourite: false,
         parent_page_uuid: parentPageUUID,
+        last_updated_at: new Date().toISOString(),
+        etc: etc ?? null,
       }
 
       try {

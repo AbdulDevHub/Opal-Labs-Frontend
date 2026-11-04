@@ -4,8 +4,8 @@ test('homepage shows every section', async ({ page }) => {
   await page.goto('/')
   for (const name of [
     'Unleash Your Potential.',
-    'For Personal Use.',
-    'Spark Brilliance',
+    'Everything you need to spark brilliance',
+    'One space for every part of your life',
     "It's your time to shine.",
   ]) {
     await expect(page.getByRole('heading', { name })).toBeVisible()
@@ -14,6 +14,6 @@ test('homepage shows every section', async ({ page }) => {
 
 test('log in leads to Google sign-in', async ({ page }) => {
   await page.goto('/')
-  await page.getByRole('button', { name: 'Log In' }).click()
+  await page.getByRole('banner').getByRole('button', { name: 'Log In' }).click()
   await expect(page.getByText('Sign in with Google')).toBeVisible()
 })

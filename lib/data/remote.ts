@@ -36,10 +36,13 @@ const backendFetch = async <T = unknown>(
   if (token) headers.Authorization = `Bearer ${token}`
   if (init.body !== undefined) headers['Content-Type'] = 'application/json'
 
+  const body = init.body !== undefined ? JSON.stringify(init.body) : undefined
   const response = await fetch(`${BACKEND_URL}${path}`, {
     method: init.method ?? 'GET',
     headers,
-    body: init.body !== undefined ? JSON.stringify(init.body) : undefined,
+    body,
+    // Lets a save started as the tab closes still reach the server (browsers cap keepalive bodies at 64 KB)
+    keepalive: body !== undefined && body.length < 60000,
   })
 
   // The backend token expired (or is invalid) while the NextAuth session is still alive:

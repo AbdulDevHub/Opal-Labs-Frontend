@@ -3,13 +3,18 @@ import { useEffect, useState } from 'react'
 import { getDataSource } from '@/lib/data/mode'
 import { v4 as uuidv4 } from 'uuid'
 
-type PageType = {
+export type PageType = {
   page_uuid: string
   page_name: string
   is_root: boolean
   element_positions: any[]
   public_page: boolean
   page_uuid_url?: string
+  is_favourite?: boolean
+  parent_page_uuid?: string | null
+  last_updated_at?: string
+  view_count?: number
+  etc?: Record<string, unknown> | null
 }
 
 /**
@@ -35,10 +40,10 @@ export const usePageList = (): [PageType[], React.Dispatch<React.SetStateAction<
         // Otherwise create an empty page if page list is empty
         await dataSource.createPage({
           page_uuid: uuidv4(),
-          page_name: 'Page 1',
-          is_root: false,
+          page_name: 'Untitled',
+          is_root: true,
           element_positions: [],
-          public_page: true,
+          public_page: false,
           is_favourite: false,
           etc: null,
         })

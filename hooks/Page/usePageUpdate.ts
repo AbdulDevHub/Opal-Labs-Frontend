@@ -11,6 +11,8 @@ import type { PageUpdateInput } from '@/lib/data/types'
  * @param {boolean} isRoot - Indicates whether the page is a root page
  * @param {any[]} updatedContent - The updated content of the page (optional)
  * @param {boolean} isFavourite - Indicates whether the page is a favorite (optional)
+ * @param {boolean} publicPage - Indicates whether the page is published (optional)
+ * @param {object} etc - Page extras such as icon and cover (optional, replaces the saved ones)
  * @return {boolean} Indicates whether the page was successfully updated
  */
 export const usePageUpdate = () => {
@@ -21,7 +23,8 @@ export const usePageUpdate = () => {
       isRoot?: boolean,
       updatedContent?: any[],
       isFavourite?: boolean,
-      publicPage?: boolean
+      publicPage?: boolean,
+      etc?: Record<string, unknown>
     ) => {
       try {
         // Preparing the page data to be sent to the backend
@@ -31,6 +34,7 @@ export const usePageUpdate = () => {
           is_root?: boolean
           public_page?: boolean
           is_favourite?: boolean
+          etc?: Record<string, unknown>
         } = {
           page_uuid: pageUuid,
         }
@@ -40,6 +44,7 @@ export const usePageUpdate = () => {
         if (isRoot !== undefined) pageData.is_root = isRoot
         if (isFavourite !== undefined) pageData.is_favourite = isFavourite
         if (publicPage !== undefined) pageData.public_page = publicPage
+        if (etc !== undefined) pageData.etc = etc
 
         // Note that etc in backend and elementStyling is the same thing,
         // I just didn't change it b/c it would cause trouble for other devs.
@@ -57,7 +62,6 @@ export const usePageUpdate = () => {
             }
           )
 
-          console.log('Elements Data:', updatedContentForBackend)
         }
 
         // Define a type for the backend data
@@ -71,11 +75,9 @@ export const usePageUpdate = () => {
 
         // If updatedContent is not undefined, add elements to the backend data
         if (updatedContent !== undefined) backendData.elements = updatedContentForBackend
-        console.log('Updating Backend Data:', backendData)
 
         await getDataSource().updatePage(backendData as PageUpdateInput)
 
-        console.log('Updated page successfully')
         return true
       } catch (error) {
         console.error(`Failed to update page: ${error}`)

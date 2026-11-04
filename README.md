@@ -35,9 +35,22 @@ This is a **public copy of a private repository** where I am collaborating with 
 This repository contains the **frontend** portion of the project.  
 For the backend implementation, visit 👉 **[Opal Labs Backend](https://github.com/AbdulDevHub/Opal-Labs-Backend)**
 
+### 🌟 Features
+
+- **Block editor:** type `/` for a command menu (headings, lists, to-dos, quotes, callouts, dividers, code, images, web embeds, sub-pages, a views chart), or use Markdown shortcuts (`#`, `-`, `1.`, `[]`, `>`, `---`, ` ``` `)
+- **Keyboard first:** Enter splits a block, Backspace merges, arrows move between blocks, `Ctrl/⌘+K` opens a search and command palette, `Ctrl/⌘+/` lists every shortcut
+- **Drag and drop** blocks by their handle; the handle's menu turns blocks into other types, colours them, duplicates, moves or deletes them
+- **Autosave** with a live "Saving… / Saved" status (no Save button)
+- **Nested pages** in a collapsible sidebar tree with favourites, rename, duplicate and delete, plus breadcrumbs
+- **Page icons and covers** (emoji picker, gradient presets or an image link), full-width and lock options
+- **Templates** for empty pages (to-do list, meeting notes, journal, project brief, reading list) and **Markdown export**
+- **Publish to web** with a copyable link, a clean reading view with a table of contents, and a page-views chart
+- **Light, dark or system theme**, responsive down to phone size
+- **Guest mode:** try everything without signing in; pages are saved in the browser
+
 ### 🧱 Tech Stack
 
-- **Framework:** Next.js (Pages Router), React, Material UI
+- **Framework:** Next.js (Pages Router), React, Material UI, dnd-kit
 - **Language:** TypeScript
 - **Auth:** Google OAuth 2.0 via NextAuth, plus a browser-only guest mode
 - **Database:** PostgreSQL (Neon)
@@ -53,7 +66,7 @@ For the backend implementation, visit 👉 **[Opal Labs Backend](https://github.
 
 ```bash
 yarn install
-````
+```
 
 1. Install all required workspace `@recommended` extensions
 2. Add the required `.env` values from the team drive

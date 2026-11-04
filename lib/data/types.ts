@@ -25,6 +25,8 @@ export type StoredPage = {
   date_view_count?: Record<string, number>
   element_positions?: any[]
   page_uuid_url?: string
+  /** Page extras such as the icon and cover (see lib/blocks/types PageEtc) */
+  etc?: Record<string, unknown> | null
 }
 
 /** Body of page-create */
@@ -47,6 +49,8 @@ export type PageUpdateInput = {
     is_root?: boolean
     public_page?: boolean
     is_favourite?: boolean
+    /** Replaces the page extras when present */
+    etc?: Record<string, unknown>
   }
   elements?: StoredElement[]
 }

@@ -2,11 +2,16 @@
   overflow-x: clip;
 }
 
-* {
+html {
   scroll-behavior: smooth;
 }
 
-/*---------------- Hide Code Block Cursor ----------*/
+/* Matches the theme before React loads (see the script in _document) */
+html[data-theme='dark'] body {
+  background-color: #191919;
+}
+
+/*---------------- Hide Code Block Cursor When Not Focused ----------*/
 .ace_hidden-cursors {
   opacity: 0;
 }
@@ -15,165 +20,86 @@
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
-  transition: 1s;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(127, 127, 127, 0.6);
+  background-color: rgba(127, 127, 127, 0.35);
   background-clip: padding-box;
   border: 2px solid transparent;
-  border-radius: 5px;
-  transition: 1s;
+  border-radius: 6px;
 }
 
-::-webkit-scrollbar-thumb:vertical:hover,
-::-webkit-scrollbar-thumb:horizontal:hover {
-  background-color: rgb(110, 110, 110);
-  transition: 0.3s;
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(127, 127, 127, 0.6);
 }
 
-::-webkit-scrollbar-track {
-  background-color: #151515;
-}
-
-::-webkit-scrollbar-thumb:vertical:active,
-::-webkit-scrollbar-thumb:horizontal:active {
-  background: rgba(95, 91, 91, 1);
-}
-
+::-webkit-scrollbar-track,
 ::-webkit-scrollbar-corner {
-  background: none;
+  background: transparent;
 }
 
-.homepage {
-  position: relative;
-  min-height: 100vh;
-  background-color: #101010;
-  color: white;
-  padding: 60px 100px;
-  text-align: center;
-  overflow: hidden;
-}
-
-/* Noise texture layer */
-.homepage::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.12;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.homepage ::selection {
-  background: #54d8b3;
-  color: white;
-}
-
-.homepage ::-moz-selection {
+/*---------------- Landing page ----------*/
+.landing ::selection {
   background: rgba(84, 216, 179, 0.4);
-  color: #0b2a23;
+  color: #fff;
 }
 
-/*---------------- Homepage Hover On Div Animation ----------*/
-.hover-on-div:hover {
-  transform: translateY(-5px);
-  background-color: #54d8b3 !important;
+/* Slowly drifting colour glow behind the hero */
+.landing-aurora {
+  position: absolute;
+  inset: -20% -10% auto -10%;
+  height: 1100px;
+  pointer-events: none;
+  background: radial-gradient(40% 35% at 25% 25%, rgba(84, 216, 179, 0.28), transparent 70%),
+    radial-gradient(35% 30% at 75% 15%, rgba(124, 200, 255, 0.22), transparent 70%),
+    radial-gradient(30% 30% at 55% 45%, rgba(167, 139, 250, 0.16), transparent 70%);
+  filter: blur(20px);
+  animation: opalDrift 18s ease-in-out infinite alternate;
 }
 
-.hover-on-div:hover p {
-  color: white !important;
-}
-
-/*---------------- Homepage Footer ----------*/
-
-.footer-links a {
-  color: white;
-  text-decoration: none;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.footer-links a:hover {
-  color: #54d8b3;
-  transform: translateY(-5px);
-}
-
-/*---------------- Glassmorphism Card Style ----------*/
-.glass {
-  position: relative;
-  overflow: hidden;
-  background: rgba(51, 51, 51, 0.01);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-
-  border-radius: 20px;
-  border: 2px solid rgba(84, 216, 179, 0.5);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
-  transition: all 0.3s ease;
-}
-
-.glass::after {
-  content: '';
+/* Film grain on top of the glow */
+.landing-grain {
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.15;
   pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.07;
+  mix-blend-mode: overlay;
 }
 
-.glass:hover {
-  transform: translateY(-4px);
-}
-
-.glass:hover::after {
-  opacity: 0.1;
-}
-
-.image-glow {
-  padding: 10px;
-  border-radius: 24px;
-  background: #1e1e1e;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-
-  box-shadow: 0 0 25px rgba(84, 216, 179, 0.25), 0 0 60px rgba(84, 216, 179, 0.15);
-}
-
-.image-glow {
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.image-glow:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0 35px rgba(84, 216, 179, 0.35), 0 0 90px rgba(84, 216, 179, 0.25);
-}
-
-/*---------------- Responsive Design ----------*/
-@media only screen and (max-width: 1000px) {
-  .responsive-container {
-    flex-direction: column;
+@keyframes opalDrift {
+  from {
+    transform: translate3d(-2%, 0, 0) scale(1);
   }
-
-  .footer-links,
-  .footer-links p {
-    gap: 0 !important;
-    margin-top: 5px;
+  to {
+    transform: translate3d(3%, 4%, 0) scale(1.08);
   }
 }
 
-@media only screen and (max-width: 800px) {
-  .responsive-logo {
-    flex-direction: column;
-  }
-
-  .use-section {
-    padding: 0 !important;
+@keyframes opalBlink {
+  50% {
+    opacity: 0;
   }
 }
 
-@media only screen and (max-width: 675px) {
-  .responsive-login {
-    flex-direction: column;
+@keyframes opalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

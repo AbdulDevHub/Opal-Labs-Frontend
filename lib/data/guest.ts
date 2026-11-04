@@ -134,6 +134,7 @@ export const guestDataSource: DataSource = {
       parent_page_uuid: input.parent_page_uuid ?? null,
       public_page: input.public_page,
       is_favourite: input.is_favourite,
+      etc: input.etc && typeof input.etc === 'object' ? (input.etc as Record<string, unknown>) : null,
     })
     db.elements[input.page_uuid] = []
     save(db)
@@ -147,6 +148,7 @@ export const guestDataSource: DataSource = {
     if (changes.page_name) page.page_name = changes.page_name
     if (changes.is_root !== undefined) page.is_root = changes.is_root
     if (changes.is_favourite !== undefined) page.is_favourite = changes.is_favourite
+    if (changes.etc !== undefined) page.etc = changes.etc
     if (changes.public_page !== undefined && changes.public_page !== page.public_page) {
       // Toggling publish resets the analytics, like the backend
       page.public_page = changes.public_page
