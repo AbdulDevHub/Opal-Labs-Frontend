@@ -19,20 +19,12 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  /* HTML report locally; never auto-open it (that blocks CI waiting for a browser) */
+  reporter: process.env.CI ? [['github'], ['html', { open: 'never' }]] : 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    /* Base URL to use in actions like `await page.goto('/')`. */
-    // Tests will try to run run on GitHub Actions (i.e., process.env.CI is true),
-    // and if process.env.VERCEL_URL is not available, it will use
-    // official link (https://opal-labs.vercel.app/) as the baseURL.
-    // Otherwise, it will use localhost:3000 for local testing.
-    baseURL: process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : process.env.CI
-      ? 'https://opal-labs.vercel.app/'
-      : 'http://localhost:3000',
+    /* Set PLAYWRIGHT_BASE_URL to test a deployed site; otherwise the local server below is used */
+    baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -76,10 +68,13 @@ export default defineConfig({
     // },
   ],
 
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://127.0.0.1:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
+  /* Start the production build before testing (skipped when testing a deployed site) */
+  webServer: process.env.PLAYWRIGHT_BASE_URL
+    ? undefined
+    : {
+        command: 'yarn start',
+        url: 'http://localhost:3000',
+        reuseExistingServer: !process.env.CI,
+        timeout: 120 * 1000,
+      },
 })
