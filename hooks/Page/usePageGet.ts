@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 
 import { guestDataSource, hasGuestPage } from '@/lib/data/guest'
-import { getDataSource } from '@/lib/data/mode'
+import { getDataSource, isGuest } from '@/lib/data/mode'
+import { remoteDataSource } from '@/lib/data/remote'
 
 /**
  * Retrieves page data based on the provided UUID.
@@ -28,7 +29,12 @@ export const usePageGet = (pageUuid: string, setIsLoading?: (isLoading: boolean)
         if (setIsLoading) setIsLoading(true)
         // Pages created in guest mode only exist in this browser, so read them locally
         // (this is what lets a guest's published page open at /live/<uuid>)
-        const dataSource = hasGuestPage(pageUuid) ? guestDataSource : getDataSource()
+        // Any other page (e.g. someone else's published page opened by a guest) comes from the backend
+        const dataSource = hasGuestPage(pageUuid)
+          ? guestDataSource
+          : isGuest()
+          ? remoteDataSource
+          : getDataSource()
         const responseData: any = await dataSource.getPage(pageUuid)
         console.log('Fetched page successfully', responseData)
 
@@ -73,7 +79,7 @@ export const usePageGet = (pageUuid: string, setIsLoading?: (isLoading: boolean)
     if (pageUuid) {
       fetchPage()
     }
-  }, [pageUuid])
+  }, [pageUuid, setIsLoading])
 
   // Return page data & functions to update them
   return {
