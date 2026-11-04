@@ -8,6 +8,9 @@ import { useEffect } from 'react'
 import GoogleIcon from '@mui/icons-material/Google'
 import Button from '@mui/material/Button'
 
+import { enterGuest, exitGuest } from '@/lib/data/mode'
+import { pingBackend } from '@/lib/data/remote'
+
 /**
  * Renders the homepage with user information and login functionality.
  * @returns {JSX.Element} The rendered homepage component.
@@ -28,9 +31,35 @@ const HomePage = () => {
   // If a session exists (user logged in), navigate to the dashboard
   useEffect(() => {
     if (session) {
+      // A real account always wins over a leftover guest flag
+      exitGuest()
       router.push('/dashboard')
     }
   }, [session, router])
+
+  // Wake the backend while the visitor reads the page (free hosting sleeps when idle)
+  useEffect(() => {
+    pingBackend()
+  }, [])
+
+  /** Signs in with Google, leaving guest mode so the account's pages are used */
+  const handleGoogleSignIn = () => {
+    exitGuest()
+    signIn('google')
+  }
+
+  /** Opens the dashboard without an account; pages are saved in this browser */
+  const handleTryAsGuest = () => {
+    enterGuest()
+    router.push('/dashboard')
+  }
+
+  const guestButtonStyle = {
+    color: '#54D8B3',
+    border: '2px solid #54D8B3',
+    borderRadius: '15px',
+    whiteSpace: 'nowrap' as const,
+  }
 
   {
     /* -------------------------- HOMEPAGE RENDERER -----------------------*/
@@ -54,9 +83,12 @@ const HomePage = () => {
         >
           <Image src={fullLogoNameImage} alt="Opal Labs" width={300} height={75} />
 
-          <div style={{ display: 'flex', gap: '20px' }}>
+          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <Button onClick={handleTryAsGuest} style={guestButtonStyle}>
+              Try Without Signing In
+            </Button>
             <Button
-              onClick={() => signIn('google')}
+              onClick={handleGoogleSignIn}
               style={{
                 backgroundColor: '#54D8B3',
                 color: 'white',
@@ -163,10 +195,7 @@ const HomePage = () => {
             <h1 style={{ fontSize: '40px', fontWeight: 'bold' }}>Opal Labs</h1>
             <p style={{ fontSize: '18px' }}>
               Free for personal use <br />
-              <span
-                onClick={() => signIn('google')}
-                style={{ color: '#54D8B3', cursor: 'pointer' }}
-              >
+              <span onClick={handleGoogleSignIn} style={{ color: '#54D8B3', cursor: 'pointer' }}>
                 Start Now
               </span>
             </p>
@@ -289,7 +318,7 @@ const HomePage = () => {
         <section style={{ marginTop: '120px' }}>
           <h1 style={{ fontSize: '60px', fontWeight: 'bold' }}>It's your time to shine.</h1>
           <Button
-            onClick={() => signIn('google')}
+            onClick={handleGoogleSignIn}
             style={{
               backgroundColor: '#54D8B3',
               color: 'white',
@@ -297,6 +326,9 @@ const HomePage = () => {
             }}
           >
             Get Started Now
+          </Button>
+          <Button onClick={handleTryAsGuest} style={{ ...guestButtonStyle, marginLeft: '16px' }}>
+            Try Without Signing In
           </Button>
 
           <div

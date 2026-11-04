@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 
+import { getDataSource } from '@/lib/data/mode'
 import { v4 as uuidv4 } from 'uuid'
 
 type PageType = {
@@ -12,7 +13,7 @@ type PageType = {
 }
 
 /**
- * Creates a new page and sends a POST request to the server to save it. Updates the state with the new page and returns the created page.
+ * Creates a new page and saves it. Updates the state with the new page and returns the created page.
  *
  * @param {PageType[]} pages - The array of existing pages
  * @param {(pages: PageType[]) => void} setPages - A function to update the state with new pages
@@ -38,19 +39,7 @@ export const usePageCreate = (
       }
 
       try {
-        // Making a POST request to the server to create the new page
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/page-create`, {
-          method: 'POST',
-          body: JSON.stringify(newPage),
-          credentials: 'include',
-        })
-
-        if (!response.ok) {
-          throw new Error('Page creation failed')
-        }
-
-        const responseData = await response.json()
-        console.log('Page created successfully', responseData)
+        await getDataSource().createPage(newPage)
 
         // Update the state after successful creation
         setPages([newPage, ...pages])

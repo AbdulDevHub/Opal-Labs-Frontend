@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 
+import { guestDataSource, hasGuestPage } from '@/lib/data/guest'
+import { getDataSource } from '@/lib/data/mode'
+
 /**
  * Retrieves page data based on the provided UUID.
  *
@@ -23,21 +26,10 @@ export const usePageGet = (pageUuid: string, setIsLoading?: (isLoading: boolean)
     const fetchPage = async () => {
       try {
         if (setIsLoading) setIsLoading(true)
-        // Making a GET request to the server to fetch the page
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/page-get/${pageUuid}`,
-          {
-            method: 'GET',
-            credentials: 'include',
-          }
-        )
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch page')
-        }
-
-        // Parsing the response data
-        const responseData = await response.json()
+        // Pages created in guest mode only exist in this browser, so read them locally
+        // (this is what lets a guest's published page open at /live/<uuid>)
+        const dataSource = hasGuestPage(pageUuid) ? guestDataSource : getDataSource()
+        const responseData: any = await dataSource.getPage(pageUuid)
         console.log('Fetched page successfully', responseData)
 
         // Set the state from the response data

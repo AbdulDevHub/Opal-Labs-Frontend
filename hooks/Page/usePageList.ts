@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+import { getDataSource } from '@/lib/data/mode'
 import { v4 as uuidv4 } from 'uuid'
 
 type PageType = {
@@ -23,62 +24,25 @@ export const usePageList = (): [PageType[], React.Dispatch<React.SetStateAction<
   useEffect(() => {
     const fetchPageList = async () => {
       try {
-        // Make a GET request to the server to fetch the list of pages
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/page-list`, {
-          method: 'GET',
-          credentials: 'include',
-        })
+        const dataSource = getDataSource()
+        const fetchedPages = await dataSource.listPages()
 
-        if (!response.ok) {
-          throw new Error('Failed to fetch page list')
-        }
-
-        // Parse the response data
-        const responseData = await response.json()
-        console.log('Fetched page list successfully', responseData)
-
-        // If pages exist in the response data
-        if (responseData.pages && responseData.pages.length > 0) {
-          // Updating the state with the fetched list of pages
-          console.log('Pages:', responseData.pages)
-          setPages([...responseData.pages])
+        if (fetchedPages.length > 0) {
+          setPages(fetchedPages as PageType[])
+          return
         }
 
         // Otherwise create an empty page if page list is empty
-        else {
-          // Create an empty page
-          const EmptyPage = {
-            page_uuid: uuidv4(),
-            page_name: 'Page 1',
-            is_root: false,
-            element_positions: [],
-            public_page: true,
-            is_favourite: false,
-            etc: null,
-          }
-
-          try {
-            // Make a POST request to the server to create a new page
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/page-create`, {
-              method: 'POST',
-              body: JSON.stringify(EmptyPage),
-              credentials: 'include',
-            })
-
-            if (!response.ok) {
-              throw new Error('Page creation failed')
-            }
-
-            // Parse the response data
-            const responseData = await response.json()
-            console.log('Page created successfully', responseData)
-
-            // Call fetchPageList again after successful creation
-            fetchPageList()
-          } catch (error) {
-            console.error(`Page creation error: ${error}`)
-          }
-        }
+        await dataSource.createPage({
+          page_uuid: uuidv4(),
+          page_name: 'Page 1',
+          is_root: false,
+          element_positions: [],
+          public_page: true,
+          is_favourite: false,
+          etc: null,
+        })
+        setPages((await dataSource.listPages()) as PageType[])
       } catch (error) {
         console.error(`Failed to fetch page list: ${error}`)
       }

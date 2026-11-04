@@ -1,30 +1,25 @@
 import { useEffect, useState } from 'react'
 
-import axios from 'axios'
+import { getDataSource, isGuest } from '@/lib/data/mode'
+import type { UserResult } from '@/lib/data/types'
 
+/**
+ * Fetches the current user's data (account status, name, picture).
+ * Runs once a backend session token exists, or straight away in guest mode.
+ *
+ * @param {string | undefined} sessionToken - The backend token from the NextAuth session
+ * @return {UserResult | null} The user data, or null until it has loaded
+ */
 export const useUserGet = (sessionToken: string | undefined) => {
-  const [userData, setUserData] = useState<any>(null)
+  const [userData, setUserData] = useState<UserResult | null>(null)
 
-  // Running the effect whenever the session token changes
   useEffect(() => {
-    // Asynchronous function to fetch user data
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user-get`, {
-          withCredentials: true,
-        })
-        console.log('Fetched User Data:', response.data)
+    if (!sessionToken && !isGuest()) return
 
-        // Update the state with the fetched user data
-        setUserData(response.data)
-      } catch (error) {
-        console.error(`Error: ${error}`)
-      }
-    }
-
-    if (sessionToken) {
-      fetchUserData()
-    }
+    getDataSource()
+      .getUser()
+      .then(setUserData)
+      .catch((error) => console.error(`Failed to fetch user data: ${error}`))
   }, [sessionToken])
 
   return userData

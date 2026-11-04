@@ -1,5 +1,8 @@
 import { useCallback } from 'react'
 
+import { getDataSource } from '@/lib/data/mode'
+import type { PageUpdateInput } from '@/lib/data/types'
+
 /**
  * Updates a page with the provided information.
  *
@@ -70,19 +73,7 @@ export const usePageUpdate = () => {
         if (updatedContent !== undefined) backendData.elements = updatedContentForBackend
         console.log('Updating Backend Data:', backendData)
 
-        // Making a POST request to the server to update the page
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/page-update`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(backendData),
-        })
-
-        if (!response.ok) {
-          throw new Error('Failed to update page')
-        }
+        await getDataSource().updatePage(backendData as PageUpdateInput)
 
         console.log('Updated page successfully')
         return true

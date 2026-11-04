@@ -1,14 +1,18 @@
+import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { signOut } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
 import Box from '@mui/material/Box'
+import Chip from '@mui/material/Chip'
+import Tooltip from '@mui/material/Tooltip'
 
 import PageContent from '@/components/PageContent'
 import Sidebar from '@/components/Sidebar'
 import { usePageList } from '@/hooks/Page/usePageList'
 import { useUserGet } from '@/hooks/User/useUserGet'
 import { useUserLogout } from '@/hooks/User/useUserLogout'
+import { exitGuest, isGuest } from '@/lib/data/mode'
 
 /**
  * Renders the Dashboard component which displays the user dashboard.
@@ -19,9 +23,13 @@ import { useUserLogout } from '@/hooks/User/useUserLogout'
  * @return {JSX.Element} The rendered Dashboard component
  */
 const Dashboard = () => {
-  {/* -------------------------- DASHBOARD STATES -----------------------*/ }
+  {
+    /* -------------------------- DASHBOARD STATES -----------------------*/
+  }
   // Retrieve session data using next-auth/react's useSession hook
-  const { data: session } = useSession()
+  const { data: session, status: sessionStatus } = useSession()
+  const router = useRouter()
+  const [isGuestMode, setIsGuestMode] = useState(false)
 
   // State to manage selected page
   const [selectedPageUuid, setSelectedPageUuid] = useState('')
@@ -38,24 +46,32 @@ const Dashboard = () => {
   const logoutUser = useUserLogout()
   const userData = useUserGet(session?.userToken)
 
-  {/* -------------------------- DASHBOARD EFFECTS -----------------------*/ }
-  {/* SET COOKIE UNTIL THE BACKEND DOES IT ON THEIR OWN */ }
+  {
+    /* -------------------------- DASHBOARD EFFECTS -----------------------*/
+  }
+  {
+    /* SEND VISITORS WHO ARE NEITHER SIGNED IN NOR GUESTS BACK TO THE HOMEPAGE */
+  }
   useEffect(() => {
-    // Set the cookie only if session?.userToken is not empty or undefined
-    if (session?.userToken) {
-      // document.cookie = `Authorization=${session.userToken}; path=/`; <= This is for local version
-      document.cookie = `Authorization=${session.userToken}; path=/; Secure; SameSite=None`; // <= This is for deployed version
+    const guest = isGuest()
+    setIsGuestMode(guest)
+    if (sessionStatus === 'unauthenticated' && !guest) {
+      router.replace('/')
     }
-  }, [session])
+  }, [sessionStatus, router])
 
-  {/* SET SELECTED PAGE TO FIRST PAGE IN PAGE LIST WHEN DASHBOARDS LOADS FOR FIRST TIME */ }
+  {
+    /* SET SELECTED PAGE TO FIRST PAGE IN PAGE LIST WHEN DASHBOARDS LOADS FOR FIRST TIME */
+  }
   useEffect(() => {
     if (pages.length > 0 && !selectedPageUuid) {
       setSelectedPageUuid(pages[0].page_uuid)
     }
   }, [pages, selectedPageUuid])
 
-  { /* SET STATUS STATE TO STATUS FROM USER DATA AFTER IT IS FETCHED FROM API */ }
+  {
+    /* SET STATUS STATE TO STATUS FROM USER DATA AFTER IT IS FETCHED FROM API */
+  }
   useEffect(() => {
     if (userData) {
       setStatus(userData.status)
@@ -63,7 +79,9 @@ const Dashboard = () => {
     }
   }, [userData])
 
-  {/* -------------------------- DASHBOARD HANDLERS/FUNCTIONS -----------------------*/ }
+  {
+    /* -------------------------- DASHBOARD HANDLERS/FUNCTIONS -----------------------*/
+  }
 
   /**
    * Handles the sign out process.
@@ -71,6 +89,13 @@ const Dashboard = () => {
    * @return {Promise<void>} A promise that resolves when the sign out process is complete.
    */
   const handleSignOut = async () => {
+    // Guests have no account: leave guest mode (their pages stay in this browser)
+    if (isGuestMode) {
+      exitGuest()
+      router.push('/')
+      return
+    }
+
     // Call the logoutUser endpoint
     await logoutUser()
 
@@ -94,10 +119,14 @@ const Dashboard = () => {
     setIsDarkMode(!isDarkMode)
   }
 
-  {/* -------------------------- DASHBOARD RENDER -----------------------*/ }
+  {
+    /* -------------------------- DASHBOARD RENDER -----------------------*/
+  }
+  // Render nothing until we know the visitor is signed in or a guest (others get redirected)
+  if (!isGuestMode && sessionStatus !== 'authenticated') return null
+
   return (
     <Box sx={{ display: 'flex', height: '100vh' }}>
-
       {/* -------------------------- SIDEBAR -----------------------*/}
       <Box sx={{ width: 240, flexShrink: 0 }}>
         <Sidebar
@@ -115,10 +144,14 @@ const Dashboard = () => {
       </Box>
 
       {/* -------------------------- PAGE CONTENT -----------------------*/}
-      <div style={{
-        flex: 1, justifyContent: 'flex-start', padding: 0,
-        backgroundColor: isDarkMode ? '#282828' : 'white'
-      }}>
+      <div
+        style={{
+          flex: 1,
+          justifyContent: 'flex-start',
+          padding: 0,
+          backgroundColor: isDarkMode ? '#282828' : 'white',
+        }}
+      >
         <PageContent
           selectedPageUuid={selectedPageUuid}
           isEditable={isEditable}
@@ -133,6 +166,24 @@ const Dashboard = () => {
           setSelectedPageUuid={setSelectedPageUuid}
         />
       </div>
+
+      {/* -------------------------- GUEST MODE NOTICE -----------------------*/}
+      {isGuestMode && (
+        <Tooltip title="Your pages are saved in this browser only. Sign in with Google to keep them in your account.">
+          <Chip
+            label="Guest mode: saved in this browser"
+            size="small"
+            sx={{
+              position: 'fixed',
+              bottom: 16,
+              right: 16,
+              zIndex: 1300,
+              backgroundColor: '#54D8B3',
+              color: 'white',
+            }}
+          />
+        </Tooltip>
+      )}
     </Box>
   )
 }

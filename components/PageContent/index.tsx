@@ -26,11 +26,14 @@ import NestedPageElement from '@/components/OurWebsiteElements/NestedPage'
 import { usePageCreate } from '@/hooks/Page/usePageCreate'
 import { usePageGet } from '@/hooks/Page/usePageGet'
 import { usePageUpdate } from '@/hooks/Page/usePageUpdate'
+import { isGuest } from '@/lib/data/mode'
 import loadingGif from 'public/images/loader.gif'
 import loadingGifDark from 'public/images/loaderNoBackgroundWhite.gif'
 import { v4 as uuidv4 } from 'uuid'
 
-{/* PAGE TYPE VALUES PROVIDED BY BACKEND */ }
+{
+  /* PAGE TYPE VALUES PROVIDED BY BACKEND */
+}
 type PageType = {
   page_uuid: string
   page_name: string
@@ -41,21 +44,27 @@ type PageType = {
   is_favourite?: boolean
 }
 
-{/* PROPS TYPE VALUES PROVIDED BY REACT-DND  */ }
+{
+  /* PROPS TYPE VALUES PROVIDED BY REACT-DND  */
+}
 interface DraggableComponentProps {
   id: string
   children: React.ReactNode
   type: string
 }
 
-{/* PROPS TYPE VALUES PROVIDED BY REACT-DND */ }
+{
+  /* PROPS TYPE VALUES PROVIDED BY REACT-DND */
+}
 interface DroppableComponentProps {
   id: string
   onDrop: (dragId: string, dropId: string) => void
   children: React.ReactNode
 }
 
-{/* PROPS TYPE VALUES FOR PAGE CONTENT COMPONENT */ }
+{
+  /* PROPS TYPE VALUES FOR PAGE CONTENT COMPONENT */
+}
 interface PageContentProps {
   /** For displaying the page content of the selected page uuid */
   selectedPageUuid: string
@@ -81,7 +90,9 @@ interface PageContentProps {
   setPages: (pages: PageType[]) => void
 }
 
-{/* -------------------------- PAGE CONTENT COMPONENT -----------------------*/ }
+{
+  /* -------------------------- PAGE CONTENT COMPONENT -----------------------*/
+}
 const PageContent = ({
   selectedPageUuid,
   isEditable,
@@ -93,45 +104,71 @@ const PageContent = ({
   toggleTheme,
   pages,
   setPages,
-  setSelectedPageUuid
+  setSelectedPageUuid,
 }: PageContentProps) => {
-  {/* -------------------------- PAGE CONTENT STATES -----------------------*/ }
+  {
+    /* -------------------------- PAGE CONTENT STATES -----------------------*/
+  }
   // State To Manage Focused State So That We Can Hide/Show Top New Element Button
   const [isComponentFocused, setComponentFocused] = useState(false)
   // State To Manage Drag And Drop State
   const [isDraggable, setIsDraggable] = useState(false)
   // Add a new state for tracking loading status
   const [isLoading, setIsLoading] = useState(true)
+  // Guest mode is read after mount because it lives in localStorage
+  const [isGuestMode, setIsGuestMode] = useState(false)
+  useEffect(() => setIsGuestMode(isGuest()), [])
 
   // Page Endpoints
   const updatePage = usePageUpdate()
   const createPage = usePageCreate(pages, setPages, false)
   const {
-    pageTitle, setPageTitle,
-    isRoot, dateViewCount,
-    pageElements, setPageElements,
-    isFavourited, setIsFavourited,
-    isPublicPage, setIsPublicPage
+    pageTitle,
+    setPageTitle,
+    isRoot,
+    dateViewCount,
+    pageElements,
+    setPageElements,
+    isFavourited,
+    setIsFavourited,
+    isPublicPage,
+    setIsPublicPage,
   } = usePageGet(selectedPageUuid, setIsLoading)
 
   // States To Manage Breadcrumb Trail, Nested Elements, And Subpages
   const [breadcrumb, setBreadcrumb] = useState([{ page_uuid: selectedPageUuid, page_name: '' }]) // page_name not settable here b/c of async
   const [nestedElementDeleted, setNestedElementDeleted] = useState(false)
 
-  {/* -------------------------- PAGE CONTENT EFFECTS -----------------------*/ }
-  {/* UPDATE BREADCRUMB TRAIL WHEN STATES CHANGE */ }
+  {
+    /* -------------------------- PAGE CONTENT EFFECTS -----------------------*/
+  }
+  {
+    /* UPDATE BREADCRUMB TRAIL WHEN STATES CHANGE */
+  }
   useEffect(() => {
     // If page_name is empty for first item in breadcrumb
-    if (breadcrumb[0].page_name == '' ||
+    if (
+      breadcrumb[0].page_name == '' ||
       // If page_name or page_uuid doesn't match breadcrumb for root page
-      (breadcrumb.length == 1 && (breadcrumb[0].page_name != pageTitle || breadcrumb[0].page_uuid != selectedPageUuid)) ||
+      (breadcrumb.length == 1 &&
+        (breadcrumb[0].page_name != pageTitle || breadcrumb[0].page_uuid != selectedPageUuid)) ||
       // if is_root is true && breadcrumb length is not 1
-      (pages.find((page) => page.page_uuid == selectedPageUuid)?.is_root && breadcrumb.length != 1)) {
+      (pages.find((page) => page.page_uuid == selectedPageUuid)?.is_root && breadcrumb.length != 1)
+    ) {
+      // Skip when nothing would change, otherwise an empty title re-triggers this effect forever
+      if (
+        breadcrumb.length == 1 &&
+        breadcrumb[0].page_uuid == selectedPageUuid &&
+        breadcrumb[0].page_name == pageTitle
+      )
+        return
       setBreadcrumb([{ page_uuid: selectedPageUuid, page_name: pageTitle }])
     }
   }, [pageTitle, selectedPageUuid, breadcrumb, pages])
 
-  {/* WHEN NEWLY CREATED ELEMENT IS NESTED PAGE, SAVE CHANGES */ }
+  {
+    /* WHEN NEWLY CREATED ELEMENT IS NESTED PAGE, SAVE CHANGES */
+  }
   useEffect(() => {
     const pageElementsLength = pageElements.length
     if (pageElementsLength > 0 && pageElements[pageElementsLength - 1].type == 'Nested Page') {
@@ -139,7 +176,9 @@ const PageContent = ({
     }
   }, [pageElements]) // eslint-disable-line
 
-  {/* WHEN NESTED ELEMENT DELETED, SAVE CHANGES */ }
+  {
+    /* WHEN NESTED ELEMENT DELETED, SAVE CHANGES */
+  }
   useEffect(() => {
     if (nestedElementDeleted) {
       saveChanges()
@@ -147,19 +186,25 @@ const PageContent = ({
     }
   }, [nestedElementDeleted]) // eslint-disable-line
 
-  {/* WHEN IS EDITABLE IS FALSE, SET IS DRAGGABLE TO FALSE */ }
+  {
+    /* WHEN IS EDITABLE IS FALSE, SET IS DRAGGABLE TO FALSE */
+  }
   useEffect(() => {
     if (!isEditable) {
       setIsDraggable(false)
     }
   }, [isEditable])
 
-  {/* WHEN IS FAVOURITE FROM SIDEBAR CHANGES, UPDATE IS FAVOURITE STATE */ }
+  {
+    /* WHEN IS FAVOURITE FROM SIDEBAR CHANGES, UPDATE IS FAVOURITE STATE */
+  }
   useEffect(() => {
     setIsFavourited(isFavouriteFromSidebar)
   }, [isFavouriteFromSidebar, setIsFavourited])
 
-  {/* -------------------------- PAGE CONTENT HANDLERS/FUNCTIONS -----------------------*/ }
+  {
+    /* -------------------------- PAGE CONTENT HANDLERS/FUNCTIONS -----------------------*/
+  }
   /**
    *  Handler for adding new content element from new element menu
    *
@@ -177,21 +222,31 @@ const PageContent = ({
     } else if (type == 'Nested Page') {
       childPage = await createPage(selectedPageUuid)
       if (childPage) {
-        newContent = { type, content: 'Untitled', elementStyling: childPage.page_uuid, element_uuid, }
+        newContent = {
+          type,
+          content: 'Untitled',
+          elementStyling: childPage.page_uuid,
+          element_uuid,
+        }
       }
     } else if (type == 'Code Block' || type == 'Page Analytics' || type == 'Checkbox') {
-      newContent = { type, content: '', elementStyling: '', element_uuid, }
+      newContent = { type, content: '', elementStyling: '', element_uuid }
     } else if (type == 'Callout') {
       newContent = { type, content: '', elementStyling: '💡', element_uuid }
     } else {
-      newContent = { type, content: '', elementStyling: 'normal; autofocus; color: #000000;', element_uuid }
+      newContent = {
+        type,
+        content: '',
+        elementStyling: 'normal; autofocus; color: #000000;',
+        element_uuid,
+      }
     }
 
     // Insert the new type of content element to pageElements
     setPageElements((prevState) => {
       const newState = [...prevState]
-      // Insert newContent at (index + 1) and remove 0 items from array, 
-      newState.splice((index + 1), 0, newContent)
+      // Insert newContent at (index + 1) and remove 0 items from array,
+      newState.splice(index + 1, 0, newContent)
       return newState
     })
   }
@@ -209,7 +264,7 @@ const PageContent = ({
 
   /**
    * Handler for moving content element up or down
-   * 
+   *
    * @param {number} index - the current index
    * @param {number} moveBy - the amount to move by
    * @return {void}
@@ -265,7 +320,11 @@ const PageContent = ({
   const handleFavoriteClick = async () => {
     setIsFavourited(!isFavourited)
     await updatePage(selectedPageUuid, pageTitle, isRoot, pageElements, !isFavourited, isPublicPage)
-    setPages(pages.map(page => page.page_uuid === selectedPageUuid ? { ...page, is_favourite: !isFavourited } : page))
+    setPages(
+      pages.map((page) =>
+        page.page_uuid === selectedPageUuid ? { ...page, is_favourite: !isFavourited } : page
+      )
+    )
   }
 
   /**
@@ -287,7 +346,10 @@ const PageContent = ({
     })
 
     return (
-      <div ref={drag} style={{ opacity: isDragging ? 0 : 1, cursor: isDragging ? 'grabbing' : 'grab' }}>
+      <div
+        ref={drag}
+        style={{ opacity: isDragging ? 0 : 1, cursor: isDragging ? 'grabbing' : 'grab' }}
+      >
         {children}
       </div>
     )
@@ -343,7 +405,13 @@ const PageContent = ({
     if (!isEditable) return
 
     await updatePage(selectedPageUuid, pageTitle, isRoot, pageElements, isFavourited, isPublicPage)
-    setPages(pages.map(page => page.page_uuid === selectedPageUuid ? { ...page, page_name: pageTitle, elements: pageElements } : page))
+    setPages(
+      pages.map((page) =>
+        page.page_uuid === selectedPageUuid
+          ? { ...page, page_name: pageTitle, elements: pageElements }
+          : page
+      )
+    )
   }
 
   /**
@@ -355,31 +423,49 @@ const PageContent = ({
     // Set publish status
     setIsPublicPage(!isPublicPage)
     await updatePage(selectedPageUuid, pageTitle, isRoot, pageElements, isFavourited, !isPublicPage)
-    setPages(pages.map(page => page.page_uuid === selectedPageUuid ? { ...page, public_page: !isPublicPage } : page))
+    setPages(
+      pages.map((page) =>
+        page.page_uuid === selectedPageUuid ? { ...page, public_page: !isPublicPage } : page
+      )
+    )
 
     // Check if user isn't a free account
     if (isUserBroke && !isPublicPage) return
 
     // Open the live page in a new tab
-    window.open(`${process.env.NEXT_PUBLIC_SITE_URL}/live/${selectedPageUuid}`, '_blank')
+    // (current origin, so guest pages stored in this browser can be found)
+    window.open(`${window.location.origin}/live/${selectedPageUuid}`, '_blank')
   }
 
-  {/* -------------------------- PAGE CONTENT RENDER -----------------------*/ }
+  {
+    /* -------------------------- PAGE CONTENT RENDER -----------------------*/
+  }
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: '100%' }}>
       {/* -------------------------- PAGE HEADER -----------------------*/}
-      <header style={{
-        position: 'sticky', top: '0', zIndex: '1', display: 'flex',
-        backgroundColor: isDarkMode ? '#202020' : '#FAFAFA',
-        width: '100%', padding: '10px 30px',
-        justifyContent: 'space-between', margin: '0'
-      }}>
-
+      <header
+        style={{
+          position: 'sticky',
+          top: '0',
+          zIndex: '1',
+          display: 'flex',
+          backgroundColor: isDarkMode ? '#202020' : '#FAFAFA',
+          width: '100%',
+          padding: '10px 30px',
+          justifyContent: 'space-between',
+          margin: '0',
+        }}
+      >
         {/* Page Breadcrumb */}
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {breadcrumb.map((page, index) => {
             // Only show the first page, second page, and the last page when there are 4 or more pages
-            if (breadcrumb.length >= 4 && index !== 0 && index !== 1 && index !== breadcrumb.length - 1) {
+            if (
+              breadcrumb.length >= 4 &&
+              index !== 0 &&
+              index !== 1 &&
+              index !== breadcrumb.length - 1
+            ) {
               // If the index is 2 and there are more than 4 pages, show "..."
               if (index === 2) {
                 return <span key="ellipsis">... / </span>
@@ -391,7 +477,13 @@ const PageContent = ({
               <span key={page.page_uuid}>
                 <button
                   onClick={() => navigateToPage(page.page_uuid, page.page_name)}
-                  style={{ cursor: 'pointer', border: 'none', background: 'none', fontSize: '16px', color: isDarkMode ? 'white' : 'black' }}
+                  style={{
+                    cursor: 'pointer',
+                    border: 'none',
+                    background: 'none',
+                    fontSize: '16px',
+                    color: isDarkMode ? 'white' : 'black',
+                  }}
                 >
                   {page.page_name}
                 </button>
@@ -403,34 +495,61 @@ const PageContent = ({
 
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
           {/* Toggle Draggable State */}
-          {isEditable &&
+          {isEditable && (
             <Tooltip title="Drag & Drop">
               <OpenWithIcon
                 onClick={() => setIsDraggable(!isDraggable)}
-                sx={{ color: isDraggable ? (isDarkMode ? 'white' : 'black') : "grey", cursor: 'pointer' }} />
+                sx={{
+                  color: isDraggable ? (isDarkMode ? 'white' : 'black') : 'grey',
+                  cursor: 'pointer',
+                }}
+              />
             </Tooltip>
-          }
+          )}
 
           {/* Favourite Button */}
           <Tooltip title="Favourite">
-            <button onClick={handleFavoriteClick} style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}>
-              {(isFavourited) ? <StarIcon style={{ color: 'yellow' }} /> : <StarBorderIcon style={{ color: isDarkMode ? 'white' : 'black' }} />}
+            <button
+              onClick={handleFavoriteClick}
+              style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}
+            >
+              {isFavourited ? (
+                <StarIcon style={{ color: 'yellow' }} />
+              ) : (
+                <StarBorderIcon style={{ color: isDarkMode ? 'white' : 'black' }} />
+              )}
             </button>
           </Tooltip>
 
           {/* Toggle theme switch */}
           <ToggleThemeSwitch isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
           {/* Toggle switch for toggling page edit */}
-          <ToggleEditSwitch isDarkMode={isDarkMode} isEditable={isEditable} toggleEdit={toggleEdit} />
+          <ToggleEditSwitch
+            isDarkMode={isDarkMode}
+            isEditable={isEditable}
+            toggleEdit={toggleEdit}
+          />
 
           {/* Save button */}
-          {isEditable && <Button onClick={saveChanges} sx={{ border: '2px solid rgb(25, 118, 210)' }}>
-            <SaveIcon fontSize='small' />
-            Save
-          </Button>}
+          {isEditable && (
+            <Button onClick={saveChanges} sx={{ border: '2px solid rgb(25, 118, 210)' }}>
+              <SaveIcon fontSize="small" />
+              Save
+            </Button>
+          )}
           {/* Publish button */}
           {!isEditable && (
-            <Tooltip title={isUserBroke ? 'Upgrade To Unlock' : (isPublicPage ? 'Unpublish' : 'Publish')}>
+            <Tooltip
+              title={
+                isUserBroke
+                  ? 'Upgrade To Unlock'
+                  : isPublicPage
+                  ? 'Unpublish'
+                  : isGuestMode
+                  ? 'Publish (guest pages open in this browser only; sign in with Google to share publicly)'
+                  : 'Publish'
+              }
+            >
               <span>
                 <Button
                   onClick={handlePublish}
@@ -438,7 +557,7 @@ const PageContent = ({
                   sx={{
                     border: '2px solid',
                     borderColor: isUserBroke ? '#A9A9A9' : 'rgb(25, 118, 210)',
-                    backgroundColor: isUserBroke ? (isDarkMode ? 'azure' : 'inherit') : 'inherit'
+                    backgroundColor: isUserBroke ? (isDarkMode ? 'azure' : 'inherit') : 'inherit',
                   }}
                 >
                   {isPublicPage ? 'Unpublish' : 'Publish'}
@@ -447,18 +566,24 @@ const PageContent = ({
             </Tooltip>
           )}
           {/* Sign out button */}
-          <Button onClick={handleSignOut} sx={{ border: '2px solid #FF5252', color: '#FF5252' }}>Sign Out</Button>
+          <Button onClick={handleSignOut} sx={{ border: '2px solid #FF5252', color: '#FF5252' }}>
+            Sign Out
+          </Button>
         </div>
       </header>
 
       {/* -------------------------- MAIN PAGE CONTENT -----------------------*/}
-      <main style={{
-        display: 'flex', flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: isLoading ? 'center' : 'flex-start',
-        width: '100%', margin: '0',
-        backgroundColor: isDarkMode ? '#282828' : 'white'
-      }}>
+      <main
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: isLoading ? 'center' : 'flex-start',
+          width: '100%',
+          margin: '0',
+          backgroundColor: isDarkMode ? '#282828' : 'white',
+        }}
+      >
         <div
           style={{
             display: 'flex',
@@ -468,12 +593,19 @@ const PageContent = ({
             minHeight: '85vh', // 100vh - header height
             width: '70%', // Gives space to elements so they aren't right next to sidebar
             margin: '0',
-            marginTop: '10px'
+            marginTop: '10px',
           }}
         >
           {/* Show loading gif when isLoading is true */}
           {isLoading ? (
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100%',
+              }}
+            >
               <Image src={isDarkMode ? loadingGifDark : loadingGif} alt="Loading..." />
             </div>
           ) : (
@@ -505,13 +637,13 @@ const PageContent = ({
                     // Override Color For Disabled TextField
                     '& .MuiInputBase-input.Mui-disabled': {
                       WebkitTextFillColor: isDarkMode ? 'white' : '#000000',
-                    }
+                    },
                   },
                   style: {
                     fontSize: '60px',
                     color: isDarkMode ? 'white' : 'black',
-                    paddingLeft: '10px'
-                  }
+                    paddingLeft: '10px',
+                  },
                 }}
                 style={{ marginBottom: '20px' }}
                 disabled={!isEditable}

@@ -43,9 +43,9 @@ export default NextAuth({
               access_token: account.access_token,
               expires_in: account.expires_at - Math.floor(Date.now() / 1000),
               refresh_token: account.refresh_token,
-            },
-            { withCredentials: true }
+            }
           )
+          // Backend session token, sent back as "Authorization: Bearer" (see lib/data/remote.ts)
           token.userToken = response.data.token
         }
       }
