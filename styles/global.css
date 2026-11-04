@@ -103,3 +103,18 @@ html[data-theme='dark'] body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Opal shown when WebGL isn't available (see components/Landing/OpalCanvas) */
+.opal-fallback {
+  border-radius: 50%;
+  transform: scale(0.8);
+  background: conic-gradient(from 0deg, #54d8b3, #7cc8ff, #b69cff, #ff8fd1, #ffd27a, #54d8b3);
+  filter: blur(6px) saturate(1.2);
+  animation: opalSpin 12s linear infinite;
+}
+
+@keyframes opalSpin {
+  to {
+    transform: scale(0.8) rotate(360deg);
+  }
+}

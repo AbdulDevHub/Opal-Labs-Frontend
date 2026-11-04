@@ -14,6 +14,8 @@ test('homepage shows every section', async ({ page }) => {
 
 test('log in leads to Google sign-in', async ({ page }) => {
   await page.goto('/')
+  await page.waitForLoadState('networkidle')
   await page.getByRole('banner').getByRole('button', { name: 'Log In' }).click()
-  await expect(page.getByText('Sign in with Google')).toBeVisible()
+  // NextAuth's sign-in page (no Google keys, as in CI) or Google itself (with keys)
+  await expect(page).toHaveURL(/\/api\/auth\/signin|accounts\.google\.com/)
 })
