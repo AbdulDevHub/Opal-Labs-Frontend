@@ -22,8 +22,6 @@
     "@mui/material": "^5.14.8",
     "@mui/styles": "^5.15.8",
     "@playwright/test": "^1.42.1",
-    "@tanstack/react-query": "^4.35.0",
-    "@tanstack/react-query-devtools": "^4.35.0",
     "@types/node": "20.6.0",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
@@ -65,7 +63,6 @@
     "@storybook/nextjs": "^7.6.17",
     "@storybook/react": "^7.6.17",
     "@storybook/test": "^7.6.17",
-    "@tanstack/eslint-plugin-query": "^4.34.1",
     "eslint-plugin-storybook": "^0.8.0",
     "husky": "^8.0.0",
     "storybook": "^7.6.17"

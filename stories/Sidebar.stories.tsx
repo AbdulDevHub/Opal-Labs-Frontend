@@ -1,7 +1,6 @@
 import { SessionProvider } from 'next-auth/react'
 
 import Sidebar from '@/components/Sidebar'
-import { APIProvider } from '@/contexts/API'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const meta: Meta<typeof Sidebar> = {
@@ -12,11 +11,11 @@ const meta: Meta<typeof Sidebar> = {
   },
   decorators: [
     (Story) => (
-      <APIProvider>
+      <>
         <SessionProvider>
           <Story />
         </SessionProvider>
-      </APIProvider>
+      </>
     ),
   ],
   tags: ['autodocs'],

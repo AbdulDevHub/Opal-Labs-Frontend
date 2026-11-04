@@ -1,5 +1,4 @@
 import PageContent from '@/components/PageContent'
-import { APIProvider } from '@/contexts/API'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const meta: Meta<typeof PageContent> = {
@@ -10,9 +9,9 @@ const meta: Meta<typeof PageContent> = {
   },
   decorators: [
     (Story) => (
-      <APIProvider>
+      <>
         <Story />
-      </APIProvider>
+      </>
     ),
   ],
   tags: ['autodocs'],

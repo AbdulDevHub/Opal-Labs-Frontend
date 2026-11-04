@@ -1,5 +1,4 @@
 import ToggleThemeSwitch from '@/components/DashboardComponents/ToggleThemeSwitch'
-import { APIProvider } from '@/contexts/API'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const meta: Meta<typeof ToggleThemeSwitch> = {
@@ -10,9 +9,9 @@ const meta: Meta<typeof ToggleThemeSwitch> = {
   },
   decorators: [
     (Story) => (
-      <APIProvider>
+      <>
         <Story />
-      </APIProvider>
+      </>
     ),
   ],
   tags: ['autodocs'],

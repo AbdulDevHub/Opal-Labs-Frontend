@@ -1,5 +1,4 @@
 import NewElementMenu from '@/components/DashboardComponents/NewElementMenu'
-import { APIProvider } from '@/contexts/API'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const meta: Meta<typeof NewElementMenu> = {
@@ -10,9 +9,9 @@ const meta: Meta<typeof NewElementMenu> = {
   },
   decorators: [
     (Story) => (
-      <APIProvider>
+      <>
         <Story />
-      </APIProvider>
+      </>
     ),
   ],
   tags: ['autodocs'],

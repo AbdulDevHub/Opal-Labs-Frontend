@@ -1,5 +1,4 @@
 import ToggleEditSwitch from '@/components/DashboardComponents/ToggleEditSwitch'
-import { APIProvider } from '@/contexts/API'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const meta: Meta<typeof ToggleEditSwitch> = {
@@ -10,9 +9,9 @@ const meta: Meta<typeof ToggleEditSwitch> = {
   },
   decorators: [
     (Story) => (
-      <APIProvider>
+      <>
         <Story />
-      </APIProvider>
+      </>
     ),
   ],
   tags: ['autodocs'],
