@@ -11,4 +11,5 @@ jobs:
     steps:
     - name: Send API request
       run: |
-        curl -X GET https://opal-labs-backend-muej.onrender.com/page-get/123
+        curl -sS -o /dev/null -w "%{http_code}
+" https://opal-labs-backend-muej.onrender.com/health
