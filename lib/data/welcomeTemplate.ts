@@ -55,7 +55,7 @@ export const WELCOME_ELEMENTS: Omit<StoredElement, 'element_uuid'>[] = [
   {
     type: 'Heading 3',
     content: {
-      text: "These are just the basics! There's a lot more you can do with this site. Have Fun Exploring And Remember To Always Save!",
+      text: "These are just the basics! There's a lot more you can do with this site. Have Fun Exploring, Everything Saves Automatically!",
     },
     etc: { text: 'color: #FFC107; normal; italic bold' },
   },

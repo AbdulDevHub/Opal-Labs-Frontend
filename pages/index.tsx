@@ -232,7 +232,7 @@ const HomePage = () => {
           boxShadow: '0 8px 30px rgba(84,216,179,0.35)',
         }}
       >
-        Try Without Signing In
+        Demo
       </Button>
       <Button
         size="large"
@@ -383,7 +383,7 @@ const HomePage = () => {
               onClick={handleTryAsGuest}
               sx={{ borderRadius: 2, fontWeight: 600 }}
             >
-              Try Without Signing In
+              Demo
             </Button>
           </Box>
         </Box>

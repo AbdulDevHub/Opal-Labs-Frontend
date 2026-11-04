@@ -10,7 +10,7 @@ A Notion-like notes and productivity app built with **Next.js, TypeScript and Ma
 
 <br />
 
-[🌐 Live Demo](https://opal-labs.vercel.app/) (click **Try Without Signing In**) •
+[🌐 Live Demo](https://opal-labs.vercel.app/) (click **Demo**) •
 [🛠 Backend Repo](https://github.com/AbdulDevHub/Opal-Labs-Backend)
 
 <br />

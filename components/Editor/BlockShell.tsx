@@ -9,7 +9,7 @@ import Tooltip from '@mui/material/Tooltip'
 import type { Block } from '@/lib/blocks/types'
 import { useSortable } from '@dnd-kit/sortable'
 
-import { blockSpacing, gutterOffset } from './BlockRenderer'
+import { blockSpacing, blockSpacingBelow, gutterOffset } from './BlockRenderer'
 
 type Props = {
   block: Block
@@ -45,7 +45,7 @@ export const BlockShell = ({ block, children, onAdd, onOpenMenu, selected }: Pro
       sx={{
         position: 'relative',
         pt: `${blockSpacing(block.type)}px`,
-        pb: '2px',
+        pb: `${blockSpacingBelow(block.type)}px`,
         zIndex: isDragging ? 3 : 'auto',
         opacity: isDragging ? 0.55 : 1,
         '&:hover > .block-gutter, &:focus-within > .block-gutter': { opacity: 1 },
@@ -101,5 +101,5 @@ export const BlockShell = ({ block, children, onAdd, onOpenMenu, selected }: Pro
 
 /** Same spacing as BlockShell for read-only pages */
 export const StaticBlockShell = ({ block, children }: { block: Block; children: ReactNode }) => (
-  <Box sx={{ pt: `${blockSpacing(block.type)}px`, pb: '2px' }}>{children}</Box>
+  <Box sx={{ pt: `${blockSpacing(block.type)}px`, pb: `${blockSpacingBelow(block.type)}px` }}>{children}</Box>
 )

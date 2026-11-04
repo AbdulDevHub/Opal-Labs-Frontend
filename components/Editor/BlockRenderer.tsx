@@ -28,23 +28,47 @@ const BlockRenderer = ({ block, listNumber }: { block: Block; listNumber?: numbe
 
 export default BlockRenderer
 
-/** Space above each block type (headings get more room) */
+/** Space above each block type (headings and media get more room) */
 export const blockSpacing = (type: string) => {
   switch (type) {
     case BlockType.H1:
-      return 22
+      return 34
     case BlockType.H2:
-      return 16
+      return 28
     case BlockType.H3:
-      return 10
+      return 20
     case BlockType.Callout:
     case BlockType.Code:
     case BlockType.Embed:
     case BlockType.Image:
     case BlockType.Analytics:
+      return 14
+    case BlockType.Divider:
       return 8
+    case BlockType.Todo:
+    case BlockType.Bulleted:
+    case BlockType.Numbered:
+      return 3
     default:
-      return 2
+      return 6
+  }
+}
+
+/** Space below each block type */
+export const blockSpacingBelow = (type: string) => {
+  switch (type) {
+    case BlockType.H1:
+    case BlockType.H2:
+    case BlockType.H3:
+      return 6
+    case BlockType.Callout:
+    case BlockType.Code:
+    case BlockType.Embed:
+    case BlockType.Image:
+    case BlockType.Analytics:
+      return 12
+    default:
+      return 3
   }
 }
 

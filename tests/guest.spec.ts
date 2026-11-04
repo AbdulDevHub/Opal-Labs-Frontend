@@ -6,7 +6,7 @@ const title = (page: Page) => page.getByRole('textbox', { name: 'Page title' })
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/')
-  await page.getByRole('banner').getByRole('button', { name: 'Try Without Signing In' }).click()
+  await page.getByRole('banner').getByRole('button', { name: 'Demo' }).click()
   await expect(page).toHaveURL(/\/dashboard/)
 })
 
