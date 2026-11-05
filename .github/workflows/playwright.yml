@@ -9,8 +9,7 @@ on:
 jobs:
   test:
     timeout-minutes: 20
-    # Playwright 1.42 cannot install browser deps on Ubuntu 24.04
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     # Dummy values so the production build and next-auth start; tests use guest mode only
     env:
