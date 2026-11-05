@@ -32,7 +32,7 @@ Update when a flow or a key file changes; keep to facts that aren't obvious from
 - `components/Editor/index.tsx` owns keyboard handling, the slash menu, markdown shortcuts and dnd-kit sorting; blocks read handlers from `EditorContext`. `BlockRenderer` is shared with published pages (read-only context) and the homepage playground.
 - `hooks/Page/usePageEditor.ts` loads the open page and autosaves (700 ms debounce; saves are serialised, flushed on page switch/unload, dropped for a page being deleted).
 - Page extras live in the page `etc` JSON: `{icon, cover, fullWidth, locked}` (API page-update accepts `page.etc`).
-- Dashboard selection is in the URL (`/dashboard?page=<uuid>`); the sidebar tree is built from `parent_page_uuid`.
+- Dashboard selection is kept in state and mirrored to the URL (`/dashboard?page=<uuid>`); it is read from `window.location` on load and on back/forward, never from `router.query` (right after the client-side jump from the homepage Next drops shallow updates from `router.query`, which made new pages hijack the selection). The sidebar tree is built from `parent_page_uuid`.
 
 ## Homepage (`pages/index.tsx`, `components/Landing/`)
 

@@ -60,6 +60,7 @@ live piece: an animated opal drawn with a WebGL shader and a playable copy of th
 - **Publish to web** with a copyable link, a clean reading view with a table of contents, and a page-views chart
 - **Light, dark or system theme**, responsive down to phone size
 - **Guest mode:** try everything without signing in; pages are saved in the browser
+- **A 404 page with personality:** the living opal stands in for the zero
 
 ### 🧱 Tech Stack
 
@@ -136,51 +137,19 @@ These commands run:
 
 ## 🎭 Playwright Testing
 
-Playwright is used for **end-to-end testing** of user interactions and API flows.
+Playwright runs **end-to-end tests** in guest mode, so no backend or Google keys are needed. They cover the homepage
+(sections, theme switch, playground, 404), the editor (slash menu, Markdown shortcuts, split/merge, block menu), the sidebar
+(rename, favourite, duplicate, delete), sub-pages and breadcrumbs, page options, templates, the command palette, themes and
+the phone layout. CI runs them on every push.
 
-### Usage
+```bash
+npx next build && npx next start -p 3000   # in one terminal
+npx playwright install chromium            # first time only
+npx playwright test                        # add --ui to watch, or --workers=1 on a slow machine
+npx playwright show-report
+```
 
-1. Install dependencies:
-
-   ```bash
-   yarn
-   ```
-
-2. Start the dev server:
-
-   ```bash
-   yarn dev
-   ```
-
-3. Generate test code:
-
-   ```bash
-   npx playwright codegen
-   ```
-
-4. Save generated tests to:
-
-   ```text
-   tests/TestWithoutBackend.spec.ts
-   ```
-
-5. Run tests:
-
-   ```bash
-   npx playwright test
-   ```
-
-6. View reports:
-
-   ```bash
-   npx playwright show-report
-   ```
-
-7. Run tests visually:
-
-   ```bash
-   npx playwright test --ui
-   ```
+To test the live site instead: `PLAYWRIGHT_BASE_URL=https://opal-labs.vercel.app npx playwright test`.
 
 📚 Learn more: [Playwright Documentation](https://playwright.dev/docs/intro)
 

@@ -6,9 +6,10 @@ Collapse old log entries into "Earlier history" once they stop mattering. Backen
 
 ## Current state
 
-- Live at https://opal-labs.vercel.app; CI green (lint/typecheck + 6 Playwright tests: homepage sections, Google sign-in redirect, guest welcome page, create page with markdown shortcuts + reload, slash menu, Ctrl+K palette).
+- Live at https://opal-labs.vercel.app; CI green (lint/typecheck + 19 Playwright tests in `home`, `guest` and `workspace` specs covering the homepage, theme, playground, 404, editor, sidebar, sub-pages, page options, templates and the mobile drawer).
 - Block editor, autosave, page tree, publishing, templates, icons/covers, light/dark/system theme all shipped (Nov 2026 redesign).
 - Homepage: editorial poster with a WebGL opal, playable editor, light/dark switch; new opal logo, favicons and `public/og-image.png`.
+- Custom 404 page in the homepage style (opal as the zero, random quip, the missing path).
 - Production not yet re-tested while signed in with Google since the redesign (guest mode tested).
 
 ## In progress
@@ -22,9 +23,15 @@ Collapse old log entries into "Earlier history" once they stop mattering. Backen
 3. Idea: copy guest pages into the account after signing in with Google (guest data currently stays in the browser).
 4. Idea: inline (per-word) formatting and links (styling is per block today); nested lists; undo across blocks.
 5. Optional: re-enable `.github/workflows/keep_backend_awake.yml` (GitHub disabled the schedule; it pings `/health` every 14 min).
-6. Optional cleanup: remove unused deps (`react-dnd`, `react-dnd-html5-backend`, `styled-components`, `react-iframe`, `@mui/styles`, `zod`, `react-hook-form`, `axios` if next-auth stops using it); upgrade Playwright so CI can use ubuntu-latest; old `public/images/opal.png` and `Logo/` files are unused by the app (README still uses some).
+6. Optional cleanup: old `public/images/opal.png` and `Logo/` files are unused by the app (README still uses some).
 
 ## Session log
+
+### 2026-11-05: 404 page, test coverage, cleanup
+
+- Custom `pages/404.tsx` (+ `components/Landing/notFound.module.css`); homepage fonts moved to `components/Landing/fonts.ts` so both pages share them.
+- Removed unused deps (`@hookform/resolvers`, `@mui/styles`, `googleapis`, `react-dnd`, `react-dnd-html5-backend`, `react-hook-form`, `react-iframe`, `styled-components`, `uuid.v4`, `zod`, `sass`); Playwright 1.42 → 1.64 (dev dependency), CI on ubuntu-latest.
+- New `tests/workspace.spec.ts` + more in `home.spec.ts` (19 tests). They found three bugs, now fixed: sidebar Rename closed instantly (menu focus trap stole focus; rename now starts after the menu closes); `usePageCreate` wrote back a stale page list; after entering from the homepage the dashboard ignored `?page=` and opened the newest page (a new sub-page hijacked its parent). Selection now lives in state, mirrored to the URL.
 
 ### 2026-11-04 (late night): homepage polish, dark mode, brand
 

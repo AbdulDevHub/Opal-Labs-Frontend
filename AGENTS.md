@@ -13,13 +13,13 @@ Notion-style notes app (portfolio piece). Live at https://opal-labs.vercel.app (
 ## Tech stack
 
 Next.js 13.5 **pages router**, React 18, TypeScript, MUI 5, dnd-kit, react-ace, Recharts, emoji-picker-react,
-next-auth 4 (Google), Storybook 7, Playwright 1.42 (CI pinned to ubuntu-22.04).
+next-auth 4 (Google), Storybook 7, Playwright 1.64 (CI on ubuntu-latest).
 
 ## Commands
 
 - Install: `npx --yes yarn@1.22.22 install` (no global yarn on the dev machine)
 - Dev: `npx next dev` · Build: `npx next build` · Start: `npx next start`
-- E2E: `npx playwright test` (its webServer runs `yarn start`; without global yarn start `npx next start -p 3000` first and it reuses it). `PLAYWRIGHT_BASE_URL=https://opal-labs.vercel.app npx playwright test` tests production.
+- E2E: `npx playwright test` (its webServer runs `yarn start`; without global yarn start `npx next start -p 3000` first and it reuses it). `PLAYWRIGHT_BASE_URL=https://opal-labs.vercel.app npx playwright test` tests production. Specs: `home` (homepage, theme switch, playground, 404), `guest` (basics), `workspace` (sidebar, block menu, sub-pages, page options, templates, theme, mobile drawer). On a slow machine use `--workers=1`.
 - Verify: npx tsc --noEmit && npx next lint
 
 ## Conventions & constraints
