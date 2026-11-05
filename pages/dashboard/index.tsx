@@ -40,6 +40,9 @@ import { pageName, pathTo, withDescendants } from '@/lib/pages'
 const SIDEBAR_KEY = 'opal-sidebar-open'
 const PLANS = ['premium', 'enterprise', 'freemium']
 
+/** The page id in the address bar (the source of truth for links and back / forward) */
+const urlPage = () => new URLSearchParams(window.location.search).get('page') ?? ''
+
 /**
  * The workspace: sidebar with the page tree, and the selected page with its block editor.
  * Pages save automatically. Works signed in (backend) or as a guest (this browser only).
@@ -92,30 +95,47 @@ const Dashboard = () => {
   }, [])
 
   /* ------------------------------ selected page (kept in the URL) ------------------------------ */
-  const queryPage = typeof router.query.page === 'string' ? router.query.page : ''
-  const selectedPageUuid = pages.some((p) => p.page_uuid === queryPage)
-    ? queryPage
-    : pages[0]?.page_uuid ?? ''
+  // The open page lives in state and is mirrored to `?page=`. It is not read from router.query:
+  // right after the client-side jump from the homepage, Next drops shallow URL updates from
+  // router.query for a while, and the dashboard would then fall back to the newest page.
+  // null until the URL has been read, so a deep link is never overwritten by the fallback
+  const [wantedPage, setWantedPage] = useState<string | null>(null)
+  const selectedPageUuid: string =
+    wantedPage && pages.some((p) => p.page_uuid === wantedPage)
+      ? wantedPage
+      : pages[0]?.page_uuid ?? ''
+
+  // Read the URL on load and on back / forward
+  useEffect(() => {
+    const read = () => setWantedPage(urlPage())
+    read()
+    window.addEventListener('popstate', read)
+    return () => window.removeEventListener('popstate', read)
+  }, [])
 
   const selectPage = useCallback(
     (pageUuid: string) => {
       setMobileOpen(false)
-      if (pageUuid === queryPage) return
+      setWantedPage(pageUuid)
+      if (pageUuid === urlPage()) return
       router.push({ pathname: '/dashboard', query: { page: pageUuid } }, undefined, {
         shallow: true,
       })
     },
-    [router, queryPage]
+    [router]
   )
 
-  // Put the first page in the URL once pages load (or when the selected one disappears)
+  // Put the open page in the URL once pages load (or when the selected one disappears)
   useEffect(() => {
-    if (router.isReady && pages.length && selectedPageUuid && queryPage !== selectedPageUuid) {
+    if (wantedPage === null || !router.isReady || !selectedPageUuid) return
+    // Forget a page that no longer exists (e.g. it was deleted)
+    if (wantedPage !== selectedPageUuid) setWantedPage(selectedPageUuid)
+    if (urlPage() !== selectedPageUuid) {
       router.replace({ pathname: '/dashboard', query: { page: selectedPageUuid } }, undefined, {
         shallow: true,
       })
     }
-  }, [router, pages.length, selectedPageUuid, queryPage])
+  }, [router, selectedPageUuid, wantedPage])
 
   const isUserBroke = status === 'freemium'
   const editor = usePageEditor(selectedPageUuid)
@@ -378,44 +398,44 @@ const Dashboard = () => {
   }, [])
 
   const paletteActions: PaletteAction[] = [
-      {
-        id: 'new',
-        label: 'New page',
-        icon: <AddIcon />,
-        hint: shortcut('mod', 'alt', 'N'),
-        keywords: 'create add',
-        run: newPage,
-      },
-      {
-        id: 'theme',
-        label: colorMode.mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode',
-        icon: <DarkModeOutlinedIcon />,
-        hint: shortcut('mod', 'shift', 'L'),
-        keywords: 'theme dark light',
-        run: colorMode.toggle,
-      },
-      {
-        id: 'sidebar',
-        label: 'Toggle sidebar',
-        icon: <ViewSidebarOutlinedIcon />,
-        hint: shortcut('mod', '\\'),
-        run: toggleSidebar,
-      },
-      {
-        id: 'export',
-        label: 'Export page as Markdown',
-        icon: <FileDownloadOutlinedIcon />,
-        keywords: 'download md',
-        run: exportMarkdown,
-      },
-      {
-        id: 'shortcuts',
-        label: 'Keyboard shortcuts',
-        icon: <KeyboardOutlinedIcon />,
-        hint: shortcut('mod', '/'),
-        keywords: 'help keys',
-        run: () => setShortcutsOpen(true),
-      },
+    {
+      id: 'new',
+      label: 'New page',
+      icon: <AddIcon />,
+      hint: shortcut('mod', 'alt', 'N'),
+      keywords: 'create add',
+      run: newPage,
+    },
+    {
+      id: 'theme',
+      label: colorMode.mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode',
+      icon: <DarkModeOutlinedIcon />,
+      hint: shortcut('mod', 'shift', 'L'),
+      keywords: 'theme dark light',
+      run: colorMode.toggle,
+    },
+    {
+      id: 'sidebar',
+      label: 'Toggle sidebar',
+      icon: <ViewSidebarOutlinedIcon />,
+      hint: shortcut('mod', '\\'),
+      run: toggleSidebar,
+    },
+    {
+      id: 'export',
+      label: 'Export page as Markdown',
+      icon: <FileDownloadOutlinedIcon />,
+      keywords: 'download md',
+      run: exportMarkdown,
+    },
+    {
+      id: 'shortcuts',
+      label: 'Keyboard shortcuts',
+      icon: <KeyboardOutlinedIcon />,
+      hint: shortcut('mod', '/'),
+      keywords: 'help keys',
+      run: () => setShortcutsOpen(true),
+    },
   ]
 
   /* ------------------------------ render ------------------------------ */

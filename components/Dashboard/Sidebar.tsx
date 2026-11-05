@@ -1,4 +1,4 @@
-import { MouseEvent, ReactNode, useEffect, useMemo, useState } from 'react'
+import { MouseEvent, ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 
 import AddIcon from '@mui/icons-material/Add'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
@@ -163,6 +163,7 @@ const Sidebar = (props: SidebarProps) => {
   const [accountAnchor, setAccountAnchor] = useState<HTMLElement | null>(null)
   const [pageMenu, setPageMenu] = useState<{ pageUuid: string; anchor: HTMLElement } | null>(null)
   const [renaming, setRenaming] = useState<string | null>(null)
+  const renameNext = useRef<string | null>(null)
   const [expanded, setExpanded] = useState<Set<string>>(new Set())
 
   const byId = useMemo(() => new Map(pages.map((page) => [page.page_uuid, page])), [pages])
@@ -573,6 +574,15 @@ const Sidebar = (props: SidebarProps) => {
         anchorEl={pageMenu?.anchor}
         open={Boolean(pageMenu && menuPage)}
         onClose={() => setPageMenu(null)}
+        // Rename starts only once the menu has gone: while closing, its focus trap and focus
+        // restore would pull focus out of the rename field and commit it straight away
+        disableRestoreFocus
+        TransitionProps={{
+          onExited: () => {
+            if (renameNext.current) setRenaming(renameNext.current)
+            renameNext.current = null
+          },
+        }}
         slotProps={{ paper: { sx: { width: 220 } } }}
       >
         {menuPage && [
@@ -593,7 +603,7 @@ const Sidebar = (props: SidebarProps) => {
           <MenuItem
             key="rename"
             onClick={() => {
-              setRenaming(menuPage.page_uuid)
+              renameNext.current = menuPage.page_uuid
               setPageMenu(null)
             }}
           >
