@@ -35,6 +35,19 @@ This is a **public copy of a private repository** where I am collaborating with 
 This repository contains the **frontend** portion of the project.  
 For the backend implementation, visit 👉 **[Opal Labs Backend](https://github.com/AbdulDevHub/Opal-Labs-Backend)**
 
+### 🧭 Project Overview
+
+Opal Labs is a Notion-style notes app. You create pages and fill them with blocks: headings, lists, to-dos, quotes,
+callouts, code, images, embedded videos or websites, sub-pages and a views chart. Typing `/` opens a menu of blocks,
+Markdown shortcuts like `#` or `-` work as you type, blocks can be dragged around, and everything saves automatically.
+Pages get emoji icons and covers, there are starter templates, a `Ctrl+K` search, light and dark themes, and any page can
+be published as a read-only link.
+
+This repo is the website. It talks to a separate Go server that stores pages in Postgres; users sign in with Google and
+the server hands back a signed token that proves who they are on every request. Visitors can also press **Demo** to use
+the whole app without an account: pages are then saved in the browser instead of the server. The homepage itself is a
+live piece: an animated opal drawn with a WebGL shader and a playable copy of the real editor.
+
 ### 🌟 Features
 
 - **Block editor:** type `/` for a command menu (headings, lists, to-dos, quotes, callouts, dividers, code, images, web embeds, sub-pages, a views chart), or use Markdown shortcuts (`#`, `-`, `1.`, `[]`, `>`, `---`, ` ``` `)

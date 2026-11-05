@@ -1,0 +1,47 @@
+# Progress Tracker
+
+Where the Opal Labs frontend stands and what's next, so a new session can pick up without rediscovery.
+Update "Current state" and "Next steps" and add a dated session-log entry after each work session.
+Collapse old log entries into "Earlier history" once they stop mattering. Backend state lives in the API repo's tracker.
+
+## Current state
+
+- Live at https://opal-labs.vercel.app; CI green (lint/typecheck + 6 Playwright tests: homepage sections, Google sign-in redirect, guest welcome page, create page with markdown shortcuts + reload, slash menu, Ctrl+K palette).
+- Block editor, autosave, page tree, publishing, templates, icons/covers, light/dark/system theme all shipped (Nov 2026 redesign).
+- Homepage: editorial poster with a WebGL opal, playable editor, light/dark switch; new opal logo, favicons and `public/og-image.png`.
+- Production not yet re-tested while signed in with Google since the redesign (guest mode tested).
+
+## In progress
+
+- Nothing.
+
+## Next steps
+
+1. Upload `public/og-image.png` as the repo's social preview (GitHub Settings → General → Social preview; no API for it).
+2. Sign in on production and check: icon/cover persist after reload, publish toggle + live link, sub-pages, delete.
+3. Idea: copy guest pages into the account after signing in with Google (guest data currently stays in the browser).
+4. Idea: inline (per-word) formatting and links (styling is per block today); nested lists; undo across blocks.
+5. Optional: re-enable `.github/workflows/keep_backend_awake.yml` (GitHub disabled the schedule; it pings `/health` every 14 min).
+6. Optional cleanup: remove unused deps (`react-dnd`, `react-dnd-html5-backend`, `styled-components`, `react-iframe`, `@mui/styles`, `zod`, `react-hook-form`, `axios` if next-auth stops using it); upgrade Playwright so CI can use ubuntu-latest; old `public/images/opal.png` and `Logo/` files are unused by the app (README still uses some).
+
+## Session log
+
+### 2026-11-04 (late night): homepage polish, dark mode, brand
+
+- Fixed the clipped "y" descender and touching letters in the hero; the opal now overlaps the headline on wide screens.
+- Homepage light/dark switch (paper and ink swap; follows the app theme preference, no flash on load). Dark mode shows the dark playground card and the light app screenshot.
+- New iridescent opal logo (`public/logo.svg`), `favicon.ico` (16+32), `apple-touch-icon.png`, and a 1280×640 Open Graph image; `_document` points og/twitter images at it.
+- Opal shader capped at ~1 MP render size (it was heavy for software GL in tests). Sign-in e2e test waits up to 20 s.
+- Agent context moved into this repo (`AGENTS.md`, `CLAUDE.md`, `context/`) from the old shared workspace folder.
+
+### 2026-11-04 (late night): homepage redesign
+
+- Homepage rebuilt in `components/Landing/` (WebGL `OpalCanvas`, Bricolage Grotesque + Instrument Serif + JetBrains Mono, mix-blend headline, crossing marquees, `LiveDemo` playground, numbered features, scroll-tilt screenshot, count-up stats, colophon, giant footer wordmark). Guest button renamed "Demo"; block spacing loosened.
+
+### 2026-11-04 (night): app redesign
+
+- New block editor, autosave (`usePageEditor`), dashboard (sidebar tree, breadcrumbs, share popover, page options, palette, shortcuts, templates, icons/covers), light/dark theme, published page with table of contents. Old element/toolbar components removed. Reviewer pass: fixed overlapping saves, unload save, saves after delete.
+
+### Earlier history
+
+- Revival on 2026-11-04: auth switched from cookies to `Authorization: Bearer` (frontend and API are on different sites); guest mode added (browser-only localStorage, user's choice over temporary backend accounts); dead `apiUseless/`, extra contexts and react-query removed; Playwright CI fixed (Chromium only, ubuntu-22.04, `yarn start` webServer); keep-awake workflow pings `/health`; guests can open other people's published pages (read from the API).
