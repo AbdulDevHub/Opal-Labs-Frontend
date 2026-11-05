@@ -1,0 +1,210 @@
+/* 404 page: the homepage poster look (tokens come from landing.module.css .page) */
+
+.page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px var(--pad);
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+}
+
+/* The homepage leaves room for a fixed logo; here the logo sits inside the link */
+.top .wordmark {
+  padding-left: 0;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: clamp(32px, 6vh, 72px) var(--pad);
+}
+
+/* The big "4 [opal] 4"; the gem stands in for the zero */
+.code {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  line-height: 0.8;
+  font-size: clamp(130px, 36vw, 380px);
+}
+
+.digit {
+  display: inline-block;
+  animation: rise 1.1s var(--ease) both;
+}
+
+.digit:hover {
+  animation: wobble 700ms var(--ease);
+}
+
+.gemSlot {
+  position: relative;
+  width: 0.78em;
+  height: 0.9em;
+  margin: 0 -0.04em;
+}
+
+/* The shader draws a soft gem inside its square, so it overflows the slot a little */
+.gem {
+  position: absolute;
+  inset: -22%;
+  width: 144%;
+  height: 144%;
+  animation: bob 6s ease-in-out infinite, fadeIn 1.4s var(--ease) both;
+}
+
+.title {
+  margin: clamp(16px, 3vh, 32px) 0 0;
+  font-size: clamp(36px, 6.5vw, 84px);
+  line-height: 0.95;
+  animation: rise 1.1s 240ms var(--ease) both;
+}
+
+.title .serif,
+.title span {
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.lede {
+  max-width: 40ch;
+  margin: 18px auto 0;
+  font-size: clamp(16px, 1.6vw, 19px);
+  line-height: 1.5;
+  color: var(--muted);
+  animation: rise 1.1s 340ms var(--ease) both;
+}
+
+.path {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  max-width: 100%;
+  margin: 22px 0 0;
+  color: var(--muted);
+  animation: rise 1.1s 420ms var(--ease) both;
+}
+
+.path code {
+  max-width: min(80vw, 520px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 6px 12px;
+  border: 1px dashed var(--line);
+  border-radius: 999px;
+  font: inherit;
+  text-transform: none;
+  color: var(--ink);
+}
+
+.pathLabel {
+  opacity: 0.8;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  margin-top: clamp(28px, 5vh, 48px);
+  animation: rise 1.1s 500ms var(--ease) both;
+}
+
+.actions a {
+  text-decoration: none;
+}
+
+.marquee {
+  overflow: hidden;
+  padding: 14px 0;
+  background: var(--ink);
+  color: var(--paper);
+  white-space: nowrap;
+}
+
+.track {
+  display: inline-flex;
+  gap: 28px;
+  animation: slide 40s linear infinite;
+}
+
+.track > span {
+  display: inline-flex;
+  gap: 28px;
+}
+
+.star {
+  color: var(--accent-inv);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+
+@keyframes bob {
+  50% {
+    translate: 0 -4%;
+    rotate: 6deg;
+  }
+}
+
+@keyframes wobble {
+  30% {
+    transform: rotate(-8deg) scale(1.05);
+  }
+  60% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes slide {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .digit,
+  .gem,
+  .title,
+  .lede,
+  .path,
+  .actions,
+  .track {
+    animation: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .top > span {
+    display: none;
+  }
+}

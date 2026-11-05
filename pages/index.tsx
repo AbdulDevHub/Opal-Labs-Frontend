@@ -1,11 +1,11 @@
 import dynamic from 'next/dynamic'
-import { Bricolage_Grotesque, Instrument_Serif, JetBrains_Mono } from 'next/font/google'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { signIn, useSession } from 'next-auth/react'
 import { CSSProperties, useEffect, useRef } from 'react'
 
+import { fontVariables } from '@/components/Landing/fonts'
 import { magnetic, useCountUp, useReveal, useScrollProgress } from '@/components/Landing/motion'
 import OpalCanvas from '@/components/Landing/OpalCanvas'
 import { useColorMode } from '@/contexts/ColorMode'
@@ -14,28 +14,6 @@ import { pingBackend } from '@/lib/data/remote'
 import { fontFamily } from '@/styles/theme'
 
 import styles from '@/components/Landing/landing.module.css'
-
-const display = Bricolage_Grotesque({
-  subsets: ['latin'],
-  axes: ['wdth', 'opsz'],
-  variable: '--font-display',
-  display: 'swap',
-  adjustFontFallback: false,
-})
-const serif = Instrument_Serif({
-  subsets: ['latin'],
-  weight: '400',
-  style: ['normal', 'italic'],
-  variable: '--font-serif',
-  display: 'swap',
-  adjustFontFallback: false,
-})
-const mono = JetBrains_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  variable: '--font-mono',
-  display: 'swap',
-})
 
 // The playground loads the whole editor, so it is fetched after the page is up
 const LiveDemo = dynamic(() => import('@/components/Landing/LiveDemo'), {
@@ -199,7 +177,7 @@ const HomePage = () => {
   return (
     <div
       ref={pageRef}
-      className={`${styles.page} ${display.variable} ${serif.variable} ${mono.variable}`}
+      className={`${styles.page} ${fontVariables}`}
       style={{ '--font-body': fontFamily } as CSSProperties}
     >
       <Head>
