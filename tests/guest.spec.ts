@@ -6,6 +6,8 @@ const title = (page: Page) => page.getByRole('textbox', { name: 'Page title' })
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/')
+  // A click before React hydrates does nothing
+  await page.waitForLoadState('networkidle')
   await page.getByRole('banner').getByRole('button', { name: 'Demo' }).click()
   await expect(page).toHaveURL(/\/dashboard/)
 })
