@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Opal Labs</title>
+  <defs>
+    <linearGradient id="opal-body" x1="10" y1="6" x2="56" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7CC8FF"/>
+      <stop offset="0.32" stop-color="#B69CFF"/>
+      <stop offset="0.62" stop-color="#FF8FD1"/>
+      <stop offset="0.85" stop-color="#FFD27A"/>
+      <stop offset="1" stop-color="#54D8B3"/>
+    </linearGradient>
+    <radialGradient id="opal-fire" cx="40" cy="42" r="20" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#54D8B3" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#54D8B3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="opal-shine" cx="23" cy="20" r="17" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- A polished cabochon, slightly off-round like a real stone -->
+  <path d="M34 4.5C49.5 5.2 60 16.6 59.5 32.4 59 48.6 46.8 59.8 30.8 59.5 15.2 59.2 4.2 47.6 4.5 31.6 4.8 15.4 17.6 3.8 34 4.5Z" fill="url(#opal-body)"/>
+  <path d="M34 4.5C49.5 5.2 60 16.6 59.5 32.4 59 48.6 46.8 59.8 30.8 59.5 15.2 59.2 4.2 47.6 4.5 31.6 4.8 15.4 17.6 3.8 34 4.5Z" fill="url(#opal-fire)"/>
+  <path d="M34 4.5C49.5 5.2 60 16.6 59.5 32.4 59 48.6 46.8 59.8 30.8 59.5 15.2 59.2 4.2 47.6 4.5 31.6 4.8 15.4 17.6 3.8 34 4.5Z" fill="url(#opal-shine)"/>
+  <!-- Four-point sparkle -->
+  <path d="M22 13.5C22.9 18 24.5 19.6 29 20.5 24.5 21.4 22.9 23 22 27.5 21.1 23 19.5 21.4 15 20.5 19.5 19.6 21.1 18 22 13.5Z" fill="#FFFFFF"/>
+</svg>

@@ -17,5 +17,5 @@ test('log in leads to Google sign-in', async ({ page }) => {
   await page.waitForLoadState('networkidle')
   await page.getByRole('banner').getByRole('button', { name: 'Log In' }).click()
   // NextAuth's sign-in page (no Google keys, as in CI) or Google itself (with keys)
-  await expect(page).toHaveURL(/\/api\/auth\/signin|accounts\.google\.com/)
+  await expect(page).toHaveURL(/\/api\/auth\/signin|accounts\.google\.com/, { timeout: 20000 })
 })

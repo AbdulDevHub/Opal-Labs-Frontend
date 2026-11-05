@@ -144,10 +144,12 @@ const OpalCanvas = ({
     const start = performance.now() - Math.random() * 20000
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
+      // The gem is soft, so it renders below screen resolution (capped at ~1 megapixel) to stay light
       const { width, height } = canvas.getBoundingClientRect()
-      canvas.width = Math.max(1, Math.round(width * dpr))
-      canvas.height = Math.max(1, Math.round(height * dpr))
+      let scale = Math.min(window.devicePixelRatio || 1, 1.5) * 0.8
+      scale = Math.min(scale, Math.sqrt(1000000 / Math.max(1, width * height)))
+      canvas.width = Math.max(1, Math.round(width * scale))
+      canvas.height = Math.max(1, Math.round(height * scale))
       gl.viewport(0, 0, canvas.width, canvas.height)
     }
 

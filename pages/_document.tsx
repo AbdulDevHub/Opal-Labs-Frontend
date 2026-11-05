@@ -25,18 +25,19 @@ export default function Document() {
           name="keywords"
           content="Opal Labs, notes app, Notion alternative, block editor, productivity, Next.js, Go"
         />
-        <meta name="theme-color" content="#101010" />
+        <meta name="theme-color" content="#efebe3" />
 
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Opal Labs" />
         <meta property="og:title" content="Opal Labs: notes that adapt to the way you think" />
         <meta property="og:description" content={description} />
-        <meta property="og:image" content="https://opal-labs.vercel.app/images/Screenshot.png" />
+        <meta property="og:image" content="https://opal-labs.vercel.app/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://opal-labs.vercel.app/images/Screenshot.png" />
+        <meta name="twitter:image" content="https://opal-labs.vercel.app/og-image.png" />
 
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/images/opal.png" />
+        <link rel="icon" href="/favicon.ico" sizes="32x32" />
+        <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </Head>
       <body>

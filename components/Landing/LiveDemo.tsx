@@ -3,12 +3,13 @@ import { useState } from 'react'
 import { ThemeProvider } from '@mui/material/styles'
 
 import Editor from '@/components/Editor'
+import { useColorMode } from '@/contexts/ColorMode'
 import { Block, BlockType, cloneBlocks } from '@/lib/blocks/types'
 import { getTheme } from '@/styles/theme'
 
 import styles from './landing.module.css'
 
-const lightTheme = getTheme('light')
+const themes = { light: getTheme('light'), dark: getTheme('dark') }
 
 const seed = (): Block[] =>
   cloneBlocks([
@@ -47,9 +48,11 @@ const seed = (): Block[] =>
 const LiveDemo = () => {
   const [blocks, setBlocks] = useState<Block[]>(seed)
   const [version, setVersion] = useState(0)
+  // Follows the homepage's light / dark switch
+  const colorMode = useColorMode()
 
   return (
-    <ThemeProvider theme={lightTheme}>
+    <ThemeProvider theme={themes[colorMode.mode]}>
       <div className={styles.demoWrap}>
       <div className={styles.demoCard}>
         <div className={styles.demoChrome}>

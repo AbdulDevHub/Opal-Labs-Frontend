@@ -19,7 +19,6 @@ import { useColorMode } from '@/contexts/ColorMode'
 import { usePageGet } from '@/hooks/Page/usePageGet'
 import { coverBackground } from '@/lib/blocks/covers'
 import { BlockType, parsePageEtc } from '@/lib/blocks/types'
-import logo from 'public/images/opal.png'
 
 /**
  * A published, read-only page at /live/<uuid>, with a table of contents for longer pages.
@@ -99,7 +98,7 @@ const LivePage = () => {
             textDecoration: 'none',
           }}
         >
-          <Image src={logo} alt="" width={26} height={26} />
+          <Image src="/logo.svg" alt="" width={26} height={26} unoptimized />
           <Box sx={{ fontWeight: 700, letterSpacing: '-0.01em' }}>Opal Labs</Box>
         </Box>
         <Box sx={{ flex: 1 }} />
@@ -205,7 +204,7 @@ const LivePage = () => {
                   color: 'text.secondary',
                 }}
               >
-                <Image src={logo} alt="" width={18} height={18} />
+                <Image src="/logo.svg" alt="" width={18} height={18} unoptimized />
                 Published with
                 <Box
                   component={NextLink}

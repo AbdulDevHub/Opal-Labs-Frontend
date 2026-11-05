@@ -8,6 +8,7 @@ import { CSSProperties, useEffect, useRef } from 'react'
 
 import { magnetic, useCountUp, useReveal, useScrollProgress } from '@/components/Landing/motion'
 import OpalCanvas from '@/components/Landing/OpalCanvas'
+import { useColorMode } from '@/contexts/ColorMode'
 import { enterGuest, exitGuest } from '@/lib/data/mode'
 import { pingBackend } from '@/lib/data/remote'
 import { fontFamily } from '@/styles/theme'
@@ -153,6 +154,7 @@ const HomePage = () => {
   const pageRef = useRef<HTMLDivElement>(null)
   const { ref: stageRef, progress } = useScrollProgress<HTMLDivElement>()
   useReveal(pageRef)
+  const colorMode = useColorMode()
 
   // A signed-in visitor goes straight to their pages
   useEffect(() => {
@@ -207,9 +209,11 @@ const HomePage = () => {
       <div className={styles.grain} aria-hidden />
 
       {/* ------------------------------ Navigation ------------------------------ */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/logo.svg" alt="" className={styles.navLogo} />
       <header className={styles.nav}>
         <a href="#top" className={styles.wordmark}>
-          Opal Labs<sup>®</sup>
+          Opal Labs
         </a>
         <nav className={`${styles.navLinks} ${styles.mono}`} aria-label="Sections">
           <a href="#playground">Playground</a>
@@ -222,6 +226,24 @@ const HomePage = () => {
           onClick={handleGoogleSignIn}
         >
           Log In
+        </button>
+        <button
+          type="button"
+          className={styles.themeToggle}
+          onClick={colorMode.toggle}
+          aria-label={colorMode.mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          title={colorMode.mode === 'dark' ? 'Light mode' : 'Dark mode'}
+        >
+          {colorMode.mode === 'dark' ? (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden>
+              <circle cx="12" cy="12" r="4.2" />
+              <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" />
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" aria-hidden>
+              <path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a6.8 6.8 0 0 0 10.7 10.7Z" />
+            </svg>
+          )}
         </button>
         <button type="button" className={styles.navPill} onClick={handleDemo} {...magnetic}>
           Demo
@@ -355,13 +377,24 @@ const HomePage = () => {
                 <i />
                 <span className={styles.frameUrl}>opal-labs.vercel.app</span>
               </div>
+              {/* The opposite theme's screenshot stands out against the page */}
               <Image
+                className={styles.shotDark}
                 src="/images/landing/editor-dark.png"
                 alt="The Opal Labs workspace: a page tree in the sidebar and a project page with a cover, to-dos and sub-pages"
                 width={2880}
                 height={1680}
                 sizes="(max-width: 900px) 100vw, 1300px"
-                style={{ width: '100%', height: 'auto', display: 'block' }}
+                style={{ width: '100%', height: 'auto' }}
+              />
+              <Image
+                className={styles.shotLight}
+                src="/images/landing/editor-light.png"
+                alt="The Opal Labs workspace in light mode"
+                width={2880}
+                height={1680}
+                sizes="(max-width: 900px) 100vw, 1300px"
+                style={{ width: '100%', height: 'auto' }}
               />
             </div>
           </div>
@@ -439,7 +472,8 @@ const HomePage = () => {
       <footer className={`${styles.footer} ${styles.onInk}`}>
         <div className={`${styles.footerRow} ${styles.mono}`}>
           <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <Image src="/images/opal.png" alt="" width={18} height={18} />©{' '}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.svg" alt="" width={18} height={18} />©{' '}
             {new Date().getFullYear()} Opal Labs
           </span>
           <nav className={styles.footerLinks} aria-label="Follow us">

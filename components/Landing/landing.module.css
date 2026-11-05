@@ -6,8 +6,17 @@
   --ink: #0d0d0d;
   --muted: #6b665e;
   --line: rgba(13, 13, 13, 0.14);
-  --iris: linear-gradient(100deg, #0fb38a, #2f80ff, #7b4dff, #ff3ea5, #ff9f1c, #0fb38a);
+  /* The same tokens for the inverted (ink) sections */
+  --muted-inv: #9b968c;
+  --line-inv: rgba(239, 235, 227, 0.16);
+  --accent-inv: #54d8b3;
+  --iris-deep: linear-gradient(100deg, #0fb38a, #2f80ff, #7b4dff, #ff3ea5, #ff9f1c, #0fb38a);
   --iris-light: linear-gradient(100deg, #54d8b3, #7cc8ff, #b69cff, #ff8fd1, #ffd27a, #54d8b3);
+  /* Iridescent text on the page background / on the inverted sections */
+  --iris: var(--iris-deep);
+  --iris-inv: var(--iris-light);
+  --grain-blend: multiply;
+  --grain-opacity: 0.16;
   --ease: cubic-bezier(0.2, 0.8, 0.1, 1);
   --pad: clamp(20px, 4vw, 56px);
 
@@ -16,6 +25,22 @@
   color: var(--ink);
   overflow-x: clip;
   font-family: var(--font-body), system-ui, sans-serif;
+}
+
+/* Dark mode: paper and ink swap places (html[data-theme] is set before paint, see _document) */
+:global(html[data-theme='dark']) .page {
+  --paper: #0f0f0f;
+  --paper-2: #181818;
+  --ink: #efebe3;
+  --muted: #9b968c;
+  --line: rgba(239, 235, 227, 0.14);
+  --muted-inv: #6b665e;
+  --line-inv: rgba(13, 13, 13, 0.16);
+  --accent-inv: #0b8f6e;
+  --iris: var(--iris-light);
+  --iris-inv: var(--iris-deep);
+  --grain-blend: screen;
+  --grain-opacity: 0.07;
 }
 
 .page ::selection {
@@ -40,8 +65,8 @@
   inset: 0;
   z-index: 50;
   pointer-events: none;
-  opacity: 0.16;
-  mix-blend-mode: multiply;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: var(--grain-blend);
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
 }
 
@@ -49,7 +74,7 @@
   font-family: var(--font-display), sans-serif;
   font-weight: 800;
   font-variation-settings: 'wdth' 78, 'opsz' 96;
-  letter-spacing: -0.042em;
+  letter-spacing: -0.03em;
 }
 
 .serif {
@@ -75,9 +100,8 @@
   animation: irisShift 9s linear infinite;
 }
 
-.onInk .iris,
-.iris.light {
-  background-image: var(--iris-light);
+.onInk .iris {
+  background-image: var(--iris-inv);
 }
 
 @keyframes irisShift {
@@ -195,7 +219,7 @@
   z-index: 0;
   right: 0;
   top: 4vh;
-  width: min(70vw, 980px);
+  width: min(68vw, 1300px);
   aspect-ratio: 1;
   pointer-events: none;
   animation: float 9s ease-in-out infinite;
@@ -213,12 +237,15 @@
   padding-top: 4vh;
   font-size: clamp(72px, 14.2vw, 290px);
   line-height: 0.8;
+  letter-spacing: -0.028em;
 }
 
 .line {
   display: block;
   overflow: hidden;
-  padding-bottom: 0.06em;
+  /* Room for descenders (the y in "your") inside the reveal mask */
+  padding-bottom: 0.2em;
+  margin-bottom: -0.14em;
 }
 
 .lineInner {
@@ -467,8 +494,8 @@
 .onInk {
   background: var(--ink);
   color: var(--paper);
-  --line: rgba(239, 235, 227, 0.16);
-  --muted: #9b968c;
+  --line: var(--line-inv);
+  --muted: var(--muted-inv);
 }
 
 .label {
@@ -615,7 +642,7 @@
 
 .demoBody {
   padding: 18px 36px 0 76px;
-  min-height: 360px;
+  min-height: 300px;
   font-family: var(--font-body), system-ui, sans-serif;
 }
 
@@ -669,7 +696,7 @@
 }
 
 .row:hover .rowNum {
-  color: #54d8b3;
+  color: var(--accent-inv);
 }
 
 .rowTitle {
@@ -692,7 +719,7 @@
 }
 
 .row:hover .rowText {
-  color: #c9c4ba;
+  color: var(--muted-inv);
 }
 
 .rowArrow {
@@ -797,7 +824,7 @@
 }
 
 .use:hover .useWord {
-  background: var(--iris-light);
+  background: var(--iris-inv);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -934,7 +961,7 @@
 }
 
 .footerLinks a:hover {
-  color: #54d8b3;
+  color: var(--accent-inv);
 }
 
 .giant {
@@ -1026,6 +1053,18 @@
 }
 
 @media (max-width: 560px) {
+  .nav {
+    gap: 12px;
+  }
+
+  .nav .navLink {
+    display: none;
+  }
+
+  .themeToggle {
+    margin-left: auto;
+  }
+
   .btn {
     padding: 17px 24px;
     font-size: 18px;
@@ -1034,4 +1073,94 @@
   .headline {
     font-size: clamp(64px, 20vw, 120px);
   }
+}
+
+/* ------------------------------ Logo, theme switch, dark-mode details ------------------------------ */
+/* The logo sits outside the colour-flipping nav so it keeps its own colours */
+.navLogo {
+  position: fixed;
+  z-index: 41;
+  top: 24px;
+  left: var(--pad);
+  width: 26px;
+  height: 26px;
+  pointer-events: none;
+}
+
+.wordmark {
+  padding-left: 36px;
+  white-space: nowrap;
+}
+
+.themeToggle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform 500ms var(--ease);
+}
+
+.themeToggle:hover {
+  transform: rotate(-30deg) scale(1.06);
+}
+
+.themeToggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+.shotDark,
+.shotLight {
+  display: block;
+}
+
+.shotLight {
+  display: none;
+}
+
+:global(html[data-theme='dark']) .shotDark {
+  display: none;
+}
+
+:global(html[data-theme='dark']) .shotLight {
+  display: block;
+}
+
+:global(html[data-theme='dark']) .demoCard {
+  background: #191919;
+  color: #e8e8e6;
+  box-shadow: 0 50px 120px -30px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+:global(html[data-theme='dark']) .demoChrome {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+:global(html[data-theme='dark']) .demoDots i {
+  background: #3a3a3a;
+}
+
+:global(html[data-theme='dark']) .demoReset {
+  color: #e8e8e6;
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+:global(html[data-theme='dark']) .demoReset:hover {
+  background: #e8e8e6;
+  color: #191919;
+}
+
+:global(html[data-theme='dark']) .frame {
+  border-color: rgba(239, 235, 227, 0.2);
+  box-shadow: 0 60px 140px -40px rgba(0, 0, 0, 0.8);
+}
+
+/* The editor's "click below to continue" area is shorter inside the demo card */
+.demoBody > div[aria-hidden='true'] {
+  min-height: 72px !important;
 }
